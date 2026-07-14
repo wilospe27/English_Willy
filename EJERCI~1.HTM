@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo reconocer cada tiempo verbal + 140 ejercicios</title>
+<style>
+  :root {
+    --ink: #1f2430;
+    --muted: #5b6270;
+    --accent: #2563eb;
+    --accent-light: #eaf1ff;
+    --green: #15803d;
+    --green-light: #eafaf0;
+    --red: #b91c1c;
+    --red-light: #fdecec;
+    --border: #e2e5ea;
+    --bg: #fafbfc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    margin: 0;
+    padding: 40px 20px;
+    line-height: 1.6;
+  }
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 48px;
+  }
+  h1 { font-size: 27px; margin: 0 0 8px; }
+  .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    margin: 0 0 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  nav.toc {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 22px;
+    margin-bottom: 32px;
+    font-size: 14px;
+  }
+  nav.toc strong { display:block; margin-bottom:8px; }
+  nav.toc a { color: var(--accent); text-decoration: none; }
+  nav.toc ol { margin: 4px 0 0; padding-left: 18px; }
+  nav.toc li { margin: 3px 0; }
+
+  section.tense {
+    margin: 48px 0;
+    padding-top: 8px;
+    border-top: 3px solid var(--accent);
+  }
+  h2.tense-title { font-size: 22px; margin: 4px 0 4px; color: var(--ink); }
+  .tense-num {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 2px 9px;
+    border-radius: 12px;
+    margin-right: 8px;
+  }
+  h3 {
+    font-size: 15.5px;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--muted);
+    margin: 24px 0 8px;
+  }
+  .box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 8px 0 4px;
+    font-size: 14.5px;
+  }
+  table.pronoun-table {
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 14px;
+  }
+  table.pronoun-table th, table.pronoun-table td {
+    border: 1px solid var(--border);
+    padding: 7px 16px;
+    text-align: left;
+  }
+  table.pronoun-table th {
+    background: var(--accent-light);
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .signal-words { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .chip {
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 4px 11px;
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .mnemonic {
+    background: var(--green-light);
+    border-left: 3px solid var(--green);
+    border-radius: 6px;
+    padding: 12px 18px;
+    margin: 10px 0 4px;
+    font-size: 14.5px;
+  }
+  .mnemonic strong { color: var(--green); }
+  ol.exercises { padding-left: 22px; margin: 10px 0; font-size: 14.5px; }
+  ol.exercises li { margin: 12px 0; }
+  input.blank-input {
+    display: inline-block;
+    width: 130px;
+    font-size: 14.5px;
+    font-family: inherit;
+    padding: 3px 8px;
+    margin: 0 2px;
+    border: none;
+    border-bottom: 1.5px solid var(--muted);
+    background: var(--bg);
+    border-radius: 3px 3px 0 0;
+    color: var(--ink);
+  }
+  input.blank-input:focus {
+    outline: none;
+    border-bottom: 1.5px solid var(--accent);
+    background: var(--accent-light);
+  }
+  input.blank-input.correct {
+    background: var(--green-light);
+    border-bottom: 1.5px solid var(--green);
+    color: var(--green);
+    font-weight: 600;
+  }
+  input.blank-input.incorrect {
+    background: var(--red-light);
+    border-bottom: 1.5px solid var(--red);
+    color: var(--red);
+  }
+  .check-icon {
+    display: inline-block;
+    width: 18px;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+  }
+  .check-icon.correct { color: var(--green); }
+  .check-icon.incorrect { color: var(--red); }
+  .verb-hint { color: var(--muted); font-style: italic; }
+  .answer-tag {
+    display: none;
+    margin-left: 8px;
+    padding: 2px 9px;
+    background: var(--green-light);
+    color: var(--green);
+    border-radius: 10px;
+    font-size: 12.5px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .answer-tag.show { display: inline-block; }
+  .reveal-btn {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 2px 10px;
+    background: var(--bg);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 12.5px;
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .reveal-btn:hover { background: var(--accent-light); color: var(--accent); }
+  .rule-box {
+    background: #fff7ed;
+    border-left: 3px solid #f59e0b;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 12px 0 4px;
+    font-size: 14.5px;
+  }
+  .rule-box > strong { color: #b45309; display: block; margin-bottom: 4px; }
+  .rule-box ul { margin: 8px 0 0; padding-left: 20px; }
+  .rule-box li { margin: 4px 0; }
+  .rule-box code {
+    background: #fef0d9;
+    color: #b45309;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 0 6px;
+    flex-wrap: wrap;
+  }
+  button.check-btn, button.reset-btn {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+  }
+  button.check-btn { background: var(--accent); color: #fff; }
+  button.check-btn:hover { background: #1d4ed8; }
+  button.reset-btn { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+  button.reset-btn:hover { background: #f0f1f3; }
+  .score {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .score.all-correct { color: var(--green); }
+  details.answers {
+    margin: 14px 0 4px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  details.answers summary {
+    cursor: pointer;
+    padding: 12px 18px;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 14px;
+    list-style: none;
+  }
+  details.answers summary::-webkit-details-marker { display: none; }
+  details.answers[open] summary { border-bottom: 1px solid var(--border); }
+  .answer-list { padding: 14px 22px; font-size: 14px; columns: 2; column-gap: 24px; }
+  .answer-list p { margin: 4px 0; break-inside: avoid; }
+  .golden-rule {
+    margin-top: 40px;
+    padding: 20px 24px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 15.5px;
+  }
+  .golden-rule strong { color: #fff; }
+  @media (max-width: 600px) {
+    .container { padding: 24px; }
+    .answer-list { columns: 1; }
+    input.blank-input { width: 100px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>Cómo reconocer cada tiempo verbal + 140 ejercicios</h1>
+  <p class="subtitle">Guía de reconocimiento, nemotecnia y práctica interactiva. Escribe tu respuesta y pulsa <strong>Enter</strong> o sal del campo (Tab) para ver al instante un ✓ o ✗ junto a esa respuesta — o usa "Comprobar respuestas" para calificar todo el bloque de una vez.</p>
+
+  <nav class="toc">
+    <strong>Contenido</strong>
+    <ol>
+      <li><a href="#t1">Present Simple</a></li>
+      <li><a href="#t2">Present Continuous</a></li>
+      <li><a href="#t3">Past Simple</a></li>
+      <li><a href="#t4">Present Perfect</a></li>
+      <li><a href="#t5">Future (will / going to)</a></li>
+      <li><a href="#t6">Modal verbs</a></li>
+      <li><a href="#t7">Conditionals (1st y 2nd)</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============ 1. PRESENT SIMPLE ============ -->
+  <section class="tense" id="t1">
+    <h2 class="tense-title"><span class="tense-num">1</span>Present Simple</h2>
+
+    <h3>Cómo reconocerlo</h3>
+    <div class="box">
+      <strong>Estructura:</strong> Sujeto + verbo (+s/es si es he/she/it) · negativo: don't/doesn't + verbo · pregunta: Do/Does + sujeto + verbo?
+    </div>
+
+    <table class="pronoun-table">
+      <tr><th></th><th>Singular</th><th>Plural</th></tr>
+      <tr><td>1ra persona</td><td>I</td><td>we</td></tr>
+      <tr><td>2da persona</td><td>you</td><td>you</td></tr>
+      <tr><td>3ra persona</td><td>he / she / it</td><td>they</td></tr>
+    </table>
+
+    <p>Palabras señal:</p>
+    <div class="signal-words">
+      <span class="chip">always</span><span class="chip">usually</span><span class="chip">often</span>
+      <span class="chip">sometimes</span><span class="chip">never</span><span class="chip">every day/week</span>
+      <span class="chip">on Mondays</span><span class="chip">generally</span>
+    </div>
+    <div class="mnemonic">
+      <strong>Nemotecnia:</strong> piensa en una serpiente — "He/She/It hace SSSS" (agrega -s). Es el tiempo de las <em>rutinas</em>: si lo haces "siempre, nunca, a veces", es Present Simple.
+    </div>
+
+    <div class="rule-box">
+      <strong>Regla de oro</strong>
+      👉 Las terminaciones especiales SOLO se agregan en oraciones afirmativas con <strong>He / She / It</strong> (3ra persona singular). Con I, you, we, they el verbo se queda en su forma base.
+      <ul>
+        <li><strong>Regla general → agrega <code>-s</code>:</strong> she call<u>s</u> Juan · he drink<u>s</u> water</li>
+        <li><strong>Verbos terminados en <code>o, x, z, s, ss, sh, ch</code> → agrega <code>-es</code>:</strong> go → go<u>es</u> · watch → watch<u>es</u></li>
+        <li><strong>Verbos terminados en consonante + <code>y</code> → cambia a <code>-ies</code>:</strong> try → tr<u>ies</u> · study → stud<u>ies</u> (John stud<u>ies</u> English)</li>
+        <li><strong><code>have</code> es irregular → se convierte en <code>has</code>:</strong> Carmen <u>has</u> a car (pero "They <u>have</u> a house", porque they no es 3ra persona singular)</li>
+      </ul>
+    </div>
+
+    <h3>20 ejercicios — completa con la forma correcta</h3>
+    <ol class="exercises">
+      <li>She <input class="blank-input" data-answer="works"> <span class="verb-hint">(work)</span> in the finance department.</li>
+      <li>They <input class="blank-input" data-answer="send"> <span class="verb-hint">(send)</span> invoices every Friday.</li>
+      <li>He <input class="blank-input" data-answer="does not attend|doesn't attend"> <span class="verb-hint">(not / attend)</span> the Monday meetings.</li>
+      <li><input class="blank-input" data-answer="do"> you <input class="blank-input" data-answer="check"> <span class="verb-hint">(check)</span> your email every morning?</li>
+      <li>The manager <input class="blank-input" data-answer="reviews"> <span class="verb-hint">(review)</span> reports weekly.</li>
+      <li>We <input class="blank-input" data-answer="do not have|don't have"> <span class="verb-hint">(not / have)</span> enough budget this quarter.</li>
+      <li>I usually <input class="blank-input" data-answer="arrive"> <span class="verb-hint">(arrive)</span> at the office at 8 AM.</li>
+      <li><input class="blank-input" data-answer="does"> she <input class="blank-input" data-answer="approve"> <span class="verb-hint">(approve)</span> purchase orders?</li>
+      <li>The team <input class="blank-input" data-answer="meets"> <span class="verb-hint">(meet)</span> every Tuesday.</li>
+      <li>He <input class="blank-input" data-answer="does not like|doesn't like"> <span class="verb-hint">(not / like)</span> long meetings.</li>
+      <li>My colleagues <input class="blank-input" data-answer="prepare"> <span class="verb-hint">(prepare)</span> the agenda in advance.</li>
+      <li>It <input class="blank-input" data-answer="takes"> <span class="verb-hint">(take)</span> two days to process an invoice.</li>
+      <li><input class="blank-input" data-answer="do"> they <input class="blank-input" data-answer="negotiate"> <span class="verb-hint">(negotiate)</span> contracts often?</li>
+      <li>The client <input class="blank-input" data-answer="pays"> <span class="verb-hint">(pay)</span> invoices on time.</li>
+      <li>We <input class="blank-input" data-answer="follow"> <span class="verb-hint">(follow)</span> up with clients every week.</li>
+      <li>She <input class="blank-input" data-answer="does not work|doesn't work"> <span class="verb-hint">(not / work)</span> on Fridays.</li>
+      <li>The CEO <input class="blank-input" data-answer="gives"> <span class="verb-hint">(give)</span> a speech every year.</li>
+      <li><input class="blank-input" data-answer="do"> you <input class="blank-input" data-answer="need"> <span class="verb-hint">(need)</span> more information?</li>
+      <li>He <input class="blank-input" data-answer="reports"> <span class="verb-hint">(report)</span> directly to the director.</li>
+      <li>The company <input class="blank-input" data-answer="does not export|doesn't export"> <span class="verb-hint">(not / export)</span> to that region.</li>
+    </ol>
+    <div class="actions">
+      <button class="check-btn" onclick="checkSection('t1')">Comprobar respuestas</button>
+      <button class="reset-btn" onclick="resetSection('t1')">Reiniciar</button>
+      <span class="score" id="score-t1"></span>
+    </div>
+  </section>
+
+  <!-- ============ 2. PRESENT CONTINUOUS ============ -->
+  <section class="tense" id="t2">
+    <h2 class="tense-title"><span class="tense-num">2</span>Present Continuous</h2>
+
+    <h3>Cómo reconocerlo</h3>
+    <div class="box">
+      <strong>Estructura:</strong> Sujeto + am/is/are + verbo-ING · negativo: am/is/are + not + V-ing · pregunta: Am/Is/Are + sujeto + V-ing?
+    </div>
+    <div class="signal-words">
+      <span class="chip">now</span><span class="chip">right now</span><span class="chip">at the moment</span>
+      <span class="chip">currently</span><span class="chip">these days</span><span class="chip">Look!</span><span class="chip">Listen!</span>
+    </div>
+    <div class="mnemonic">
+      <strong>Nemotecnia:</strong> "-ING = está pasando AHORA, como una película en PLAY". Si puedes decir "mira, en este momento..." antes de la frase, es Present Continuous.
+    </div>
+
+    <div class="rule-box">
+      <strong>Regla de oro</strong>
+      👉 El verbo <code>be</code> tiene que coincidir siempre con el sujeto — nunca existe un Present Continuous sin am/is/are:
+      <ul>
+        <li>I → <code>am</code></li>
+        <li>He / She / It → <code>is</code></li>
+        <li>You / We / They → <code>are</code></li>
+      </ul>
+      El verbo principal SIEMPRE termina en <code>-ing</code>. Sin am/is/are, no es Present Continuous.
+    </div>
+
+    <h3>20 ejercicios — completa con la forma correcta</h3>
+    <ol class="exercises">
+      <li>She <input class="blank-input" data-answer="is working"> <span class="verb-hint">(work)</span> on the budget right now.</li>
+      <li>I <input class="blank-input" data-answer="am writing"> <span class="verb-hint">(write)</span> the report at the moment.</li>
+      <li>They <input class="blank-input" data-answer="are negotiating"> <span class="verb-hint">(negotiate)</span> the contract this week.</li>
+      <li><input class="blank-input" data-answer="is"> he <input class="blank-input" data-answer="attending"> <span class="verb-hint">(attend)</span> the meeting now?</li>
+      <li>We <input class="blank-input" data-answer="are not using|aren't using"> <span class="verb-hint">(not / use)</span> that system currently.</li>
+      <li>The team <input class="blank-input" data-answer="is preparing"> <span class="verb-hint">(prepare)</span> the agenda for tomorrow.</li>
+      <li><input class="blank-input" data-answer="are"> you <input class="blank-input" data-answer="reviewing"> <span class="verb-hint">(review)</span> the invoice?</li>
+      <li>Management <input class="blank-input" data-answer="is discussing"> <span class="verb-hint">(discuss)</span> the new policy right now.</li>
+      <li>I <input class="blank-input" data-answer="am not waiting"> <span class="verb-hint">(not / wait)</span> for approval anymore.</li>
+      <li>She <input class="blank-input" data-answer="is calling"> <span class="verb-hint">(call)</span> the client at this moment.</li>
+      <li>They <input class="blank-input" data-answer="are updating"> <span class="verb-hint">(update)</span> the database this afternoon.</li>
+      <li><input class="blank-input" data-answer="are"> we <input class="blank-input" data-answer="losing"> <span class="verb-hint">(lose)</span> money this quarter?</li>
+      <li>He <input class="blank-input" data-answer="is analyzing"> <span class="verb-hint">(analyze)</span> the report currently.</li>
+      <li>The clients <input class="blank-input" data-answer="are waiting"> <span class="verb-hint">(wait)</span> for a response.</li>
+      <li>I <input class="blank-input" data-answer="am looking"> <span class="verb-hint">(look)</span> for the invoice number now.</li>
+      <li><input class="blank-input" data-answer="is"> she <input class="blank-input" data-answer="presenting"> <span class="verb-hint">(present)</span> the proposal today?</li>
+      <li>We <input class="blank-input" data-answer="are not meeting|aren't meeting"> <span class="verb-hint">(not / meet)</span> this week because of the holiday.</li>
+      <li>The system <input class="blank-input" data-answer="is processing"> <span class="verb-hint">(process)</span> the payment right now.</li>
+      <li>They <input class="blank-input" data-answer="are planning"> <span class="verb-hint">(plan)</span> next year's budget currently.</li>
+      <li><input class="blank-input" data-answer="are"> you <input class="blank-input" data-answer="following"> <span class="verb-hint">(follow)</span> up with the supplier?</li>
+    </ol>
+    <div class="actions">
+      <button class="check-btn" onclick="checkSection('t2')">Comprobar respuestas</button>
+      <button class="reset-btn" onclick="resetSection('t2')">Reiniciar</button>
+      <span class="score" id="score-t2"></span>
+    </div>
+  </section>
+
+  <!-- ============ 3. PAST SIMPLE ============ -->
+  <section class="tense" id="t3">
+    <h2 class="tense-title"><span class="tense-num">3</span>Past Simple</h2>
+
+    <h3>Cómo reconocerlo</h3>
+    <div class="box">
+      <strong>Estructura:</strong> Sujeto + verbo+ED (regular) o forma irregular · negativo: did not (didn't) + verbo base · pregunta: Did + sujeto + verbo base?
+    </div>
+    <div class="signal-words">
+      <span class="chip">yesterday</span><span class="chip">last week/month/year</span><span class="chip">... ago</span>
+      <span class="chip">in 2020</span><span class="chip">when I was...</span>
+    </div>
+    <div class="mnemonic">
+      <strong>Nemotecnia:</strong> "-ED = ENDED" (terminó). La acción ya cerró, sin conexión con el presente. Ojo con los irregulares: go→went, see→saw, write→wrote (memorízalos en grupos de 5).
+    </div>
+
+    <div class="rule-box">
+      <strong>Regla de oro</strong>
+      👉 El pasado simple es IGUAL para todos los sujetos — nunca se agrega <code>-s</code>, ni siquiera con he/she/it:
+      <ul>
+        <li>Verbos regulares: raíz + <code>-ed</code> (work → worked)</li>
+        <li>Verbos irregulares: forma propia que se memoriza aparte (go → went, not "goed")</li>
+        <li>En negativos y preguntas, el verbo vuelve a su forma base: <code>did not go</code>, nunca "did not went"</li>
+      </ul>
+    </div>
+
+    <h3>20 ejercicios — completa con la forma correcta</h3>
+    <ol class="exercises">
+      <li>She <input class="blank-input" data-answer="sent"> <span class="verb-hint">(send)</span> the invoice yesterday.</li>
+      <li>They <input class="blank-input" data-answer="approved"> <span class="verb-hint">(approve)</span> the budget last month.</li>
+      <li>He <input class="blank-input" data-answer="did not attend|didn't attend"> <span class="verb-hint">(not / attend)</span> the meeting last week.</li>
+      <li><input class="blank-input" data-answer="did"> you <input class="blank-input" data-answer="finish"> <span class="verb-hint">(finish)</span> the report?</li>
+      <li>We <input class="blank-input" data-answer="negotiated"> <span class="verb-hint">(negotiate)</span> the contract two years ago.</li>
+      <li>I <input class="blank-input" data-answer="did not receive|didn't receive"> <span class="verb-hint">(not / receive)</span> the email last Friday.</li>
+      <li>The manager <input class="blank-input" data-answer="reviewed"> <span class="verb-hint">(review)</span> the proposal yesterday.</li>
+      <li><input class="blank-input" data-answer="did"> she <input class="blank-input" data-answer="call"> <span class="verb-hint">(call)</span> the client this morning?</li>
+      <li>They <input class="blank-input" data-answer="signed"> <span class="verb-hint">(sign)</span> the agreement last year.</li>
+      <li>He <input class="blank-input" data-answer="went"> <span class="verb-hint">(go)</span> to the conference last week.</li>
+      <li>We <input class="blank-input" data-answer="did not have|didn't have"> <span class="verb-hint">(not / have)</span> enough stock last quarter.</li>
+      <li>I <input class="blank-input" data-answer="wrote"> <span class="verb-hint">(write)</span> the report last night.</li>
+      <li><input class="blank-input" data-answer="did"> they <input class="blank-input" data-answer="pay"> <span class="verb-hint">(pay)</span> the invoice on time?</li>
+      <li>The company <input class="blank-input" data-answer="launched"> <span class="verb-hint">(launch)</span> the product in 2023.</li>
+      <li>She <input class="blank-input" data-answer="left"> <span class="verb-hint">(leave)</span> the office early yesterday.</li>
+      <li>We <input class="blank-input" data-answer="met"> <span class="verb-hint">(meet)</span> the new supplier last Tuesday.</li>
+      <li><input class="blank-input" data-answer="did"> he <input class="blank-input" data-answer="send"> <span class="verb-hint">(send)</span> the follow-up email?</li>
+      <li>They <input class="blank-input" data-answer="did not approve|didn't approve"> <span class="verb-hint">(not / approve)</span> the request last time.</li>
+      <li>I <input class="blank-input" data-answer="saw"> <span class="verb-hint">(see)</span> the report two days ago.</li>
+      <li>The director <input class="blank-input" data-answer="gave"> <span class="verb-hint">(give)</span> the presentation last Friday.</li>
+    </ol>
+    <div class="actions">
+      <button class="check-btn" onclick="checkSection('t3')">Comprobar respuestas</button>
+      <button class="reset-btn" onclick="resetSection('t3')">Reiniciar</button>
+      <span class="score" id="score-t3"></span>
+    </div>
+  </section>
+
+  <!-- ============ 4. PRESENT PERFECT ============ -->
+  <section class="tense" id="t4">
+    <h2 class="tense-title"><span class="tense-num">4</span>Present Perfect</h2>
+
+    <h3>Cómo reconocerlo</h3>
+    <div class="box">
+      <strong>Estructura:</strong> Sujeto + have/has + participio pasado (V3) · negativo: have/has + not + V3 · pregunta: Have/Has + sujeto + V3?
+    </div>
+    <div class="signal-words">
+      <span class="chip">already</span><span class="chip">just</span><span class="chip">yet</span>
+      <span class="chip">ever</span><span class="chip">never</span><span class="chip">since</span>
+      <span class="chip">for</span><span class="chip">so far</span>
+    </div>
+    <div class="mnemonic">
+      <strong>Nemotecnia:</strong> "HAVE = tengo la experiencia" — conecta el pasado con el presente, sin decir cuándo exactamente. Truco: "since" = desde un punto (since 2019), "for" = durante un periodo (for 3 years).
+    </div>
+
+    <div class="rule-box">
+      <strong>Regla de oro</strong>
+      👉 Necesitas SIEMPRE dos piezas juntas: el auxiliar correcto + el participio pasado (V3) — nunca el verbo en presente ni en pasado simple:
+      <ul>
+        <li>He / She / It → <code>has</code></li>
+        <li>I / You / We / They → <code>have</code></li>
+        <li>El verbo principal siempre es participio pasado: <code>gone, worked, written</code> — nunca "go" ni "went"</li>
+      </ul>
+    </div>
+
+    <h3>20 ejercicios — completa con la forma correcta</h3>
+    <ol class="exercises">
+      <li>She <input class="blank-input" data-answer="has already sent"> <span class="verb-hint">(already / send)</span> the invoice.</li>
+      <li>We <input class="blank-input" data-answer="have not received|haven't received"> <span class="verb-hint">(not / receive)</span> the payment yet.</li>
+      <li><input class="blank-input" data-answer="have"> you <input class="blank-input" data-answer="ever worked"> <span class="verb-hint">(ever / work)</span> in finance?</li>
+      <li>They <input class="blank-input" data-answer="have just finished"> <span class="verb-hint">(just / finish)</span> the report.</li>
+      <li>He <input class="blank-input" data-answer="has worked"> <span class="verb-hint">(work)</span> here since 2019.</li>
+      <li>I <input class="blank-input" data-answer="have not seen|haven't seen"> <span class="verb-hint">(not / see)</span> the new policy yet.</li>
+      <li>The team <input class="blank-input" data-answer="has completed"> <span class="verb-hint">(complete)</span> the project so far.</li>
+      <li><input class="blank-input" data-answer="has"> she <input class="blank-input" data-answer="approved"> <span class="verb-hint">(approve)</span> the budget yet?</li>
+      <li>We <input class="blank-input" data-answer="have known"> <span class="verb-hint">(know)</span> each other for five years.</li>
+      <li>He <input class="blank-input" data-answer="has never missed"> <span class="verb-hint">(never / miss)</span> a deadline.</li>
+      <li>They <input class="blank-input" data-answer="have already signed"> <span class="verb-hint">(already / sign)</span> the contract.</li>
+      <li>I <input class="blank-input" data-answer="have not finished|haven't finished"> <span class="verb-hint">(not / finish)</span> the presentation yet.</li>
+      <li><input class="blank-input" data-answer="have"> you <input class="blank-input" data-answer="read"> <span class="verb-hint">(read)</span> the report?</li>
+      <li>The company <input class="blank-input" data-answer="has grown"> <span class="verb-hint">(grow)</span> a lot since last year.</li>
+      <li>We <input class="blank-input" data-answer="have had"> <span class="verb-hint">(have)</span> three meetings so far this week.</li>
+      <li>She <input class="blank-input" data-answer="has just called"> <span class="verb-hint">(just / call)</span> the client.</li>
+      <li><input class="blank-input" data-answer="have"> they <input class="blank-input" data-answer="ever negotiated"> <span class="verb-hint">(ever / negotiate)</span> with that supplier?</li>
+      <li>He <input class="blank-input" data-answer="has not submitted|hasn't submitted"> <span class="verb-hint">(not / submit)</span> the report yet.</li>
+      <li>I <input class="blank-input" data-answer="have worked"> <span class="verb-hint">(work)</span> on this proposal for two weeks.</li>
+      <li>The manager <input class="blank-input" data-answer="has already reviewed"> <span class="verb-hint">(already / review)</span> the numbers.</li>
+    </ol>
+    <div class="actions">
+      <button class="check-btn" onclick="checkSection('t4')">Comprobar respuestas</button>
+      <button class="reset-btn" onclick="resetSection('t4')">Reiniciar</button>
+      <span class="score" id="score-t4"></span>
+    </div>
+  </section>
+
+  <!-- ============ 5. FUTURE ============ -->
+  <section class="tense" id="t5">
+    <h2 class="tense-title"><span class="tense-num">5</span>Future — will / going to</h2>
+
+    <h3>Cómo reconocerlo</h3>
+    <div class="box">
+      <strong>WILL</strong> + verbo base → predicciones, promesas, decisiones espontáneas.<br>
+      <strong>Am/is/are + GOING TO</strong> + verbo base → planes ya decididos, intenciones.
+    </div>
+    <div class="signal-words">
+      <span class="chip">tomorrow</span><span class="chip">next week</span><span class="chip">soon</span>
+      <span class="chip">I think / probably (will)</span><span class="chip">already arranged (going to)</span>
+    </div>
+    <div class="mnemonic">
+      <strong>Nemotecnia:</strong> "WILL = decisión del momento / promesa" (se decide al hablar). "GOING TO = ya lo decidí antes, voy en camino a hacerlo" (piensa en "GO" = ya vas hacia esa acción).
+    </div>
+
+    <div class="rule-box">
+      <strong>Regla de oro</strong>
+      👉 <code>Will</code> es para decisiones que tomas en el momento o predicciones; <code>going to</code> es para planes que ya decidiste ANTES de hablar:
+      <ul>
+        <li><code>will</code> + verbo base → "I will call you" (lo decido ahora)</li>
+        <li><code>am/is/are + going to</code> + verbo base → "We are going to launch" (ya estaba decidido)</li>
+        <li>Nunca se combinan los dos: "will going to" no existe</li>
+      </ul>
+    </div>
+
+    <h3>20 ejercicios — completa con la forma correcta</h3>
+    <ol class="exercises">
+      <li>I think we <input class="blank-input" data-answer="will win"> <span class="verb-hint">(win)</span> the contract.</li>
+      <li>We <input class="blank-input" data-answer="are going to launch"> <span class="verb-hint">(launch)</span> the new product next month (ya planeado).</li>
+      <li>She <input class="blank-input" data-answer="will call"> <span class="verb-hint">(call)</span> you back as soon as she can.</li>
+      <li>They <input class="blank-input" data-answer="are going to meet"> <span class="verb-hint">(meet)</span> the client tomorrow at 10 AM (ya organizado).</li>
+      <li><input class="blank-input" data-answer="will"> you <input class="blank-input" data-answer="attend"> <span class="verb-hint">(attend)</span> the conference next week?</li>
+      <li>I <input class="blank-input" data-answer="will not finish|won't finish"> <span class="verb-hint">(not / finish)</span> the report today, I'm sure.</li>
+      <li>We <input class="blank-input" data-answer="are going to present"> <span class="verb-hint">(present)</span> the results next Friday (ya acordado).</li>
+      <li>He <input class="blank-input" data-answer="will probably be"> <span class="verb-hint">(probably / be)</span> late.</li>
+      <li><input class="blank-input" data-answer="are"> they <input class="blank-input" data-answer="going to invest"> <span class="verb-hint">(invest)</span> in the project (plan)?</li>
+      <li>I promise I <input class="blank-input" data-answer="will send"> <span class="verb-hint">(send)</span> it tonight.</li>
+      <li>The company <input class="blank-input" data-answer="is going to expand"> <span class="verb-hint">(expand)</span> to new markets next year (plan).</li>
+      <li>It <input class="blank-input" data-answer="will rain"> <span class="verb-hint">(rain)</span> tomorrow, according to the forecast.</li>
+      <li>We <input class="blank-input" data-answer="are not going to change"> <span class="verb-hint">(not / change)</span> the schedule (decisión ya tomada).</li>
+      <li><input class="blank-input" data-answer="is"> she <input class="blank-input" data-answer="going to join"> <span class="verb-hint">(join)</span> the team next month (plan)?</li>
+      <li>I <input class="blank-input" data-answer="will help"> <span class="verb-hint">(help)</span> you with that, don't worry.</li>
+      <li>They <input class="blank-input" data-answer="are going to sign"> <span class="verb-hint">(sign)</span> the contract next week (ya organizado).</li>
+      <li><input class="blank-input" data-answer="is"> he <input class="blank-input" data-answer="going to retire"> <span class="verb-hint">(retire)</span> next year (plan)?</li>
+      <li>I think the price <input class="blank-input" data-answer="will increase"> <span class="verb-hint">(increase)</span>.</li>
+      <li>We <input class="blank-input" data-answer="are going to open"> <span class="verb-hint">(open)</span> a new office in Bogotá (ya decidido).</li>
+      <li><input class="blank-input" data-answer="will"> you <input class="blank-input" data-answer="need"> <span class="verb-hint">(need)</span> more staff?</li>
+    </ol>
+    <div class="actions">
+      <button class="check-btn" onclick="checkSection('t5')">Comprobar respuestas</button>
+      <button class="reset-btn" onclick="resetSection('t5')">Reiniciar</button>
+      <span class="score" id="score-t5"></span>
+    </div>
+  </section>
+
+  <!-- ============ 6. MODAL VERBS ============ -->
+  <section class="tense" id="t6">
+    <h2 class="tense-title"><span class="tense-num">6</span>Modal verbs</h2>
+
+    <h3>Cómo reconocerlo</h3>
+    <div class="box">
+      <strong>Estructura fija:</strong> Sujeto + modal + verbo base (sin "to", sin -s, sin -ing). No cambia con he/she/it.
+    </div>
+    <div class="signal-words">
+      <span class="chip">can = habilidad/permiso</span><span class="chip">should = consejo</span>
+      <span class="chip">must = obligación</span><span class="chip">could = posibilidad/pedido cortés</span>
+      <span class="chip">may/might = posibilidad</span>
+    </div>
+    <div class="mnemonic">
+      <strong>Nemotecnia:</strong> CAN = "CApacidad Now" (puedo ahora) · MUST = "Mandatory" (obligatorio, sin opción) · SHOULD = "Sugerencia" (consejo, no obligación) · MIGHT/MAY = "quizás, tal vez" (probabilidad baja).
+    </div>
+
+    <div class="rule-box">
+      <strong>Regla de oro</strong>
+      👉 Después de un modal (can, must, should, could, may, might) el verbo SIEMPRE va en forma base — sin "to", sin -s, sin -ing:
+      <ul>
+        <li>Correcto: <code>She can speak.</code></li>
+        <li>Incorrecto: "She can to speak" / "She cans speak" / "She can speaking"</li>
+      </ul>
+      Los modales nunca cambian con he/she/it (no llevan -s).
+    </div>
+
+    <h3>20 ejercicios — completa con el modal correcto y el verbo</h3>
+    <ol class="exercises">
+      <li>You <input class="blank-input" data-answer="must submit"> <span class="verb-hint">(must / submit)</span> the report by Friday.</li>
+      <li>She <input class="blank-input" data-answer="can speak"> <span class="verb-hint">(can / speak)</span> three languages.</li>
+      <li><input class="blank-input" data-answer="may"> I <input class="blank-input" data-answer="leave"> <span class="verb-hint">(may / leave)</span> early today?</li>
+      <li>You <input class="blank-input" data-answer="should confirm"> <span class="verb-hint">(should / confirm)</span> the invoice before paying.</li>
+      <li>We <input class="blank-input" data-answer="must not share"> <span class="verb-hint">(must not / share)</span> confidential data.</li>
+      <li>He <input class="blank-input" data-answer="could attend"> <span class="verb-hint">(could / attend)</span> the meeting if he finishes on time.</li>
+      <li><input class="blank-input" data-answer="can"> you <input class="blank-input" data-answer="send"> <span class="verb-hint">(can / send)</span> me the file?</li>
+      <li>They <input class="blank-input" data-answer="might approve"> <span class="verb-hint">(might / approve)</span> the budget next week.</li>
+      <li>You <input class="blank-input" data-answer="should not miss"> <span class="verb-hint">(should not / miss)</span> the deadline.</li>
+      <li><input class="blank-input" data-answer="must"> she <input class="blank-input" data-answer="work"> <span class="verb-hint">(must / work)</span> overtime?</li>
+      <li>We <input class="blank-input" data-answer="can negotiate"> <span class="verb-hint">(can / negotiate)</span> a better price.</li>
+      <li>He <input class="blank-input" data-answer="should check"> <span class="verb-hint">(should / check)</span> the numbers again.</li>
+      <li><input class="blank-input" data-answer="could"> I <input class="blank-input" data-answer="ask"> <span class="verb-hint">(could / ask)</span> you a question?</li>
+      <li>They <input class="blank-input" data-answer="must follow"> <span class="verb-hint">(must / follow)</span> the new policy.</li>
+      <li>It <input class="blank-input" data-answer="might rain"> <span class="verb-hint">(might / rain)</span>, so bring an umbrella.</li>
+      <li>You <input class="blank-input" data-answer="can call"> <span class="verb-hint">(can / call)</span> me anytime.</li>
+      <li>She <input class="blank-input" data-answer="should update"> <span class="verb-hint">(should / update)</span> the report today.</li>
+      <li><input class="blank-input" data-answer="may"> we <input class="blank-input" data-answer="postpone"> <span class="verb-hint">(may / postpone)</span> the meeting?</li>
+      <li>He <input class="blank-input" data-answer="must not forget"> <span class="verb-hint">(must not / forget)</span> the deadline.</li>
+      <li>They <input class="blank-input" data-answer="could offer"> <span class="verb-hint">(could / offer)</span> a discount if we buy in bulk.</li>
+    </ol>
+    <div class="actions">
+      <button class="check-btn" onclick="checkSection('t6')">Comprobar respuestas</button>
+      <button class="reset-btn" onclick="resetSection('t6')">Reiniciar</button>
+      <span class="score" id="score-t6"></span>
+    </div>
+  </section>
+
+  <!-- ============ 7. CONDITIONALS ============ -->
+  <section class="tense" id="t7">
+    <h2 class="tense-title"><span class="tense-num">7</span>Conditionals — 1st y 2nd</h2>
+
+    <h3>Cómo reconocerlo</h3>
+    <div class="box">
+      <strong>1st (real/probable):</strong> If + present simple, ... will + verbo base.<br>
+      <strong>2nd (hipotético/imaginario):</strong> If + past simple, ... would + verbo base.
+    </div>
+    <div class="signal-words">
+      <span class="chip">if</span><span class="chip">if I were you (2nd)</span><span class="chip">will (1st)</span><span class="chip">would (2nd)</span>
+    </div>
+    <div class="mnemonic">
+      <strong>Nemotecnia:</strong> 1st Conditional = REAL y PROBABLE (presente + futuro: "si pasa, pasará"). 2nd Conditional = IMAGINARIO (pasado con significado presente: "si fuera, haría" — ojo: siempre "if I WERE", nunca "if I was" en contexto formal).
+    </div>
+
+    <div class="rule-box">
+      <strong>Regla de oro</strong>
+      👉 Después de "if" nunca uses "will"; y en el segundo condicional usa siempre "were" (no "was") para todos los sujetos:
+      <ul>
+        <li><strong>1st:</strong> If + presente simple, ... will + verbo base — "If it rains, we will cancel."</li>
+        <li><strong>2nd:</strong> If + pasado simple, ... would + verbo base — "If I were you, I would accept."</li>
+      </ul>
+      Nunca digas "if it will rain" — el "will" NUNCA va después de "if".
+    </div>
+
+    <h3>20 ejercicios — completa ambas partes de la oración</h3>
+    <ol class="exercises">
+      <li>If we <input class="blank-input" data-answer="reduce"> <span class="verb-hint">(reduce)</span> costs, we <input class="blank-input" data-answer="will improve"> <span class="verb-hint">(improve)</span> margin.</li>
+      <li>If I <input class="blank-input" data-answer="were"> <span class="verb-hint">(be)</span> you, I <input class="blank-input" data-answer="would accept"> <span class="verb-hint">(accept)</span> the offer.</li>
+      <li>If she <input class="blank-input" data-answer="finishes"> <span class="verb-hint">(finish)</span> early, she <input class="blank-input" data-answer="will help"> <span class="verb-hint">(help)</span> us.</li>
+      <li>If we <input class="blank-input" data-answer="had"> <span class="verb-hint">(have)</span> more budget, we <input class="blank-input" data-answer="would hire"> <span class="verb-hint">(hire)</span> more staff.</li>
+      <li>If it <input class="blank-input" data-answer="rains"> <span class="verb-hint">(rain)</span>, the event <input class="blank-input" data-answer="will be"> <span class="verb-hint">(be)</span> cancelled.</li>
+      <li>If I <input class="blank-input" data-answer="won"> <span class="verb-hint">(win)</span> the lottery, I <input class="blank-input" data-answer="would invest"> <span class="verb-hint">(invest)</span> it.</li>
+      <li>If you <input class="blank-input" data-answer="send"> <span class="verb-hint">(send)</span> the invoice today, we <input class="blank-input" data-answer="will pay"> <span class="verb-hint">(pay)</span> it tomorrow.</li>
+      <li>If the company <input class="blank-input" data-answer="grows"> <span class="verb-hint">(grow)</span>, it <input class="blank-input" data-answer="will open"> <span class="verb-hint">(open)</span> new offices.</li>
+      <li>If he <input class="blank-input" data-answer="doesn't study|does not study"> <span class="verb-hint">(not / study)</span>, he <input class="blank-input" data-answer="will fail"> <span class="verb-hint">(fail)</span> the exam.</li>
+      <li>If I <input class="blank-input" data-answer="had"> <span class="verb-hint">(have)</span> the report now, I <input class="blank-input" data-answer="would send"> <span class="verb-hint">(send)</span> it.</li>
+      <li>If they <input class="blank-input" data-answer="approve"> <span class="verb-hint">(approve)</span> the budget, we <input class="blank-input" data-answer="will start"> <span class="verb-hint">(start)</span> the project.</li>
+      <li>If she <input class="blank-input" data-answer="were"> <span class="verb-hint">(be)</span> the manager, she <input class="blank-input" data-answer="would change"> <span class="verb-hint">(change)</span> the policy.</li>
+      <li>If we <input class="blank-input" data-answer="don't meet|do not meet"> <span class="verb-hint">(not / meet)</span> the deadline, we <input class="blank-input" data-answer="will lose"> <span class="verb-hint">(lose)</span> the client.</li>
+      <li>If I <input class="blank-input" data-answer="knew"> <span class="verb-hint">(know)</span> the answer, I <input class="blank-input" data-answer="would tell"> <span class="verb-hint">(tell)</span> you.</li>
+      <li>If you <input class="blank-input" data-answer="call"> <span class="verb-hint">(call)</span> me, I <input class="blank-input" data-answer="will answer"> <span class="verb-hint">(answer)</span>.</li>
+      <li>If the price <input class="blank-input" data-answer="increases"> <span class="verb-hint">(increase)</span>, demand <input class="blank-input" data-answer="will fall"> <span class="verb-hint">(fall)</span>.</li>
+      <li>If we <input class="blank-input" data-answer="had"> <span class="verb-hint">(have)</span> more time, we <input class="blank-input" data-answer="would do"> <span class="verb-hint">(do)</span> a better analysis.</li>
+      <li>If he <input class="blank-input" data-answer="arrives"> <span class="verb-hint">(arrive)</span> late, he <input class="blank-input" data-answer="will miss"> <span class="verb-hint">(miss)</span> the meeting.</li>
+      <li>If I <input class="blank-input" data-answer="were"> <span class="verb-hint">(be)</span> in your position, I <input class="blank-input" data-answer="would negotiate"> <span class="verb-hint">(negotiate)</span> harder.</li>
+      <li>If they <input class="blank-input" data-answer="don't pay|do not pay"> <span class="verb-hint">(not / pay)</span>, we <input class="blank-input" data-answer="will stop"> <span class="verb-hint">(stop)</span> the service.</li>
+    </ol>
+    <div class="actions">
+      <button class="check-btn" onclick="checkSection('t7')">Comprobar respuestas</button>
+      <button class="reset-btn" onclick="resetSection('t7')">Reiniciar</button>
+      <span class="score" id="score-t7"></span>
+    </div>
+  </section>
+
+  <div class="golden-rule">
+    <strong>Cómo usar esta guía sin olvidar:</strong> resuelve un tiempo verbal por día (20 ejercicios), corrige con "Comprobar respuestas", y al día siguiente repite solo los que fallaste. Repite el ciclo completo cada 2 semanas — la repetición espaciada es lo que fija la regla en la memoria a largo plazo.
+  </div>
+
+</div>
+
+<script>
+function normalize(str) {
+  return str.trim().toLowerCase()
+    .replace(/[’‘]/g, "'")
+    .replace(/\s+/g, ' ')
+    .replace(/[.,!?]+$/, '');
+}
+
+function isAnswerCorrect(input) {
+  var accepted = input.getAttribute('data-answer').split('|').map(normalize);
+  var value = normalize(input.value || '');
+  return value !== '' && accepted.indexOf(value) !== -1;
+}
+
+// Valida un solo campo al instante (Enter o al salir del campo) y muestra su icono ✓ / ✗
+function validateSingle(input) {
+  var icon = input.nextElementSibling;
+  if (!icon || !icon.classList.contains('check-icon')) return;
+  var value = (input.value || '').trim();
+  if (value === '') {
+    input.classList.remove('correct', 'incorrect');
+    icon.textContent = '';
+    icon.classList.remove('correct', 'incorrect');
+    return;
+  }
+  var ok = isAnswerCorrect(input);
+  input.classList.remove('correct', 'incorrect');
+  input.classList.add(ok ? 'correct' : 'incorrect');
+  icon.textContent = ok ? '✓' : '✗';
+  icon.classList.remove('correct', 'incorrect');
+  icon.classList.add(ok ? 'correct' : 'incorrect');
+  updateSectionScore(input.closest('section.tense').id);
+}
+
+function updateSectionScore(sectionId) {
+  var section = document.getElementById(sectionId);
+  var inputs = section.querySelectorAll('input.blank-input');
+  var total = inputs.length;
+  var correctCount = 0;
+  inputs.forEach(function (input) {
+    if (input.classList.contains('correct')) correctCount++;
+  });
+  var scoreEl = document.getElementById('score-' + sectionId);
+  scoreEl.textContent = correctCount + ' / ' + total + ' correctas';
+  scoreEl.classList.toggle('all-correct', correctCount === total);
+}
+
+// Botón "Comprobar respuestas": valida todos los campos del bloque de una vez
+function checkSection(sectionId) {
+  var section = document.getElementById(sectionId);
+  var inputs = section.querySelectorAll('input.blank-input');
+  inputs.forEach(function (input) { validateSingle(input); });
+  updateSectionScore(sectionId);
+}
+
+function resetSection(sectionId) {
+  var section = document.getElementById(sectionId);
+  var inputs = section.querySelectorAll('input.blank-input');
+  inputs.forEach(function (input) {
+    input.value = '';
+    input.classList.remove('correct', 'incorrect');
+    var icon = input.nextElementSibling;
+    if (icon && icon.classList.contains('check-icon')) {
+      icon.textContent = '';
+      icon.classList.remove('correct', 'incorrect');
+    }
+  });
+  document.getElementById('score-' + sectionId).textContent = '';
+}
+
+// Inserta un icono de validación después de cada campo y activa el chequeo
+// individual al presionar Enter o al salir del campo (blur).
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('input.blank-input').forEach(function (input) {
+    var icon = document.createElement('span');
+    icon.className = 'check-icon';
+    input.insertAdjacentElement('afterend', icon);
+    input.addEventListener('blur', function () { validateSingle(input); });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        validateSingle(input);
+      }
+    });
+  });
+
+  // Botón para revelar la respuesta correcta solo cuando el usuario lo pida
+  document.querySelectorAll('ol.exercises li').forEach(function (li) {
+    var inputs = li.querySelectorAll('input.blank-input');
+    if (inputs.length === 0) return;
+    var answers = Array.prototype.map.call(inputs, function (inp) {
+      return inp.getAttribute('data-answer').split('|')[0];
+    });
+
+    var tag = document.createElement('span');
+    tag.className = 'answer-tag';
+    tag.textContent = '✓ ' + answers.join(' / ');
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'reveal-btn';
+    btn.textContent = 'Ver respuesta';
+    btn.addEventListener('click', function () {
+      var revealed = tag.classList.toggle('show');
+      btn.textContent = revealed ? 'Ocultar' : 'Ver respuesta';
+    });
+
+    li.appendChild(btn);
+    li.appendChild(tag);
+  });
+});
+</script>
+
+</body>
+</html>
