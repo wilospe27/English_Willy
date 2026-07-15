@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>200 ejercicios mixtos — identifica el tiempo verbal (10 bloques de 20)</title>
+<style>
+  :root {
+    --ink: #1f2430; --muted: #5b6270; --accent: #2563eb; --accent-light: #eaf1ff;
+    --green: #15803d; --green-light: #eafaf0; --red: #b91c1c; --red-light: #fdecec;
+    --amber: #b45309; --amber-light: #fff7ed; --amber-border: #f59e0b;
+    --border: #e2e5ea; --bg: #fafbfc;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--ink); background: var(--bg); margin: 0; padding: 40px 20px; line-height: 1.6; }
+  .container { max-width: 920px; margin: 0 auto; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 48px; }
+  h1 { font-size: 26px; margin: 0 0 8px; }
+  .subtitle { color: var(--muted); font-size: 15px; margin: 0 0 28px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .rule-box { background: var(--amber-light); border-left: 3px solid var(--amber-border); border-radius: 6px; padding: 14px 18px; margin: 12px 0 4px; font-size: 14.5px; }
+  .rule-box strong { color: var(--amber); }
+  .bank-status { display: flex; justify-content: space-between; align-items: center; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 18px; margin: 20px 0 10px; font-size: 14px; color: var(--muted); flex-wrap: wrap; gap: 8px; }
+  .bank-status strong { color: var(--ink); }
+  .block-nav { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 4px; }
+  .block-btn { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border); background: #fff; color: var(--muted); font-family: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+  .block-btn:hover { background: var(--accent-light); color: var(--accent); }
+  .block-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .block-arrows { display: flex; gap: 8px; margin: 6px 0 4px; flex-wrap: wrap; }
+  button.arrow-btn { font-family: inherit; font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: 7px; border: 1px solid var(--border); background: #fff; color: var(--ink); cursor: pointer; }
+  button.arrow-btn:hover { background: var(--accent-light); color: var(--accent); }
+  button.arrow-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+  ol.exercises { padding-left: 0; margin: 14px 0; list-style: none; }
+  ol.exercises li {
+    margin: 10px 0;
+    padding: 14px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 14.5px;
+  }
+  .sentence-row { margin-bottom: 8px; }
+  .tense-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  select.tense-select {
+    font-family: inherit;
+    font-size: 13px;
+    padding: 5px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--ink);
+  }
+  select.tense-select.correct { border-color: var(--green); background: var(--green-light); color: var(--green); }
+  select.tense-select.incorrect { border-color: var(--red); background: var(--red-light); color: var(--red); }
+  input.blank-input { display: inline-block; width: 150px; font-size: 14.5px; font-family: inherit; padding: 3px 8px; margin: 0 2px; border: none; border-bottom: 1.5px solid var(--muted); background: #fff; border-radius: 3px 3px 0 0; color: var(--ink); }
+  input.blank-input:focus { outline: none; border-bottom: 1.5px solid var(--accent); background: var(--accent-light); }
+  input.blank-input.correct { background: var(--green-light); border-bottom: 1.5px solid var(--green); color: var(--green); font-weight: 600; }
+  input.blank-input.incorrect { background: var(--red-light); border-bottom: 1.5px solid var(--red); color: var(--red); }
+  .check-icon { display: inline-block; width: 16px; font-size: 14px; font-weight: 700; text-align: center; }
+  .check-icon.correct { color: var(--green); }
+  .check-icon.incorrect { color: var(--red); }
+  .verb-hint { color: var(--muted); font-style: italic; }
+  .answer-tag { display: none; margin-left: 6px; padding: 2px 8px; background: var(--green-light); color: var(--green); border-radius: 10px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+  .answer-tag.show { display: inline-block; }
+  .reveal-btn { display: inline-block; margin-left: 8px; padding: 2px 9px; background: #fff; color: var(--muted); border: 1px solid var(--border); border-radius: 10px; font-size: 12px; font-family: inherit; cursor: pointer; white-space: nowrap; }
+  .reveal-btn:hover { background: var(--accent-light); color: var(--accent); }
+  .sentence-translation { display: none; color: var(--muted); font-size: 12.5px; font-style: italic; margin-top: 4px; }
+  body.show-translations .sentence-translation { display: block; }
+  .translation-toggle { display: flex; align-items: center; gap: 7px; font-size: 14px; color: var(--ink); cursor: pointer; background: var(--accent-light); padding: 9px 14px; border-radius: 7px; }
+  .translation-toggle input { width: 16px; height: 16px; cursor: pointer; }
+  .actions { display: flex; align-items: center; gap: 10px; margin: 20px 0 6px; flex-wrap: wrap; }
+  button.check-btn, button.reset-btn { font-family: inherit; font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: 7px; border: none; cursor: pointer; }
+  button.check-btn { background: var(--accent); color: #fff; }
+  button.check-btn:hover { background: #1d4ed8; }
+  button.reset-btn { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+  button.reset-btn:hover { background: #f0f1f3; }
+  .score { font-size: 14px; font-weight: 600; color: var(--muted); }
+  .score.all-correct { color: var(--green); }
+  .golden-rule { margin-top: 40px; padding: 20px 24px; background: var(--ink); color: #fff; border-radius: 10px; font-size: 15.5px; }
+  @media (max-width: 600px) { .container { padding: 24px; } input.blank-input { width: 120px; } }
+</style>
+</head>
+<body>
+
+<div style="position:sticky;top:0;z-index:999;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#1f2430;color:#fff;padding:10px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13.5px;box-shadow:0 2px 6px rgba(0,0,0,.12);">
+  <a href="index.html" style="color:#fff;text-decoration:none;font-weight:700;padding:6px 12px;border-radius:6px;background:rgba(255,255,255,.12);white-space:nowrap;">&#8592; Inicio</a>
+  <select onchange="if(this.value) window.location.href=this.value;" style="font-family:inherit;font-size:13px;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.25);background:#2a3040;color:#fff;max-width:260px;">
+    <option value="">Ir a otra herramienta&hellip;</option>
+    <optgroup label="Guias">
+      <option value="metodo-estudio-ingles-negocios.html">Metodo de estudio</option>
+      <option value="ejercicios-tiempos-verbales-ingles.html">Como reconocer cada tiempo (140)</option>
+    </optgroup>
+    <optgroup label="Presente">
+      <option value="300-ejercicios-present-simple.html">Present Simple (300)</option>
+      <option value="100-ejercicios-present-continuous.html">Present Continuous (100)</option>
+      <option value="100-ejercicios-present-perfect.html">Present Perfect (100)</option>
+      <option value="100-ejercicios-present-perfect-continuous.html">Present Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Pasado">
+      <option value="100-ejercicios-past-simple.html">Past Simple (100)</option>
+      <option value="100-ejercicios-past-continuous.html">Past Continuous (100)</option>
+      <option value="100-ejercicios-past-perfect.html">Past Perfect (100)</option>
+      <option value="100-ejercicios-past-perfect-continuous.html">Past Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Futuro">
+      <option value="100-ejercicios-future-simple.html">Future Simple (100)</option>
+      <option value="100-ejercicios-future-continuous.html">Future Continuous (100)</option>
+      <option value="100-ejercicios-future-perfect.html">Future Perfect (100)</option>
+      <option value="100-ejercicios-future-perfect-continuous.html">Future Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Mixto">
+      <option value="200-ejercicios-mixtos-identificar-tiempos.html" selected disabled>200 mixtos - identifica el tiempo</option>
+    </optgroup>
+  </select>
+</div>
+
+<div class="container">
+
+  <h1>200 ejercicios mixtos — identifica el tiempo verbal</h1>
+  <p class="subtitle">Los 12 tiempos verbales mezclados al azar, con verbos variados en cada oración. Aquí no sabes de antemano qué tiempo es — tienes que leer las palabras señal (yesterday, since, by Friday...) para identificarlo tú mismo. Repartido en 10 bloques de 20.</p>
+
+  <div class="rule-box">
+    <strong>Cómo se juega:</strong> por cada oración, primero elige en el menú qué tiempo verbal crees que es, y luego escribe la forma correcta del verbo. Al comprobar, verás dos marcas independientes: una para el tiempo elegido y otra para la conjugación.
+  </div>
+
+  <div class="bank-status">
+    <span>Banco total: <strong>200 ejercicios mixtos</strong> (los 12 tiempos, verbos variados) repartidos en <strong>10 bloques de 20</strong></span>
+    <span>Mostrando: <strong id="batch-label">Bloque 1 de 10 (ejercicios 1–20)</strong></span>
+  </div>
+
+  <div class="block-nav" id="block-nav"></div>
+  <div class="block-arrows">
+    <button class="arrow-btn" id="prev-btn" onclick="goToBlock(currentBlock - 1)">← Bloque anterior</button>
+    <button class="arrow-btn" id="next-btn" onclick="goToBlock(currentBlock + 1)">Bloque siguiente →</button>
+    <button class="reset-btn" onclick="reshuffleBlocks()">🔀 Mezclar de nuevo (nuevos 10 bloques)</button>
+  </div>
+
+  <ol class="exercises" id="exercise-list"></ol>
+
+  <div class="actions">
+    <button class="check-btn" onclick="checkBatch()">Comprobar respuestas</button>
+    <button class="reset-btn" onclick="resetBatch()">Reiniciar este bloque</button>
+    <button class="reset-btn" onclick="clearAllProgress()">🗑️ Borrar todo mi progreso</button>
+    <span class="score" id="score-batch"></span>
+  </div>
+
+  <div class="actions">
+    <label class="translation-toggle">
+      <input type="checkbox" id="toggle-translation" onchange="document.body.classList.toggle('show-translations', this.checked)">
+      Mostrar traducción de la oración completa
+    </label>
+  </div>
+  <p class="subtitle" style="margin:6px 0 0; padding:0; border:none; font-size:12.5px;">Tus respuestas se guardan automáticamente en este navegador (localStorage).</p>
+
+  <div class="golden-rule">
+    <strong>Cómo usar esta herramienta sin olvidar:</strong> resuelve un bloque, corrige, y fíjate en qué palabras señal te hicieron dudar del tiempo. Repite los bloques donde más falles en la identificación del tiempo (no solo en la conjugación).
+  </div>
+
+</div>
+
+<script>
+// ===================== DATOS COMPARTIDOS =====================
+var spanishSubject = {
+  'He': 'Él', 'She': 'Ella', 'The manager': 'El gerente', 'The company': 'La empresa',
+  'Carmen': 'Carmen', 'The client': 'El cliente', 'The system': 'El sistema', 'John': 'John',
+  'Maria': 'María', 'The director': 'El director', 'The supplier': 'El proveedor', 'The employee': 'El empleado',
+  'I': 'Yo', 'You': 'Tú', 'We': 'Nosotros', 'They': 'Ellos', 'The employees': 'Los empleados',
+  'My colleagues': 'Mis colegas', 'The clients': 'Los clientes', 'The managers': 'Los gerentes',
+  'The teams': 'Los equipos', 'We all': 'Todos nosotros'
+};
+var personIndexBySubject = {
+  'He': 2, 'She': 2, 'The manager': 2, 'The company': 2, 'Carmen': 2, 'The client': 2, 'The system': 2,
+  'John': 2, 'Maria': 2, 'The director': 2, 'The supplier': 2, 'The employee': 2,
+  'I': 0, 'You': 1, 'We': 3, 'We all': 3,
+  'They': 4, 'The employees': 4, 'My colleagues': 4, 'The clients': 4, 'The managers': 4, 'The teams': 4
+};
+var subjectCycle = ['He', 'I', 'She', 'You', 'We', 'They', 'The manager', 'The company', 'Carmen', 'The client',
+  'My colleagues', 'The system', 'John', 'The clients', 'We all', 'The director', 'The employee', 'The supplier',
+  'Maria', 'The employees'];
+var cycleCounter = 0;
+function nextSubject() { return subjectCycle[(cycleCounter++) % subjectCycle.length]; }
+
+var TENSE_LABELS = [
+  'Present Simple', 'Present Continuous', 'Present Perfect', 'Present Perfect Continuous',
+  'Past Simple', 'Past Continuous', 'Past Perfect', 'Past Perfect Continuous',
+  'Future Simple', 'Future Continuous', 'Future Perfect', 'Future Perfect Continuous'
+];
+
+var exerciseBank = [];
+function push(tenseKey, subject, verbEn, verbEs, complementEn, answer, translation) {
+  exerciseBank.push({
+    id: exerciseBank.length, tenseKey: tenseKey, tenseLabel: TENSE_LABELS[tenseKey],
+    subject: subject, verbEn: verbEn, verbEs: verbEs, complementEn: complementEn,
+    answer: answer, translation: translation
+  });
+}
+
+// ===================== E1: PRESENT SIMPLE (17) =====================
+var psVerbs = {
+  work: { group: 'regular', es5: ['trabajo','trabajas','trabaja','trabajamos','trabajan'], es: 'trabajar' },
+  call: { group: 'regular', es5: ['llamo','llamas','llama','llamamos','llaman'], es: 'llamar' },
+  review: { group: 'regular', es5: ['reviso','revisas','revisa','revisamos','revisan'], es: 'revisar' },
+  prepare: { group: 'regular', es5: ['preparo','preparas','prepara','preparamos','preparan'], es: 'preparar' },
+  negotiate: { group: 'regular', es5: ['negocio','negocias','negocia','negociamos','negocian'], es: 'negociar' },
+  approve: { group: 'regular', es5: ['apruebo','apruebas','aprueba','aprobamos','aprueban'], es: 'aprobar' },
+  go: { group: 'es', es5: ['voy','vas','va','vamos','van'], es: 'ir' },
+  do: { group: 'es', es5: ['hago','haces','hace','hacemos','hacen'], es: 'hacer' },
+  watch: { group: 'es', es5: ['vigilo','vigilas','vigila','vigilamos','vigilan'], es: 'vigilar' },
+  teach: { group: 'es', es5: ['enseño','enseñas','enseña','enseñamos','enseñan'], es: 'enseñar' },
+  discuss: { group: 'es', es5: ['discuto','discutes','discute','discutimos','discuten'], es: 'discutir' },
+  study: { group: 'ies', es5: ['estudio','estudias','estudia','estudiamos','estudian'], es: 'estudiar' },
+  try: { group: 'ies', es5: ['intento','intentas','intenta','intentamos','intentan'], es: 'intentar' },
+  apply: { group: 'ies', es5: ['aplico','aplicas','aplica','aplicamos','aplican'], es: 'aplicar' },
+  reply: { group: 'ies', es5: ['respondo','respondes','responde','respondemos','responden'], es: 'responder' },
+  verify: { group: 'ies', es5: ['verifico','verificas','verifica','verificamos','verifican'], es: 'verificar' },
+  have: { group: 'have', es5: ['tengo','tienes','tiene','tenemos','tienen'], es: 'tener' }
+};
+var psItems = [
+  ['work', 'in the finance department', 'en el departamento de finanzas'],
+  ['call', 'the client every morning', 'al cliente cada mañana'],
+  ['review', 'the monthly report', 'el informe mensual'],
+  ['prepare', 'the agenda in advance', 'la agenda con anticipación'],
+  ['negotiate', 'contracts with vendors', 'contratos con los proveedores'],
+  ['approve', 'purchase orders', 'órdenes de compra'],
+  ['go', 'to the office every day', 'a la oficina todos los días'],
+  ['do', 'the paperwork every week', 'el papeleo cada semana'],
+  ['watch', 'the market every day', 'el mercado todos los días'],
+  ['teach', 'new employees the process', 'el proceso a los nuevos empleados'],
+  ['discuss', 'the budget every Monday', 'el presupuesto cada lunes'],
+  ['study', 'the market trends', 'las tendencias del mercado'],
+  ['try', 'to close the deal', 'cerrar el trato'],
+  ['apply', 'new policies', 'nuevas políticas'],
+  ['reply', 'to emails quickly', 'los correos rápidamente'],
+  ['verify', 'the invoice details', 'los detalles de la factura'],
+  ['have', 'a car', 'un carro']
+];
+function psConjugate(base, group, idx) {
+  if (group === 'have') return idx === 2 ? 'has' : 'have';
+  if (idx !== 2) return base;
+  if (group === 'es') return base + 'es';
+  if (group === 'ies') return base.slice(0, -1) + 'ies';
+  return base + 's';
+}
+psItems.forEach(function (it) {
+  var v = psVerbs[it[0]];
+  var subject = nextSubject();
+  var idx = personIndexBySubject[subject];
+  var answer = psConjugate(it[0], v.group, idx);
+  var translation = spanishSubject[subject] + ' ' + v.es5[idx] + ' ' + it[2] + '.';
+  push(0, subject, it[0], v.es, it[1], answer, translation);
+});
+
+// ===================== TABLA MAESTRA (para E2,E4,E6,E7,E8,E9,E10,E11,E12) =====================
+var verbData = {
+  work: { es:'trabajar', gerEn:'working', gerEs:'trabajando', partEn:'worked', partEs:'trabajado', futEs:['trabajaré','trabajarás','trabajará','trabajaremos','trabajarán'] },
+  call: { es:'llamar', gerEn:'calling', gerEs:'llamando', partEn:'called', partEs:'llamado', futEs:['llamaré','llamarás','llamará','llamaremos','llamarán'] },
+  review: { es:'revisar', gerEn:'reviewing', gerEs:'revisando', partEn:'reviewed', partEs:'revisado', futEs:['revisaré','revisarás','revisará','revisaremos','revisarán'] },
+  prepare: { es:'preparar', gerEn:'preparing', gerEs:'preparando', partEn:'prepared', partEs:'preparado', futEs:['prepararé','prepararás','preparará','prepararemos','prepararán'] },
+  send: { es:'enviar', gerEn:'sending', gerEs:'enviando', partEn:'sent', partEs:'enviado', futEs:['enviaré','enviarás','enviará','enviaremos','enviarán'] },
+  negotiate: { es:'negociar', gerEn:'negotiating', gerEs:'negociando', partEn:'negotiated', partEs:'negociado', futEs:['negociaré','negociarás','negociará','negociaremos','negociarán'] },
+  approve: { es:'aprobar', gerEn:'approving', gerEs:'aprobando', partEn:'approved', partEs:'aprobado', futEs:['aprobaré','aprobarás','aprobará','aprobaremos','aprobarán'] },
+  attend: { es:'asistir', gerEn:'attending', gerEs:'asistiendo', partEn:'attended', partEs:'asistido', futEs:['asistiré','asistirás','asistirá','asistiremos','asistirán'] },
+  write: { es:'escribir', gerEn:'writing', gerEs:'escribiendo', partEn:'written', partEs:'escrito', futEs:['escribiré','escribirás','escribirá','escribiremos','escribirán'] },
+  give: { es:'dar', gerEn:'giving', gerEs:'dando', partEn:'given', partEs:'dado', futEs:['daré','darás','dará','daremos','darán'] },
+  take: { es:'tomar', gerEn:'taking', gerEs:'tomando', partEn:'taken', partEs:'tomado', futEs:['tomaré','tomarás','tomará','tomaremos','tomarán'] },
+  study: { es:'estudiar', gerEn:'studying', gerEs:'estudiando', partEn:'studied', partEs:'estudiado', futEs:['estudiaré','estudiarás','estudiará','estudiaremos','estudiarán'] },
+  discuss: { es:'discutir', gerEn:'discussing', gerEs:'discutiendo', partEn:'discussed', partEs:'discutido', futEs:['discutiré','discutirás','discutirá','discutiremos','discutirán'] },
+  plan: { es:'planear', gerEn:'planning', gerEs:'planeando', partEn:'planned', partEs:'planeado', futEs:['planearé','planearás','planeará','planearemos','planearán'] },
+  update: { es:'actualizar', gerEn:'updating', gerEs:'actualizando', partEn:'updated', partEs:'actualizado', futEs:['actualizaré','actualizarás','actualizará','actualizaremos','actualizarán'] },
+  launch: { es:'lanzar', gerEn:'launching', gerEs:'lanzando', partEn:'launched', partEs:'lanzado', futEs:['lanzaré','lanzarás','lanzará','lanzaremos','lanzarán'] },
+  finish: { es:'terminar', gerEn:'finishing', gerEs:'terminando', partEn:'finished', partEs:'terminado', futEs:['terminaré','terminarás','terminará','terminaremos','terminarán'] }
+};
+
+// ===================== E2: PRESENT CONTINUOUS (17) =====================
+var pcItems = [
+  ['work','on the budget right now','en el presupuesto en este momento'],
+  ['call','the client at the moment','al cliente en este momento'],
+  ['review','the contract right now','el contrato en este momento'],
+  ['prepare','the presentation currently','la presentación en este momento'],
+  ['send','the invoice right now','la factura en este momento'],
+  ['negotiate','the price at the moment','el precio en este momento'],
+  ['approve','the request right now','la solicitud en este momento'],
+  ['attend','a meeting right now','una reunión en este momento'],
+  ['write','the report at the moment','el informe en este momento'],
+  ['give','a presentation right now','una presentación en este momento'],
+  ['take','notes at the moment','notas en este momento'],
+  ['study','the numbers right now','las cifras en este momento'],
+  ['discuss','the budget at the moment','el presupuesto en este momento'],
+  ['plan',"next year's strategy right now",'la estrategia del próximo año en este momento'],
+  ['update','the system at the moment','el sistema en este momento'],
+  ['launch','the new campaign right now','la nueva campaña en este momento'],
+  ['finish','the project at the moment','el proyecto en este momento']
+];
+var pcAux = ['am','are','is','are','are'];
+var estarPresente = ['estoy','estás','está','estamos','están'];
+pcItems.forEach(function (it) {
+  var v = verbData[it[0]];
+  var subject = nextSubject();
+  var idx = personIndexBySubject[subject];
+  var answer = pcAux[idx] + ' ' + v.gerEn;
+  var translation = spanishSubject[subject] + ' ' + estarPresente[idx] + ' ' + v.gerEs + ' ' + it[2] + '.';
+  push(1, subject, it[0], v.es, it[1], answer, translation);
+});
+
+// ===================== E3: PRESENT PERFECT (17) =====================
+// [verbo, participio, complementoEn, complementoEs, verboEs, participioEs, adverbioEn, adverbioEs]
+var ppItems = [
+  ['complete','completed','the project','el proyecto','completar','completado',null,null],
+  ['approve','approved','the budget','el presupuesto','aprobar','aprobado',null,null],
+  ['sign','signed','the contract','el contrato','firmar','firmado',null,null],
+  ['review','reviewed','the numbers','las cifras','revisar','revisado',null,null],
+  ['update','updated','the database','la base de datos','actualizar','actualizado',null,null],
+  ['launch','launched','the new product','el nuevo producto','lanzar','lanzado',null,null],
+  ['send','sent','the invoice','la factura','enviar','enviado','already','ya'],
+  ['finish','finished','the report','el informe','terminar','terminado','already','ya'],
+  ['pay','paid','the supplier','al proveedor','pagar','pagado','already','ya'],
+  ['prepare','prepared','the presentation','la presentación','preparar','preparado','already','ya'],
+  ['call','called','the client','al cliente','llamar','llamado','just','recién'],
+  ['receive','received','the payment','el pago','recibir','recibido','just','recién'],
+  ['close','closed','the deal','el trato','cerrar','cerrado','just','recién'],
+  ['submit','submitted','the proposal','la propuesta','presentar','presentado','just','recién'],
+  ['miss','missed','a deadline','un plazo','perder','perdido','never','nunca'],
+  ['lose','lost','a client','un cliente','perder','perdido','never','nunca'],
+  ['break','broken','a promise','una promesa','romper','roto','never','nunca']
+];
+var ppAux = ['have','have','has','have','have'];
+var haberPresente = ['he','has','ha','hemos','han'];
+ppItems.forEach(function (it) {
+  var subject = nextSubject();
+  var idx = personIndexBySubject[subject];
+  var aux = ppAux[idx];
+  var answer = aux + (it[6] ? ' ' + it[6] : '') + ' ' + it[1];
+  var adverbPart = it[7] ? it[7] + ' ' : '';
+  var translation = spanishSubject[subject] + ' ' + adverbPart + haberPresente[idx] + ' ' + it[5] + ' ' + it[3] + '.';
+  push(2, subject, it[0], it[4], it[2], answer, translation);
+});
+
+// ===================== E4: PRESENT PERFECT CONTINUOUS (17) =====================
+var ppcItems = [
+  ['work','here for five years','aquí desde hace cinco años'],
+  ['call','clients all morning','a clientes toda la mañana'],
+  ['review','contracts for two hours','contratos durante dos horas'],
+  ['prepare','the report since 9 AM','el informe desde las 9 AM'],
+  ['send','emails all day','correos todo el día'],
+  ['negotiate','the deal for three weeks','el trato durante tres semanas'],
+  ['approve','requests all week','solicitudes toda la semana'],
+  ['attend','meetings since morning','reuniones desde la mañana'],
+  ['write','the proposal for an hour','la propuesta durante una hora'],
+  ['give','presentations all day','presentaciones todo el día'],
+  ['take','notes for a while','notas durante un rato'],
+  ['study','the market for months','el mercado durante meses'],
+  ['discuss','the budget since noon','el presupuesto desde el mediodía'],
+  ['plan','the launch for weeks','el lanzamiento durante semanas'],
+  ['update','the database all morning','la base de datos toda la mañana'],
+  ['launch','campaigns lately','campañas últimamente'],
+  ['finish','reports all afternoon','informes toda la tarde']
+];
+var ppcAux = ['have','have','has','have','have'];
+ppcItems.forEach(function (it) {
+  var v = verbData[it[0]];
+  var subject = nextSubject();
+  var idx = personIndexBySubject[subject];
+  var answer = ppcAux[idx] + ' been ' + v.gerEn;
+  var translation = spanishSubject[subject] + ' ' + haberPresente[idx] + ' estado ' + v.gerEs + ' ' + it[2] + '.';
+  push(3, subject, it[0], v.es, it[1], answer, translation);
+});
+
+// ===================== E5: PAST SIMPLE (17) =====================
+var pastVerbs = {
+  work: { es:'trabajar', pastEn:'worked', es5:['trabajé','trabajaste','trabajó','trabajamos','trabajaron'] },
+  call: { es:'llamar', pastEn:'called', es5:['llamé','llamaste','llamó','llamamos','llamaron'] },
+  review: { es:'revisar', pastEn:'reviewed', es5:['revisé','revisaste','revisó','revisamos','revisaron'] },
+  prepare: { es:'preparar', pastEn:'prepared', es5:['preparé','preparaste','preparó','preparamos','prepararon'] },
+  study: { es:'estudiar', pastEn:'studied', es5:['estudié','estudiaste','estudió','estudiamos','estudiaron'] },
+  carry: { es:'cargar', pastEn:'carried', es5:['cargué','cargaste','cargó','cargamos','cargaron'] },
+  plan: { es:'planear', pastEn:'planned', es5:['planeé','planeaste','planeó','planeamos','planearon'] },
+  stop: { es:'parar', pastEn:'stopped', es5:['paré','paraste','paró','paramos','pararon'] },
+  use: { es:'usar', pastEn:'used', es5:['usé','usaste','usó','usamos','usaron'] },
+  try: { es:'intentar', pastEn:'tried', es5:['intenté','intentaste','intentó','intentamos','intentaron'] },
+  go: { es:'ir', pastEn:'went', es5:['fui','fuiste','fue','fuimos','fueron'] },
+  see: { es:'ver', pastEn:'saw', es5:['vi','viste','vio','vimos','vieron'] },
+  write: { es:'escribir', pastEn:'wrote', es5:['escribí','escribiste','escribió','escribimos','escribieron'] },
+  give: { es:'dar', pastEn:'gave', es5:['di','diste','dio','dimos','dieron'] },
+  take: { es:'tomar', pastEn:'took', es5:['tomé','tomaste','tomó','tomamos','tomaron'] },
+  know: { es:'saber', pastEn:'knew', es5:['supe','supiste','supo','supimos','supieron'] },
+  send: { es:'enviar', pastEn:'sent', es5:['envié','enviaste','envió','enviamos','enviaron'] }
+};
+var pastItems = [
+  ['work','in the finance department last year','en el departamento de finanzas el año pasado'],
+  ['call','the client yesterday','al cliente ayer'],
+  ['review','the report last week','el informe la semana pasada'],
+  ['prepare','the agenda in advance','la agenda con anticipación'],
+  ['study','the market trends last month','las tendencias del mercado el mes pasado'],
+  ['carry','heavy equipment yesterday','equipo pesado ayer'],
+  ['plan','the budget last quarter','el presupuesto el trimestre pasado'],
+  ['stop','the process immediately','el proceso de inmediato'],
+  ['use','the old system last year','el sistema antiguo el año pasado'],
+  ['try','to close the deal yesterday','cerrar el trato ayer'],
+  ['go','to the conference last week','a la conferencia la semana pasada'],
+  ['see','the report yesterday','el informe ayer'],
+  ['write','the proposal last night','la propuesta anoche'],
+  ['give','a presentation last Friday','una presentación el viernes pasado'],
+  ['take','two days to finish','dos días en terminar'],
+  ['know','the answer already','la respuesta de antemano'],
+  ['send','the invoice yesterday','la factura ayer']
+];
+pastItems.forEach(function (it) {
+  var v = pastVerbs[it[0]];
+  var subject = nextSubject();
+  var idx = personIndexBySubject[subject];
+  var translation = spanishSubject[subject] + ' ' + v.es5[idx] + ' ' + it[2] + '.';
+  push(4, subject, it[0], v.es, it[1], v.pastEn, translation);
+});
+
+// ===================== E6: PAST CONTINUOUS (17) =====================
+var pastCItems = [
+  ['work','on the report when the call came','en el informe cuando llegó la llamada'],
+  ['call','a client when the meeting started','a un cliente cuando empezó la reunión'],
+  ['review','the contract at 9 AM yesterday','el contrato a las 9 AM ayer'],
+  ['prepare','the agenda while you arrived','la agenda mientras llegabas'],
+  ['send','the invoice when the system crashed','la factura cuando el sistema falló'],
+  ['negotiate','the price all afternoon yesterday','el precio toda la tarde de ayer'],
+  ['approve','the budget when the director called','el presupuesto cuando llamó el director'],
+  ['attend','a meeting at that moment','una reunión en ese momento'],
+  ['write','the report while you were on the call','el informe mientras estabas en la llamada'],
+  ['give','a presentation when the power went out','una presentación cuando se fue la luz'],
+  ['take','notes during the meeting','notas durante la reunión'],
+  ['study','the numbers all morning yesterday','las cifras toda la mañana de ayer'],
+  ['discuss','the plan when you walked in','el plan cuando entraste'],
+  ['plan','the strategy at that time','la estrategia en ese momento'],
+  ['update','the website yesterday afternoon','el sitio web ayer en la tarde'],
+  ['launch','the campaign when the client called','la campaña cuando llamó el cliente'],
+  ['finish','the report at 6 PM yesterday','el informe a las 6 PM ayer']
+];
+var pastCAux = ['was','were','was','were','were'];
+var estarImperfecto = ['estaba','estabas','estaba','estábamos','estaban'];
+pastCItems.forEach(function (it) {
+  var v = verbData[it[0]];
+  var subject = nextSubject();
+  var idx = personIndexBySubject[subject];
+  var answer = pastCAux[idx] + ' ' + v.gerEn;
+  var translation = spanishSubject[subject] + ' ' + estarImperfecto[idx] + ' ' + v.gerEs + ' ' + it[2] + '.';
+  push(5, subject, it[0], v.es, it[1], answer, translation);
+});
+
+// ===================== E7: PAST PERFECT (17) =====================
+var pastPItems = [
+  ['work','there for years before the merger','ahí durante años antes de la fusión'],
+  ['call','the client before the meeting','al cliente antes de la reunión'],
+  ['review','the contract before signing it','el contrato antes de firmarlo'],
+  ['prepare','the agenda before the call','la agenda antes de la llamada'],
+  ['send','the invoice before the deadline','la factura antes de la fecha límite'],
+  ['negotiate','the price before the offer expired','el precio antes de que expirara la oferta'],
+  ['approve','the budget before the audit','el presupuesto antes de la auditoría'],
+  ['attend','the training before the launch','la capacitación antes del lanzamiento'],
+  ['write','the report before the meeting started','el informe antes de que empezara la reunión'],
+  ['give','the presentation before lunch','la presentación antes del almuerzo'],
+  ['take','the decision before the deadline','la decisión antes de la fecha límite'],
+  ['study','the market before investing','el mercado antes de invertir'],
+  ['discuss','the plan before the announcement','el plan antes del anuncio'],
+  ['plan','the strategy before the launch','la estrategia antes del lanzamiento'],
+  ['update','the system before the crash','el sistema antes de la falla'],
+  ['launch','the product before the competitor','el producto antes que el competidor'],
+  ['finish','the project before the deadline','el proyecto antes de la fecha límite']
+];
+var habiaForms = ['había','habías','había','habíamos','habían'];
+pastPItems.forEach(function (it) {
+  var v = verbData[it[0]];
+  var subject = nextSubject();
+  var idx = personIndexBySubject[subject];
+  var answer = 'had ' + v.partEn;
+  var translation = spanishSubject[subject] + ' ' + habiaForms[idx] + ' ' + v.partEs + ' ' + it[2] + '.';
+  push(6, subject, it[0], v.es, it[1], answer, translation);
+});
+
+// ===================== E8: PAST PERFECT CONTINUOUS (17) =====================
+var pastPCItems = [
+  ['work','there for ten years before retiring','ahí durante diez años antes de jubilarse'],
+  ['call','clients for an hour before the break','a clientes durante una hora antes del descanso'],
+  ['review','the contract for two days before signing','el contrato durante dos días antes de firmar'],
+  ['prepare','the report for a week before the deadline','el informe durante una semana antes de la fecha límite'],
+  ['send','reminders for days before the payment','recordatorios durante días antes del pago'],
+  ['negotiate','the deal for months before closing it','el trato durante meses antes de cerrarlo'],
+  ['approve','requests all morning before the meeting','solicitudes toda la mañana antes de la reunión'],
+  ['attend','training sessions for weeks before the exam','capacitaciones durante semanas antes del examen'],
+  ['write','the proposal for hours before submitting it','la propuesta durante horas antes de enviarla'],
+  ['give','presentations all day before the event','presentaciones todo el día antes del evento'],
+  ['take','notes for an hour before the break','notas durante una hora antes del descanso'],
+  ['study','the market for months before investing','el mercado durante meses antes de invertir'],
+  ['discuss','the budget for weeks before the decision','el presupuesto durante semanas antes de la decisión'],
+  ['plan','the launch for months before releasing it','el lanzamiento durante meses antes de publicarlo'],
+  ['update','the system for hours before the crash','el sistema durante horas antes de la falla'],
+  ['launch','campaigns for years before this one','campañas durante años antes de esta'],
+  ['finish','reports all week before the review','informes toda la semana antes de la revisión']
+];
+pastPCItems.forEach(function (it) {
+  var v = verbData[it[0]];
+  var subject = nextSubject();
+  var idx = personIndexBySubject[subject];
+  var answer = 'had been ' + v.gerEn;
+  var translation = spanishSubject[subject] + ' ' + habiaForms[idx] + ' estado ' + v.gerEs + ' ' + it[2] + '.';
+  push(7, subject, it[0], v.es, it[1], answer, translation);
+});
+
+// ===================== E9: FUTURE SIMPLE (16) =====================
+var futSItems = [
+  ['work','on the budget tomorrow','en el presupuesto mañana'],
+  ['call','the client tomorrow','al cliente mañana'],
+  ['review','the contract next week','el contrato la próxima semana'],
+  ['prepare','the agenda soon','la agenda pronto'],
+  ['send','the invoice tomorrow','la factura mañana'],
+  ['negotiate','the price next week','el precio la próxima semana'],
+  ['approve','the request soon','la solicitud pronto'],
+  ['attend','the conference next month','la conferencia el próximo mes'],
+  ['write','the report tomorrow','el informe mañana'],
+  ['give','a presentation next week','una presentación la próxima semana'],
+  ['take','the decision soon','la decisión pronto'],
+  ['study','the numbers tomorrow','las cifras mañana'],
+  ['discuss','the budget next week','el presupuesto la próxima semana'],
+  ['plan',"next year's strategy soon",'la estrategia del próximo año pronto'],
+  ['update','the system tomorrow','el sistema mañana'],
+  ['launch','the new product next month','el nuevo producto el próximo mes']
+];
+futSItems.forEach(function (it) {
+  var v = verbData[it[0]];
+  var subject = nextSubject();
+  var idx = personIndexBySubject[subject];
+  var answer = 'will ' + it[0];
+  var translation = spanishSubject[subject] + ' ' + v.futEs[idx] + ' ' + it[2] + '.';
+  push(8, subject, it[0], v.es, it[1], answer, translation);
+});
+
+// ===================== E10: FUTURE CONTINUOUS (16) =====================
+var futCItems = [
+  ['work','on the report at this time tomorrow','en el informe a esta hora mañana'],
+  ['call','the client at 3 PM tomorrow','al cliente a las 3 PM mañana'],
+  ['review','the contract this time next week','el contrato a esta hora la próxima semana'],
+  ['prepare','the agenda at noon tomorrow','la agenda al mediodía mañana'],
+  ['send','invoices all day tomorrow','facturas todo el día mañana'],
+  ['negotiate','the price this time next week','el precio a esta hora la próxima semana'],
+  ['approve','requests at that time tomorrow','solicitudes a esa hora mañana'],
+  ['attend','a meeting at 10 AM tomorrow','una reunión a las 10 AM mañana'],
+  ['write','the report during the morning tomorrow','el informe durante la mañana de mañana'],
+  ['give','a presentation at that time next week','una presentación a esa hora la próxima semana'],
+  ['take','notes during the call tomorrow','notas durante la llamada de mañana'],
+  ['study','the numbers this time tomorrow','las cifras a esta hora mañana'],
+  ['discuss','the budget at 2 PM tomorrow','el presupuesto a las 2 PM mañana'],
+  ['plan','the strategy this time next week','la estrategia a esta hora la próxima semana'],
+  ['update','the system all day tomorrow','el sistema todo el día mañana'],
+  ['launch','the campaign at noon next week','la campaña al mediodía la próxima semana']
+];
+var estareForms = ['estaré','estarás','estará','estaremos','estarán'];
+futCItems.forEach(function (it) {
+  var v = verbData[it[0]];
+  var subject = nextSubject();
+  var idx = personIndexBySubject[subject];
+  var answer = 'will be ' + v.gerEn;
+  var translation = spanishSubject[subject] + ' ' + estareForms[idx] + ' ' + v.gerEs + ' ' + it[2] + '.';
+  push(9, subject, it[0], v.es, it[1], answer, translation);
+});
+
+// ===================== E11: FUTURE PERFECT (16) =====================
+var futPItems = [
+  ['work','here for ten years by next month','aquí durante diez años para el próximo mes'],
+  ['call','all the clients by 5 PM','a todos los clientes para las 5 PM'],
+  ['review','the contract by tomorrow','el contrato para mañana'],
+  ['prepare','the agenda by noon','la agenda para el mediodía'],
+  ['send','the invoice by Friday','la factura para el viernes'],
+  ['negotiate','the price by next week','el precio para la próxima semana'],
+  ['approve','the budget by the deadline','el presupuesto para la fecha límite'],
+  ['attend','ten meetings by the end of the month','diez reuniones para fin de mes'],
+  ['write','the report by tomorrow','el informe para mañana'],
+  ['give','the presentation by 3 PM','la presentación para las 3 PM'],
+  ['take','the decision by Friday','la decisión para el viernes'],
+  ['study','the market by next month','el mercado para el próximo mes'],
+  ['discuss','the plan by next week','el plan para la próxima semana'],
+  ['plan','the launch by December','el lanzamiento para diciembre'],
+  ['update','the system by tomorrow','el sistema para mañana'],
+  ['launch','the product by next quarter','el producto para el próximo trimestre']
+];
+var habreForms = ['habré','habrás','habrá','habremos','habrán'];
+futPItems.forEach(function (it) {
+  var v = verbData[it[0]];
+  var subject = nextSubject();
+  var idx = personIndexBySubject[subject];
+  var answer = 'will have ' + v.partEn;
+  var translation = spanishSubject[subject] + ' ' + habreForms[idx] + ' ' + v.partEs + ' ' + it[2] + '.';
+  push(10, subject, it[0], v.es, it[1], answer, translation);
+});
+
+// ===================== E12: FUTURE PERFECT CONTINUOUS (16) =====================
+var futPCItems = [
+  ['work','here for ten years by next month','aquí durante diez años para el próximo mes'],
+  ['call','clients for two hours by noon','a clientes durante dos horas para el mediodía'],
+  ['review','the contract for a week by Friday','el contrato durante una semana para el viernes'],
+  ['prepare','the agenda for an hour by 9 AM','la agenda durante una hora para las 9 AM'],
+  ['send','invoices for three hours by 5 PM','facturas durante tres horas para las 5 PM'],
+  ['negotiate','the deal for a month by next week','el trato durante un mes para la próxima semana'],
+  ['approve','requests all day by 6 PM','solicitudes todo el día para las 6 PM'],
+  ['attend','training for six months by June','capacitaciones durante seis meses para junio'],
+  ['write','the report for two hours by noon','el informe durante dos horas para el mediodía'],
+  ['give','presentations for a year by December','presentaciones durante un año para diciembre'],
+  ['take','notes for an hour by the break','notas durante una hora para el descanso'],
+  ['study','the market for a year by next quarter','el mercado durante un año para el próximo trimestre'],
+  ['discuss','the budget for weeks by the deadline','el presupuesto durante semanas para la fecha límite'],
+  ['plan','the launch for months by December','el lanzamiento durante meses para diciembre'],
+  ['update','the system for hours by midnight','el sistema durante horas para la medianoche'],
+  ['launch','campaigns for years by next decade','campañas durante años para la próxima década']
+];
+futPCItems.forEach(function (it) {
+  var v = verbData[it[0]];
+  var subject = nextSubject();
+  var idx = personIndexBySubject[subject];
+  var answer = 'will have been ' + v.gerEn;
+  var translation = spanishSubject[subject] + ' ' + habreForms[idx] + ' estado ' + v.gerEs + ' ' + it[2] + '.';
+  push(11, subject, it[0], v.es, it[1], answer, translation);
+});
+
+// exerciseBank.length === 200
+
+// ===================== PROGRESO GUARDADO EN LOCALSTORAGE =====================
+var STORAGE_KEY = 'mixed200_progress_v1';
+function loadProgress() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    var data = raw ? JSON.parse(raw) : {};
+    if (!data.answers) data.answers = {};
+    return data;
+  } catch (e) { return { answers: {} }; }
+}
+function saveProgress() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); } catch (e) {} }
+var progress = loadProgress();
+var exerciseById = {};
+exerciseBank.forEach(function (ex) { exerciseById[ex.id] = ex; });
+
+// ===================== RENDER Y LÓGICA =====================
+function shuffle(array) {
+  var arr = array.slice();
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+  return arr;
+}
+function normalize(str) {
+  return str.trim().toLowerCase().replace(/[’‘]/g, "'").replace(/\s+/g, ' ').replace(/[.,!?]+$/, '');
+}
+
+function renderBatch(items) {
+  var list = document.getElementById('exercise-list');
+  list.innerHTML = '';
+  items.forEach(function (ex) {
+    var li = document.createElement('li');
+
+    var sentenceRow = document.createElement('div');
+    sentenceRow.className = 'sentence-row';
+    sentenceRow.appendChild(document.createTextNode(ex.subject + ' '));
+
+    var input = document.createElement('input');
+    input.className = 'blank-input';
+    input.setAttribute('data-answer', ex.answer);
+    input.setAttribute('data-id', ex.id);
+    sentenceRow.appendChild(input);
+
+    var icon = document.createElement('span');
+    icon.className = 'check-icon';
+    sentenceRow.appendChild(icon);
+
+    var hint = document.createElement('span');
+    hint.className = 'verb-hint';
+    hint.textContent = ' (' + ex.verbEn + ' / ' + ex.verbEs + ') ';
+    sentenceRow.appendChild(hint);
+
+    sentenceRow.appendChild(document.createTextNode(ex.complementEn + '.'));
+
+    var tag = document.createElement('span');
+    tag.className = 'answer-tag';
+    tag.textContent = '✓ ' + ex.answer;
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'reveal-btn';
+    btn.textContent = 'Ver respuesta';
+    btn.addEventListener('click', function () {
+      var revealed = tag.classList.toggle('show');
+      btn.textContent = revealed ? 'Ocultar' : 'Ver respuesta';
+    });
+    sentenceRow.appendChild(btn);
+    sentenceRow.appendChild(tag);
+    li.appendChild(sentenceRow);
+
+    var tenseRow = document.createElement('div');
+    tenseRow.className = 'tense-row';
+    var label = document.createElement('span');
+    label.textContent = '¿Qué tiempo es?';
+    label.style.fontSize = '13px';
+    label.style.color = '#5b6270';
+    tenseRow.appendChild(label);
+
+    var select = document.createElement('select');
+    select.className = 'tense-select';
+    select.setAttribute('data-tense', ex.tenseKey);
+    select.setAttribute('data-id', ex.id);
+    var placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'Selecciona...';
+    select.appendChild(placeholder);
+    TENSE_LABELS.forEach(function (label2, idx2) {
+      var opt = document.createElement('option');
+      opt.value = idx2;
+      opt.textContent = label2;
+      select.appendChild(opt);
+    });
+    tenseRow.appendChild(select);
+
+    var tenseIcon = document.createElement('span');
+    tenseIcon.className = 'check-icon';
+    tenseRow.appendChild(tenseIcon);
+    li.appendChild(tenseRow);
+
+    var translation = document.createElement('div');
+    translation.className = 'sentence-translation';
+    translation.textContent = '🇪🇸 ' + ex.translation;
+    li.appendChild(translation);
+
+    input.addEventListener('blur', function () { validateSingle(input, select, tenseIcon); });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); validateSingle(input, select, tenseIcon); }
+    });
+    input.addEventListener('input', function () { persistAnswer(ex.id, input, select); });
+    select.addEventListener('change', function () {
+      persistAnswer(ex.id, input, select);
+      validateSingle(input, select, tenseIcon);
+    });
+
+    var savedAnswer = progress.answers[ex.id];
+    if (savedAnswer) {
+      if (savedAnswer.value) input.value = savedAnswer.value;
+      if (savedAnswer.tense !== undefined && savedAnswer.tense !== '') select.value = savedAnswer.tense;
+      if (savedAnswer.verbCorrect !== undefined) {
+        input.classList.add(savedAnswer.verbCorrect ? 'correct' : 'incorrect');
+        icon.textContent = savedAnswer.verbCorrect ? '✓' : '✗';
+        icon.classList.add(savedAnswer.verbCorrect ? 'correct' : 'incorrect');
+      }
+      if (savedAnswer.tenseCorrect !== undefined) {
+        select.classList.add(savedAnswer.tenseCorrect ? 'correct' : 'incorrect');
+        tenseIcon.textContent = savedAnswer.tenseCorrect ? '✓' : '✗';
+        tenseIcon.classList.add(savedAnswer.tenseCorrect ? 'correct' : 'incorrect');
+      }
+    }
+
+    list.appendChild(li);
+  });
+  updateScore();
+}
+
+function persistAnswer(id, input, select) {
+  var saved = progress.answers[id] || {};
+  saved.value = input.value;
+  saved.tense = select.value;
+  progress.answers[id] = saved;
+  saveProgress();
+}
+
+function validateSingle(input, select, tenseIcon) {
+  var icon = input.nextElementSibling;
+  var value = (input.value || '').trim();
+  var id = input.getAttribute('data-id');
+  var correctTense = parseInt(select.getAttribute('data-tense'), 10);
+
+  var verbOk = null;
+  if (value !== '') {
+    verbOk = normalize(value) === normalize(input.getAttribute('data-answer'));
+    input.classList.remove('correct', 'incorrect');
+    input.classList.add(verbOk ? 'correct' : 'incorrect');
+    if (icon) { icon.textContent = verbOk ? '✓' : '✗'; icon.classList.remove('correct','incorrect'); icon.classList.add(verbOk ? 'correct' : 'incorrect'); }
+  } else {
+    input.classList.remove('correct', 'incorrect');
+    if (icon) { icon.textContent = ''; icon.classList.remove('correct', 'incorrect'); }
+  }
+
+  var tenseOk = null;
+  if (select.value !== '') {
+    tenseOk = parseInt(select.value, 10) === correctTense;
+    select.classList.remove('correct', 'incorrect');
+    select.classList.add(tenseOk ? 'correct' : 'incorrect');
+    if (tenseIcon) { tenseIcon.textContent = tenseOk ? '✓' : '✗'; tenseIcon.classList.remove('correct','incorrect'); tenseIcon.classList.add(tenseOk ? 'correct' : 'incorrect'); }
+  } else {
+    select.classList.remove('correct', 'incorrect');
+    if (tenseIcon) { tenseIcon.textContent = ''; tenseIcon.classList.remove('correct', 'incorrect'); }
+  }
+
+  var saved = progress.answers[id] || {};
+  saved.value = value;
+  saved.tense = select.value;
+  if (verbOk !== null) saved.verbCorrect = verbOk;
+  if (tenseOk !== null) saved.tenseCorrect = tenseOk;
+  progress.answers[id] = saved;
+  saveProgress();
+  updateScore();
+}
+
+function updateScore() {
+  var rows = document.querySelectorAll('#exercise-list li');
+  var total = rows.length;
+  var fullCorrect = 0;
+  rows.forEach(function (li) {
+    var input = li.querySelector('input.blank-input');
+    var select = li.querySelector('select.tense-select');
+    if (input.classList.contains('correct') && select.classList.contains('correct')) fullCorrect++;
+  });
+  var scoreEl = document.getElementById('score-batch');
+  scoreEl.textContent = fullCorrect + ' / ' + total + ' completas (verbo + tiempo correctos)';
+  scoreEl.classList.toggle('all-correct', fullCorrect === total);
+}
+
+function checkBatch() {
+  var rows = document.querySelectorAll('#exercise-list li');
+  rows.forEach(function (li) {
+    var input = li.querySelector('input.blank-input');
+    var select = li.querySelector('select.tense-select');
+    var tenseIcon = select.nextElementSibling;
+    validateSingle(input, select, tenseIcon);
+  });
+  updateScore();
+}
+
+function resetBatch() {
+  var rows = document.querySelectorAll('#exercise-list li');
+  rows.forEach(function (li) {
+    var input = li.querySelector('input.blank-input');
+    var select = li.querySelector('select.tense-select');
+    var icon = input.nextElementSibling;
+    var tenseIcon = select.nextElementSibling;
+    input.value = '';
+    select.value = '';
+    input.classList.remove('correct', 'incorrect');
+    select.classList.remove('correct', 'incorrect');
+    if (icon) { icon.textContent = ''; icon.classList.remove('correct', 'incorrect'); }
+    if (tenseIcon) { tenseIcon.textContent = ''; tenseIcon.classList.remove('correct', 'incorrect'); }
+    delete progress.answers[input.getAttribute('data-id')];
+  });
+  saveProgress();
+  document.getElementById('score-batch').textContent = '';
+}
+
+function clearAllProgress() {
+  if (!confirm('¿Borrar todas tus respuestas guardadas? Esta acción no se puede deshacer.')) return;
+  progress = { answers: {} };
+  saveProgress();
+  reshuffleBlocks();
+}
+
+// ===================== BLOQUES FIJOS 1–10 (SIN REPETIR) =====================
+var TOTAL_BLOCKS = 10;
+var BLOCK_SIZE = 20;
+var blocks = [];
+var currentBlock = 0;
+
+function buildBlocks(forceNew) {
+  var ordered;
+  if (!forceNew && progress.blockOrder && progress.blockOrder.length === exerciseBank.length) {
+    ordered = progress.blockOrder.map(function (id) { return exerciseById[id]; }).filter(Boolean);
+  }
+  if (!ordered || ordered.length !== exerciseBank.length) {
+    ordered = shuffle(exerciseBank);
+    progress.blockOrder = ordered.map(function (ex) { return ex.id; });
+    saveProgress();
+  }
+  blocks = [];
+  for (var i = 0; i < TOTAL_BLOCKS; i++) {
+    blocks.push(ordered.slice(i * BLOCK_SIZE, (i + 1) * BLOCK_SIZE));
+  }
+}
+
+function renderBlockNav() {
+  var nav = document.getElementById('block-nav');
+  nav.innerHTML = '';
+  for (var i = 0; i < TOTAL_BLOCKS; i++) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'block-btn' + (i === currentBlock ? ' active' : '');
+    btn.textContent = (i + 1);
+    btn.addEventListener('click', function (idx) { return function () { goToBlock(idx); }; }(i));
+    nav.appendChild(btn);
+  }
+}
+
+function goToBlock(index) {
+  if (index < 0) index = 0;
+  if (index > TOTAL_BLOCKS - 1) index = TOTAL_BLOCKS - 1;
+  currentBlock = index;
+  progress.currentBlock = index;
+  saveProgress();
+  renderBatch(blocks[currentBlock]);
+  renderBlockNav();
+  var startNum = currentBlock * BLOCK_SIZE + 1;
+  var endNum = startNum + BLOCK_SIZE - 1;
+  document.getElementById('batch-label').textContent = 'Bloque ' + (currentBlock + 1) + ' de ' + TOTAL_BLOCKS + ' (ejercicios ' + startNum + '–' + endNum + ')';
+  document.getElementById('prev-btn').disabled = (currentBlock === 0);
+  document.getElementById('next-btn').disabled = (currentBlock === TOTAL_BLOCKS - 1);
+}
+
+function reshuffleBlocks() {
+  buildBlocks(true);
+  goToBlock(0);
+}
+
+buildBlocks();
+var startBlock = (typeof progress.currentBlock === 'number') ? progress.currentBlock : 0;
+goToBlock(startBlock);
+</script>
+
+</body>
+</html>

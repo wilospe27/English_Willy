@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100 ejercicios de Future Continuous (5 bloques de 20)</title>
+<style>
+  :root {
+    --ink: #1f2430; --muted: #5b6270; --accent: #2563eb; --accent-light: #eaf1ff;
+    --green: #15803d; --green-light: #eafaf0; --red: #b91c1c; --red-light: #fdecec;
+    --amber: #b45309; --amber-light: #fff7ed; --amber-border: #f59e0b;
+    --border: #e2e5ea; --bg: #fafbfc;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--ink); background: var(--bg); margin: 0; padding: 40px 20px; line-height: 1.6; }
+  .container { max-width: 880px; margin: 0 auto; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 48px; }
+  h1 { font-size: 26px; margin: 0 0 8px; }
+  .subtitle { color: var(--muted); font-size: 15px; margin: 0 0 28px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 15.5px; text-transform: uppercase; letter-spacing: .03em; color: var(--muted); margin: 24px 0 8px; }
+  .box { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; margin: 8px 0 4px; font-size: 14.5px; }
+  .signal-words { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .chip { background: var(--accent-light); color: var(--accent); padding: 4px 11px; border-radius: 14px; font-size: 13px; font-weight: 500; }
+  .mnemonic { background: var(--green-light); border-left: 3px solid var(--green); border-radius: 6px; padding: 12px 18px; margin: 10px 0 4px; font-size: 14.5px; }
+  .mnemonic strong { color: var(--green); }
+  .rule-box { background: var(--amber-light); border-left: 3px solid var(--amber-border); border-radius: 6px; padding: 14px 18px; margin: 12px 0 4px; font-size: 14.5px; }
+  .rule-box > strong { color: var(--amber); display: block; margin-bottom: 4px; }
+  .rule-box ul { margin: 8px 0 0; padding-left: 20px; }
+  .rule-box li { margin: 4px 0; }
+  .rule-box code { background: #fef0d9; color: var(--amber); padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+  .bank-status { display: flex; justify-content: space-between; align-items: center; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 18px; margin: 28px 0 10px; font-size: 14px; color: var(--muted); flex-wrap: wrap; gap: 8px; }
+  .bank-status strong { color: var(--ink); }
+  .block-nav { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 4px; }
+  .block-btn { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border); background: #fff; color: var(--muted); font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .block-btn:hover { background: var(--accent-light); color: var(--accent); }
+  .block-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .block-arrows { display: flex; gap: 8px; margin: 6px 0 4px; flex-wrap: wrap; }
+  button.arrow-btn { font-family: inherit; font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: 7px; border: 1px solid var(--border); background: #fff; color: var(--ink); cursor: pointer; }
+  button.arrow-btn:hover { background: var(--accent-light); color: var(--accent); }
+  button.arrow-btn:disabled { opacity: .4; cursor: not-allowed; }
+  ol.exercises { padding-left: 22px; margin: 14px 0; font-size: 14.5px; }
+  ol.exercises li { margin: 12px 0; }
+  input.blank-input { display: inline-block; width: 150px; font-size: 14.5px; font-family: inherit; padding: 3px 8px; margin: 0 2px; border: none; border-bottom: 1.5px solid var(--muted); background: var(--bg); border-radius: 3px 3px 0 0; color: var(--ink); }
+  input.blank-input:focus { outline: none; border-bottom: 1.5px solid var(--accent); background: var(--accent-light); }
+  input.blank-input.correct { background: var(--green-light); border-bottom: 1.5px solid var(--green); color: var(--green); font-weight: 600; }
+  input.blank-input.incorrect { background: var(--red-light); border-bottom: 1.5px solid var(--red); color: var(--red); }
+  .check-icon { display: inline-block; width: 18px; font-size: 15px; font-weight: 700; text-align: center; }
+  .check-icon.correct { color: var(--green); }
+  .check-icon.incorrect { color: var(--red); }
+  .verb-hint { color: var(--muted); font-style: italic; }
+  .answer-tag { display: none; margin-left: 8px; padding: 2px 9px; background: var(--green-light); color: var(--green); border-radius: 10px; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+  .answer-tag.show { display: inline-block; }
+  .reveal-btn { display: inline-block; margin-left: 10px; padding: 2px 10px; background: var(--bg); color: var(--muted); border: 1px solid var(--border); border-radius: 10px; font-size: 12.5px; font-family: inherit; cursor: pointer; white-space: nowrap; }
+  .reveal-btn:hover { background: var(--accent-light); color: var(--accent); }
+  .sentence-translation { display: none; color: var(--muted); font-size: 13px; font-style: italic; margin: 3px 0 0 2px; }
+  body.show-translations .sentence-translation { display: block; }
+  .translation-toggle { display: flex; align-items: center; gap: 7px; font-size: 14px; color: var(--ink); cursor: pointer; background: var(--accent-light); padding: 9px 14px; border-radius: 7px; }
+  .translation-toggle input { width: 16px; height: 16px; cursor: pointer; }
+  .actions { display: flex; align-items: center; gap: 10px; margin: 20px 0 6px; flex-wrap: wrap; }
+  button.check-btn, button.reset-btn { font-family: inherit; font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: 7px; border: none; cursor: pointer; }
+  button.check-btn { background: var(--accent); color: #fff; }
+  button.check-btn:hover { background: #1d4ed8; }
+  button.reset-btn { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+  button.reset-btn:hover { background: #f0f1f3; }
+  .score { font-size: 14px; font-weight: 600; color: var(--muted); }
+  .score.all-correct { color: var(--green); }
+  .golden-rule { margin-top: 40px; padding: 20px 24px; background: var(--ink); color: #fff; border-radius: 10px; font-size: 15.5px; }
+  @media (max-width: 600px) { .container { padding: 24px; } input.blank-input { width: 120px; } }
+</style>
+</head>
+<body>
+
+<div style="position:sticky;top:0;z-index:999;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#1f2430;color:#fff;padding:10px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13.5px;box-shadow:0 2px 6px rgba(0,0,0,.12);">
+  <a href="index.html" style="color:#fff;text-decoration:none;font-weight:700;padding:6px 12px;border-radius:6px;background:rgba(255,255,255,.12);white-space:nowrap;">&#8592; Inicio</a>
+  <select onchange="if(this.value) window.location.href=this.value;" style="font-family:inherit;font-size:13px;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.25);background:#2a3040;color:#fff;max-width:260px;">
+    <option value="">Ir a otra herramienta&hellip;</option>
+    <optgroup label="Guias">
+      <option value="metodo-estudio-ingles-negocios.html">Metodo de estudio</option>
+      <option value="ejercicios-tiempos-verbales-ingles.html">Como reconocer cada tiempo (140)</option>
+    </optgroup>
+    <optgroup label="Presente">
+      <option value="300-ejercicios-present-simple.html">Present Simple (300)</option>
+      <option value="100-ejercicios-present-continuous.html">Present Continuous (100)</option>
+      <option value="100-ejercicios-present-perfect.html">Present Perfect (100)</option>
+      <option value="100-ejercicios-present-perfect-continuous.html">Present Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Pasado">
+      <option value="100-ejercicios-past-simple.html">Past Simple (100)</option>
+      <option value="100-ejercicios-past-continuous.html">Past Continuous (100)</option>
+      <option value="100-ejercicios-past-perfect.html">Past Perfect (100)</option>
+      <option value="100-ejercicios-past-perfect-continuous.html">Past Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Futuro">
+      <option value="100-ejercicios-future-simple.html">Future Simple (100)</option>
+      <option value="100-ejercicios-future-continuous.html" selected disabled>Future Continuous (100)</option>
+      <option value="100-ejercicios-future-perfect.html">Future Perfect (100)</option>
+      <option value="100-ejercicios-future-perfect-continuous.html">Future Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Mixto">
+      <option value="200-ejercicios-mixtos-identificar-tiempos.html">200 mixtos - identifica el tiempo</option>
+    </optgroup>
+  </select>
+</div>
+
+<div class="container">
+
+  <h1>100 ejercicios de Future Continuous</h1>
+  <p class="subtitle">Banco de 100 oraciones afirmativas con will be + verbo-ing, repartidas en 5 bloques de 20 sin repetirse.</p>
+
+  <h3>Cómo reconocerlo</h3>
+  <div class="box">
+    <strong>Estructura:</strong> Sujeto + will be + verbo-ING · igual para TODOS los sujetos · describe una acción que estará en curso en un momento específico del futuro.
+  </div>
+  <div class="signal-words">
+    <span class="chip">at this time tomorrow</span><span class="chip">this time next week</span>
+    <span class="chip">at (hora) tomorrow</span>
+  </div>
+  <div class="mnemonic">
+    <strong>Nemotecnia:</strong> "WILL BE + ING = imagina el futuro como una foto: en ese momento exacto, la acción estará 'en pantalla'".
+  </div>
+
+  <div class="rule-box">
+    <strong>Regla de oro</strong>
+    👉 <code>will be</code> NUNCA cambia por sujeto:
+    <ul>
+      <li><strong>Sujeto + will be + verbo-ing:</strong> "We will be discussing the budget at 2 PM tomorrow."</li>
+      <li>Se usa para una acción que estará pasando en un punto futuro exacto, no para el futuro en general.</li>
+    </ul>
+  </div>
+
+  <div class="bank-status">
+    <span>Banco total: <strong>100 ejercicios</strong> (will be + verbo-ing) repartidos en <strong>5 bloques de 20</strong>, sin repetirse</span>
+    <span>Mostrando: <strong id="batch-label">Bloque 1 de 5 (ejercicios 1–20)</strong></span>
+  </div>
+
+  <div class="block-nav" id="block-nav"></div>
+  <div class="block-arrows">
+    <button class="arrow-btn" id="prev-btn" onclick="goToBlock(currentBlock - 1)">← Bloque anterior</button>
+    <button class="arrow-btn" id="next-btn" onclick="goToBlock(currentBlock + 1)">Bloque siguiente →</button>
+    <button class="reset-btn" onclick="reshuffleBlocks()">🔀 Mezclar de nuevo (nuevos 5 bloques)</button>
+  </div>
+
+  <ol class="exercises" id="exercise-list"></ol>
+
+  <div class="actions">
+    <button class="check-btn" onclick="checkBatch()">Comprobar respuestas</button>
+    <button class="reset-btn" onclick="resetBatch()">Reiniciar este bloque</button>
+    <button class="reset-btn" onclick="clearAllProgress()">🗑️ Borrar todo mi progreso</button>
+    <span class="score" id="score-batch"></span>
+  </div>
+
+  <div class="actions">
+    <label class="translation-toggle">
+      <input type="checkbox" id="toggle-translation" onchange="document.body.classList.toggle('show-translations', this.checked)">
+      Mostrar traducción de la oración completa
+    </label>
+  </div>
+  <p class="subtitle" style="margin:6px 0 0; padding:0; border:none; font-size:12.5px;">Tus respuestas se guardan automáticamente en este navegador (localStorage).</p>
+
+  <div class="golden-rule">
+    <strong>Cómo usar esta herramienta sin olvidar:</strong> resuelve el Bloque 1, corrige, revisa los que fallaste con "Ver respuesta", y avanza hasta el Bloque 5. Pulsa "Mezclar de nuevo" para reordenar el banco.
+  </div>
+
+</div>
+
+<script>
+var verbData = [
+  { en:'work', es:'trabajar', gerEn:'working', gerEs:'trabajando' },
+  { en:'call', es:'llamar', gerEn:'calling', gerEs:'llamando' },
+  { en:'review', es:'revisar', gerEn:'reviewing', gerEs:'revisando' },
+  { en:'prepare', es:'preparar', gerEn:'preparing', gerEs:'preparando' },
+  { en:'send', es:'enviar', gerEn:'sending', gerEs:'enviando' },
+  { en:'negotiate', es:'negociar', gerEn:'negotiating', gerEs:'negociando' },
+  { en:'approve', es:'aprobar', gerEn:'approving', gerEs:'aprobando' },
+  { en:'attend', es:'asistir', gerEn:'attending', gerEs:'asistiendo' },
+  { en:'write', es:'escribir', gerEn:'writing', gerEs:'escribiendo' },
+  { en:'give', es:'dar', gerEn:'giving', gerEs:'dando' },
+  { en:'take', es:'tomar', gerEn:'taking', gerEs:'tomando' },
+  { en:'study', es:'estudiar', gerEn:'studying', gerEs:'estudiando' },
+  { en:'discuss', es:'discutir', gerEn:'discussing', gerEs:'discutiendo' },
+  { en:'plan', es:'planear', gerEn:'planning', gerEs:'planeando' },
+  { en:'update', es:'actualizar', gerEn:'updating', gerEs:'actualizando' },
+  { en:'launch', es:'lanzar', gerEn:'launching', gerEs:'lanzando' },
+  { en:'finish', es:'terminar', gerEn:'finishing', gerEs:'terminando' },
+  { en:'pay', es:'pagar', gerEn:'paying', gerEs:'pagando' },
+  { en:'close', es:'cerrar', gerEn:'closing', gerEs:'cerrando' },
+  { en:'improve', es:'mejorar', gerEn:'improving', gerEs:'mejorando' }
+];
+
+var items = [
+  [0, 'on the report at this time tomorrow', 'en el informe a esta hora mañana'],
+  [1, 'the client at 3 PM tomorrow', 'al cliente a las 3 PM mañana'],
+  [2, 'the contract this time next week', 'el contrato a esta hora la próxima semana'],
+  [3, 'the agenda at noon tomorrow', 'la agenda al mediodía mañana'],
+  [4, 'invoices all day tomorrow', 'facturas todo el día mañana'],
+  [5, 'the price this time next week', 'el precio a esta hora la próxima semana'],
+  [6, 'requests at that time tomorrow', 'solicitudes a esa hora mañana'],
+  [7, 'a meeting at 10 AM tomorrow', 'una reunión a las 10 AM mañana'],
+  [8, 'the report during the morning tomorrow', 'el informe durante la mañana de mañana'],
+  [9, 'a presentation at that time next week', 'una presentación a esa hora la próxima semana'],
+  [10, 'notes during the call tomorrow', 'notas durante la llamada de mañana'],
+  [11, 'the numbers this time tomorrow', 'las cifras a esta hora mañana'],
+  [12, 'the budget at 2 PM tomorrow', 'el presupuesto a las 2 PM mañana'],
+  [13, 'the strategy this time next week', 'la estrategia a esta hora la próxima semana'],
+  [14, 'the system all day tomorrow', 'el sistema todo el día mañana'],
+  [15, 'the campaign at noon next week', 'la campaña al mediodía la próxima semana'],
+  [16, 'the project at this time next month', 'el proyecto a esta hora el próximo mes'],
+  [17, 'suppliers at that time tomorrow', 'a los proveedores a esa hora mañana'],
+  [18, 'the deal this time tomorrow', 'el trato a esta hora mañana'],
+  [19, 'the process at that time next month', 'el proceso a esa hora el próximo mes']
+];
+
+var singularSubjects = ['He', 'She', 'The manager', 'The company', 'Carmen', 'The client', 'The system', 'John', 'Maria', 'The director', 'The supplier', 'The employee'];
+var pluralSubjects = ['I', 'You', 'We', 'They', 'The employees', 'My colleagues', 'The clients', 'The managers', 'The teams', 'We all'];
+
+var spanishSubject = {
+  'He': 'Él', 'She': 'Ella', 'The manager': 'El gerente', 'The company': 'La empresa',
+  'Carmen': 'Carmen', 'The client': 'El cliente', 'The system': 'El sistema', 'John': 'John',
+  'Maria': 'María', 'The director': 'El director', 'The supplier': 'El proveedor', 'The employee': 'El empleado',
+  'I': 'Yo', 'You': 'Tú', 'We': 'Nosotros', 'They': 'Ellos', 'The employees': 'Los empleados',
+  'My colleagues': 'Mis colegas', 'The clients': 'Los clientes', 'The managers': 'Los gerentes',
+  'The teams': 'Los equipos', 'We all': 'Todos nosotros'
+};
+
+var personIndexBySubject = {
+  'He': 2, 'She': 2, 'The manager': 2, 'The company': 2, 'Carmen': 2, 'The client': 2, 'The system': 2,
+  'John': 2, 'Maria': 2, 'The director': 2, 'The supplier': 2, 'The employee': 2,
+  'I': 0, 'You': 1, 'We': 3, 'We all': 3,
+  'They': 4, 'The employees': 4, 'My colleagues': 4, 'The clients': 4, 'The managers': 4, 'The teams': 4
+};
+
+// ===================== FÓRMULAS: FUTURE CONTINUOUS =====================
+var estareForms = ['estaré', 'estarás', 'estará', 'estaremos', 'estarán'];
+
+function buildAnswer(idx, verb) {
+  return 'will be ' + verb.gerEn;
+}
+function translateSentence(ex) {
+  var idx = personIndexBySubject[ex.subject];
+  var subjSpanish = spanishSubject[ex.subject] || ex.subject;
+  return subjSpanish + ' ' + estareForms[idx] + ' ' + ex.verb.gerEs + ' ' + ex.complementEs + '.';
+}
+
+var exerciseBank = [];
+var counter = 0;
+function addExercises(item) {
+  var verb = verbData[item[0]];
+  var complement = item[1], complementEs = item[2];
+  for (var i = 0; i < 2; i++) {
+    var subj = singularSubjects[(counter + i) % singularSubjects.length];
+    var idx = personIndexBySubject[subj];
+    exerciseBank.push({ subject: subj, verb: verb, complement: complement, complementEs: complementEs, answer: buildAnswer(idx, verb) });
+  }
+  for (var j = 0; j < 3; j++) {
+    var subj2 = pluralSubjects[(counter + j) % pluralSubjects.length];
+    var idx2 = personIndexBySubject[subj2];
+    exerciseBank.push({ subject: subj2, verb: verb, complement: complement, complementEs: complementEs, answer: buildAnswer(idx2, verb) });
+  }
+  counter++;
+}
+items.forEach(function (item) { addExercises(item); });
+
+exerciseBank.forEach(function (ex, i) { ex.id = i; });
+var exerciseById = {};
+exerciseBank.forEach(function (ex) { exerciseById[ex.id] = ex; });
+
+var STORAGE_KEY = 'futureContinuous100_progress_v1';
+function loadProgress() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    var data = raw ? JSON.parse(raw) : {};
+    if (!data.answers) data.answers = {};
+    return data;
+  } catch (e) { return { answers: {} }; }
+}
+function saveProgress() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); } catch (e) {} }
+var progress = loadProgress();
+
+function shuffle(array) {
+  var arr = array.slice();
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+  return arr;
+}
+function normalize(str) {
+  return str.trim().toLowerCase().replace(/[’‘]/g, "'").replace(/\s+/g, ' ').replace(/[.,!?]+$/, '');
+}
+
+function renderBatch(list_items) {
+  var list = document.getElementById('exercise-list');
+  list.innerHTML = '';
+  list_items.forEach(function (ex) {
+    var li = document.createElement('li');
+    li.appendChild(document.createTextNode(ex.subject + ' '));
+
+    var input = document.createElement('input');
+    input.className = 'blank-input';
+    input.setAttribute('data-answer', ex.answer);
+    input.setAttribute('data-id', ex.id);
+    li.appendChild(input);
+
+    var icon = document.createElement('span');
+    icon.className = 'check-icon';
+    li.appendChild(icon);
+
+    var hint = document.createElement('span');
+    hint.className = 'verb-hint';
+    hint.textContent = ' (' + ex.verb.en + ' / ' + ex.verb.es + ') ';
+    li.appendChild(hint);
+
+    li.appendChild(document.createTextNode(ex.complement + '.'));
+
+    var tag = document.createElement('span');
+    tag.className = 'answer-tag';
+    tag.textContent = '✓ ' + ex.answer;
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'reveal-btn';
+    btn.textContent = 'Ver respuesta';
+    btn.addEventListener('click', function () {
+      var revealed = tag.classList.toggle('show');
+      btn.textContent = revealed ? 'Ocultar' : 'Ver respuesta';
+    });
+    li.appendChild(btn);
+    li.appendChild(tag);
+
+    var translation = document.createElement('div');
+    translation.className = 'sentence-translation';
+    translation.textContent = '🇪🇸 ' + translateSentence(ex);
+    li.appendChild(translation);
+
+    input.addEventListener('blur', function () { validateSingle(input); });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); validateSingle(input); }
+    });
+    input.addEventListener('input', function () {
+      var saved = progress.answers[input.getAttribute('data-id')] || {};
+      saved.value = input.value;
+      progress.answers[input.getAttribute('data-id')] = saved;
+      saveProgress();
+    });
+
+    var savedAnswer = progress.answers[ex.id];
+    if (savedAnswer && savedAnswer.value) {
+      input.value = savedAnswer.value;
+      if (savedAnswer.correct !== undefined) {
+        input.classList.add(savedAnswer.correct ? 'correct' : 'incorrect');
+        icon.textContent = savedAnswer.correct ? '✓' : '✗';
+        icon.classList.add(savedAnswer.correct ? 'correct' : 'incorrect');
+      }
+    }
+
+    list.appendChild(li);
+  });
+  updateScore();
+}
+
+function validateSingle(input) {
+  var icon = input.nextElementSibling;
+  var value = (input.value || '').trim();
+  if (value === '') {
+    input.classList.remove('correct', 'incorrect');
+    if (icon && icon.classList.contains('check-icon')) { icon.textContent = ''; icon.classList.remove('correct', 'incorrect'); }
+    return;
+  }
+  var ok = normalize(value) === normalize(input.getAttribute('data-answer'));
+  input.classList.remove('correct', 'incorrect');
+  input.classList.add(ok ? 'correct' : 'incorrect');
+  if (icon && icon.classList.contains('check-icon')) {
+    icon.textContent = ok ? '✓' : '✗';
+    icon.classList.remove('correct', 'incorrect');
+    icon.classList.add(ok ? 'correct' : 'incorrect');
+  }
+  var id = input.getAttribute('data-id');
+  progress.answers[id] = { value: value, correct: ok };
+  saveProgress();
+  updateScore();
+}
+
+function updateScore() {
+  var inputs = document.querySelectorAll('#exercise-list input.blank-input');
+  var total = inputs.length;
+  var correctCount = 0;
+  inputs.forEach(function (input) { if (input.classList.contains('correct')) correctCount++; });
+  var scoreEl = document.getElementById('score-batch');
+  scoreEl.textContent = correctCount + ' / ' + total + ' correctas';
+  scoreEl.classList.toggle('all-correct', correctCount === total);
+}
+
+function checkBatch() {
+  var inputs = document.querySelectorAll('#exercise-list input.blank-input');
+  inputs.forEach(function (input) { validateSingle(input); });
+  updateScore();
+}
+
+function resetBatch() {
+  var inputs = document.querySelectorAll('#exercise-list input.blank-input');
+  inputs.forEach(function (input) {
+    input.value = '';
+    input.classList.remove('correct', 'incorrect');
+    var icon = input.nextElementSibling;
+    if (icon && icon.classList.contains('check-icon')) { icon.textContent = ''; icon.classList.remove('correct', 'incorrect'); }
+    delete progress.answers[input.getAttribute('data-id')];
+  });
+  saveProgress();
+  document.getElementById('score-batch').textContent = '';
+}
+
+function clearAllProgress() {
+  if (!confirm('¿Borrar todas tus respuestas guardadas? Esta acción no se puede deshacer.')) return;
+  progress = { answers: {} };
+  saveProgress();
+  reshuffleBlocks();
+}
+
+var TOTAL_BLOCKS = 5;
+var BLOCK_SIZE = 20;
+var blocks = [];
+var currentBlock = 0;
+
+function buildBlocks(forceNew) {
+  var ordered;
+  if (!forceNew && progress.blockOrder && progress.blockOrder.length === exerciseBank.length) {
+    ordered = progress.blockOrder.map(function (id) { return exerciseById[id]; }).filter(Boolean);
+  }
+  if (!ordered || ordered.length !== exerciseBank.length) {
+    ordered = shuffle(exerciseBank);
+    progress.blockOrder = ordered.map(function (ex) { return ex.id; });
+    saveProgress();
+  }
+  blocks = [];
+  for (var i = 0; i < TOTAL_BLOCKS; i++) {
+    blocks.push(ordered.slice(i * BLOCK_SIZE, (i + 1) * BLOCK_SIZE));
+  }
+}
+
+function renderBlockNav() {
+  var nav = document.getElementById('block-nav');
+  nav.innerHTML = '';
+  for (var i = 0; i < TOTAL_BLOCKS; i++) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'block-btn' + (i === currentBlock ? ' active' : '');
+    btn.textContent = (i + 1);
+    btn.addEventListener('click', function (idx) { return function () { goToBlock(idx); }; }(i));
+    nav.appendChild(btn);
+  }
+}
+
+function goToBlock(index) {
+  if (index < 0) index = 0;
+  if (index > TOTAL_BLOCKS - 1) index = TOTAL_BLOCKS - 1;
+  currentBlock = index;
+  progress.currentBlock = index;
+  saveProgress();
+  renderBatch(blocks[currentBlock]);
+  renderBlockNav();
+  var startNum = currentBlock * BLOCK_SIZE + 1;
+  var endNum = startNum + BLOCK_SIZE - 1;
+  document.getElementById('batch-label').textContent = 'Bloque ' + (currentBlock + 1) + ' de ' + TOTAL_BLOCKS + ' (ejercicios ' + startNum + '–' + endNum + ')';
+  document.getElementById('prev-btn').disabled = (currentBlock === 0);
+  document.getElementById('next-btn').disabled = (currentBlock === TOTAL_BLOCKS - 1);
+}
+
+function reshuffleBlocks() {
+  buildBlocks(true);
+  goToBlock(0);
+}
+
+buildBlocks();
+var startBlock = (typeof progress.currentBlock === 'number') ? progress.currentBlock : 0;
+goToBlock(startBlock);
+</script>
+
+</body>
+</html>
