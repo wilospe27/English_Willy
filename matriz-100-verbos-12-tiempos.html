@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matriz de 100 verbos en los 12 tiempos verbales</title>
+<style>
+  :root {
+    --ink: #1f2430; --muted: #5b6270; --accent: #2563eb; --accent-light: #eaf1ff;
+    --amber: #b45309; --amber-light: #fff7ed; --purple: #7c3aed; --purple-light: #f3ecfe;
+    --border: #e2e5ea; --bg: #fafbfc; --irregular: #db2777;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--ink); background: var(--bg); margin: 0; padding: 40px 20px; line-height: 1.6; }
+  .container { max-width: 1300px; margin: 0 auto; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 40px; }
+  h1 { font-size: 26px; margin: 0 0 8px; }
+  .subtitle { color: var(--muted); font-size: 15px; margin: 0 0 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .controls { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; flex-wrap: wrap; }
+  input#search { font-family: inherit; font-size: 14px; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--border); width: 260px; }
+  input#search:focus { outline: none; border-color: var(--accent); }
+  .legend { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+  .legend .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--irregular); }
+  #count { font-size: 13px; color: var(--muted); }
+
+  .table-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 12.8px; white-space: nowrap; }
+  thead th { position: sticky; top: 0; background: var(--ink); color: #fff; padding: 8px 10px; text-align: left; z-index: 3; font-weight: 600; }
+  thead tr.group-row th { background: #14181f; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; text-align: center; }
+  thead tr.group-row th.present { background: #1d3a6e; }
+  thead tr.group-row th.past { background: #7a4a10; }
+  thead tr.group-row th.future { background: #4c2382; }
+  th.sticky-col, td.sticky-col { position: sticky; left: 0; width: 150px; min-width: 150px; max-width: 150px; background: #fff; z-index: 2; border-right: 1px solid var(--border); overflow: hidden; text-overflow: ellipsis; box-shadow: 2px 0 4px rgba(0,0,0,.04); }
+  th.sticky-col2, td.sticky-col2 { position: sticky; left: 150px; width: 160px; min-width: 160px; max-width: 160px; background: #fff; z-index: 2; border-right: 1px solid var(--border); overflow: hidden; text-overflow: ellipsis; box-shadow: 2px 0 4px rgba(0,0,0,.04); }
+  thead th.sticky-col, thead th.sticky-col2 { background: var(--ink); z-index: 4; }
+  tbody tr:nth-child(even) td:not(.sticky-col):not(.sticky-col2) { background: var(--bg); }
+  tbody tr:nth-child(even) td.sticky-col, tbody tr:nth-child(even) td.sticky-col2 { background: #f2f4f7; }
+  td { padding: 7px 10px; border-bottom: 1px solid var(--border); color: var(--ink); }
+  td.en-cell { font-weight: 600; }
+  td.es-cell { color: var(--muted); font-style: italic; }
+  .irr-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--irregular); margin-left: 5px; vertical-align: middle; }
+  tr.hidden-row { display: none; }
+  .golden-rule { margin-top: 28px; padding: 18px 22px; background: var(--ink); color: #fff; border-radius: 10px; font-size: 14.5px; }
+  @media (max-width: 700px) { .container { padding: 22px; } }
+</style>
+</head>
+<body>
+
+<div style="position:sticky;top:0;z-index:999;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#1f2430;color:#fff;padding:10px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13.5px;box-shadow:0 2px 6px rgba(0,0,0,.12);">
+  <a href="index.html" style="color:#fff;text-decoration:none;font-weight:700;padding:6px 12px;border-radius:6px;background:rgba(255,255,255,.12);white-space:nowrap;">&#8592; Inicio</a>
+  <select onchange="if(this.value) window.location.href=this.value;" style="font-family:inherit;font-size:13px;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.25);background:#2a3040;color:#fff;max-width:260px;">
+    <option value="">Ir a otra herramienta&hellip;</option>
+    <optgroup label="Guias">
+      <option value="metodo-estudio-ingles-negocios.html">Metodo de estudio</option>
+      <option value="ejercicios-tiempos-verbales-ingles.html">Como reconocer cada tiempo (140)</option>
+    </optgroup>
+    <optgroup label="Presente">
+      <option value="300-ejercicios-present-simple.html">Present Simple (300)</option>
+      <option value="100-ejercicios-present-continuous.html">Present Continuous (100)</option>
+      <option value="100-ejercicios-present-perfect.html">Present Perfect (100)</option>
+      <option value="100-ejercicios-present-perfect-continuous.html">Present Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Pasado">
+      <option value="100-ejercicios-past-simple.html">Past Simple (100)</option>
+      <option value="100-ejercicios-past-continuous.html">Past Continuous (100)</option>
+      <option value="100-ejercicios-past-perfect.html">Past Perfect (100)</option>
+      <option value="100-ejercicios-past-perfect-continuous.html">Past Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Futuro">
+      <option value="100-ejercicios-future-simple.html">Future Simple (100)</option>
+      <option value="100-ejercicios-future-continuous.html">Future Continuous (100)</option>
+      <option value="100-ejercicios-future-perfect.html">Future Perfect (100)</option>
+      <option value="100-ejercicios-future-perfect-continuous.html">Future Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Mixto">
+      <option value="200-ejercicios-mixtos-identificar-tiempos.html">200 mixtos - identifica el tiempo</option>
+    </optgroup>
+    <optgroup label="Referencia">
+      <option value="matriz-100-verbos-12-tiempos.html" selected disabled>Matriz: 100 verbos x 12 tiempos</option>
+    </optgroup>
+  </select>
+</div>
+
+<div class="container">
+
+  <h1>Matriz de 100 verbos en los 12 tiempos verbales</h1>
+  <p class="subtitle">Cada fila muestra un verbo conjugado con "He / She / It" en los 12 tiempos, para que veas de un vistazo cómo cambia según el tiempo. Útil como tabla de referencia rápida mientras haces los ejercicios.</p>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="Buscar verbo en inglés o español...">
+    <span class="legend"><span class="dot"></span> Verbo irregular (pasado / participio no siguen la regla +ed)</span>
+    <span id="count"></span>
+  </div>
+
+  <div class="table-scroll">
+    <table id="verb-table">
+      <thead>
+        <tr class="group-row">
+          <th class="sticky-col"></th>
+          <th class="sticky-col2"></th>
+          <th class="present" colspan="4">Presente</th>
+          <th class="past" colspan="4">Pasado</th>
+          <th class="future" colspan="4">Futuro</th>
+        </tr>
+        <tr>
+          <th class="sticky-col">Verbo</th>
+          <th class="sticky-col2">Español</th>
+          <th>Simple</th>
+          <th>Continuo</th>
+          <th>Perfecto</th>
+          <th>Perf. Continuo</th>
+          <th>Simple</th>
+          <th>Continuo</th>
+          <th>Perfecto</th>
+          <th>Perf. Continuo</th>
+          <th>Simple</th>
+          <th>Continuo</th>
+          <th>Perfecto</th>
+          <th>Perf. Continuo</th>
+        </tr>
+      </thead>
+      <tbody id="verb-tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="golden-rule">
+    <strong>Cómo leer la tabla:</strong> todas las filas usan "He/She/It" como sujeto de referencia. Recuerda que solo el Present Simple (he/she/it &rarr; +s/+es/+ies) y el Present Perfect / Past Continuous cambian de forma según la persona (has/have, was/were) — el resto de auxiliares (been, had, will) son iguales para todas las personas.
+  </div>
+
+</div>
+
+<script>
+// [en, es, pres3 (he/she/it), gerund, past simple, past participle, irregular]
+var verbs = [
+  ['work','trabajar','works','working','worked','worked',false],
+  ['call','llamar','calls','calling','called','called',false],
+  ['review','revisar','reviews','reviewing','reviewed','reviewed',false],
+  ['prepare','preparar','prepares','preparing','prepared','prepared',false],
+  ['send','enviar','sends','sending','sent','sent',true],
+  ['negotiate','negociar','negotiates','negotiating','negotiated','negotiated',false],
+  ['approve','aprobar','approves','approving','approved','approved',false],
+  ['attend','asistir','attends','attending','attended','attended',false],
+  ['write','escribir','writes','writing','wrote','written',true],
+  ['give','dar','gives','giving','gave','given',true],
+  ['take','tomar','takes','taking','took','taken',true],
+  ['study','estudiar','studies','studying','studied','studied',false],
+  ['discuss','discutir','discusses','discussing','discussed','discussed',false],
+  ['plan','planear','plans','planning','planned','planned',false],
+  ['update','actualizar','updates','updating','updated','updated',false],
+  ['launch','lanzar','launches','launching','launched','launched',false],
+  ['finish','terminar','finishes','finishing','finished','finished',false],
+  ['go','ir','goes','going','went','gone',true],
+  ['do','hacer','does','doing','did','done',true],
+  ['watch','vigilar','watches','watching','watched','watched',false],
+  ['teach','enseñar','teaches','teaching','taught','taught',true],
+  ['try','intentar','tries','trying','tried','tried',false],
+  ['apply','aplicar','applies','applying','applied','applied',false],
+  ['reply','responder','replies','replying','replied','replied',false],
+  ['verify','verificar','verifies','verifying','verified','verified',false],
+  ['have','tener','has','having','had','had',true],
+  ['complete','completar','completes','completing','completed','completed',false],
+  ['sign','firmar','signs','signing','signed','signed',false],
+  ['receive','recibir','receives','receiving','received','received',false],
+  ['close','cerrar','closes','closing','closed','closed',false],
+  ['submit','presentar','submits','submitting','submitted','submitted',false],
+  ['miss','perder / faltar a','misses','missing','missed','missed',false],
+  ['lose','perder','loses','losing','lost','lost',true],
+  ['break','romper','breaks','breaking','broke','broken',true],
+  ['carry','cargar','carries','carrying','carried','carried',false],
+  ['stop','parar','stops','stopping','stopped','stopped',false],
+  ['use','usar','uses','using','used','used',false],
+  ['see','ver','sees','seeing','saw','seen',true],
+  ['know','saber','knows','knowing','knew','known',true],
+  ['pay','pagar','pays','paying','paid','paid',true],
+  ['be','ser / estar','is','being','was','been',true],
+  ['get','obtener','gets','getting','got','gotten',true],
+  ['make','hacer / fabricar','makes','making','made','made',true],
+  ['come','venir','comes','coming','came','come',true],
+  ['think','pensar','thinks','thinking','thought','thought',true],
+  ['look','mirar','looks','looking','looked','looked',false],
+  ['want','querer','wants','wanting','wanted','wanted',false],
+  ['find','encontrar','finds','finding','found','found',true],
+  ['tell','decir / contar','tells','telling','told','told',true],
+  ['ask','preguntar','asks','asking','asked','asked',false],
+  ['seem','parecer','seems','seeming','seemed','seemed',false],
+  ['feel','sentir','feels','feeling','felt','felt',true],
+  ['leave','dejar / salir','leaves','leaving','left','left',true],
+  ['put','poner','puts','putting','put','put',true],
+  ['mean','significar','means','meaning','meant','meant',true],
+  ['keep','mantener','keeps','keeping','kept','kept',true],
+  ['let','dejar / permitir','lets','letting','let','let',true],
+  ['begin','comenzar','begins','beginning','began','begun',true],
+  ['help','ayudar','helps','helping','helped','helped',false],
+  ['show','mostrar','shows','showing','showed','shown',true],
+  ['hear','escuchar','hears','hearing','heard','heard',true],
+  ['run','dirigir','runs','running','ran','run',true],
+  ['move','mover','moves','moving','moved','moved',false],
+  ['bring','traer','brings','bringing','brought','brought',true],
+  ['hold','sostener','holds','holding','held','held',true],
+  ['meet','reunirse','meets','meeting','met','met',true],
+  ['include','incluir','includes','including','included','included',false],
+  ['continue','continuar','continues','continuing','continued','continued',false],
+  ['learn','aprender','learns','learning','learned','learned',false],
+  ['change','cambiar','changes','changing','changed','changed',false],
+  ['lead','liderar','leads','leading','led','led',true],
+  ['understand','entender','understands','understanding','understood','understood',true],
+  ['follow','seguir','follows','following','followed','followed',false],
+  ['create','crear','creates','creating','created','created',false],
+  ['speak','hablar','speaks','speaking','spoke','spoken',true],
+  ['read','leer','reads','reading','read','read',true],
+  ['allow','permitir','allows','allowing','allowed','allowed',false],
+  ['add','agregar','adds','adding','added','added',false],
+  ['spend','gastar','spends','spending','spent','spent',true],
+  ['grow','crecer','grows','growing','grew','grown',true],
+  ['open','abrir','opens','opening','opened','opened',false],
+  ['walk','caminar','walks','walking','walked','walked',false],
+  ['win','ganar','wins','winning','won','won',true],
+  ['offer','ofrecer','offers','offering','offered','offered',false],
+  ['remember','recordar','remembers','remembering','remembered','remembered',false],
+  ['consider','considerar','considers','considering','considered','considered',false],
+  ['appear','aparecer','appears','appearing','appeared','appeared',false],
+  ['buy','comprar','buys','buying','bought','bought',true],
+  ['wait','esperar','waits','waiting','waited','waited',false],
+  ['serve','servir','serves','serving','served','served',false],
+  ['expect','esperar / anticipar','expects','expecting','expected','expected',false],
+  ['build','construir','builds','building','built','built',true],
+  ['stay','quedarse','stays','staying','stayed','stayed',false],
+  ['fall','caer','falls','falling','fell','fallen',true],
+  ['cut','cortar / recortar','cuts','cutting','cut','cut',true],
+  ['reach','alcanzar','reaches','reaching','reached','reached',false],
+  ['raise','aumentar','raises','raising','raised','raised',false],
+  ['decide','decidir','decides','deciding','decided','decided',false],
+  ['explain','explicar','explains','explaining','explained','explained',false],
+  ['improve','mejorar','improves','improving','improved','improved',false]
+];
+
+var tbody = document.getElementById('verb-tbody');
+var rows = [];
+
+verbs.forEach(function (v) {
+  var en = v[0], es = v[1], pres3 = v[2], ger = v[3], past = v[4], part = v[5], irregular = v[6];
+  var NA = '<span style="color:#c7cbd3;">&mdash; (no se usa)</span>';
+  var isBeVerb = (en === 'be'); // "be" como verbo principal casi nunca se usa en forma continua
+  var presCont = isBeVerb ? NA : 'is ' + ger;
+  var presPerf = 'has ' + part;
+  var presPerfCont = isBeVerb ? NA : 'has been ' + ger;
+  var pastCont = isBeVerb ? NA : 'was ' + ger;
+  var pastPerf = 'had ' + part;
+  var pastPerfCont = isBeVerb ? NA : 'had been ' + ger;
+  var futSimple = 'will ' + en;
+  var futCont = isBeVerb ? NA : 'will be ' + ger;
+  var futPerf = 'will have ' + part;
+  var futPerfCont = isBeVerb ? NA : 'will have been ' + ger;
+
+  var tr = document.createElement('tr');
+  tr.setAttribute('data-search', (en + ' ' + es).toLowerCase());
+  var cells = [
+    ['en-cell sticky-col', en + (irregular ? '<span class="irr-dot" title="Verbo irregular"></span>' : '')],
+    ['es-cell sticky-col2', es],
+    ['', pres3], ['', presCont], ['', presPerf], ['', presPerfCont],
+    ['', past], ['', pastCont], ['', pastPerf], ['', pastPerfCont],
+    ['', futSimple], ['', futCont], ['', futPerf], ['', futPerfCont]
+  ];
+  cells.forEach(function (c) {
+    var td = document.createElement('td');
+    if (c[0]) td.className = c[0];
+    td.innerHTML = c[1];
+    tr.appendChild(td);
+  });
+  tbody.appendChild(tr);
+  rows.push(tr);
+});
+
+function updateCount() {
+  var visible = rows.filter(function (r) { return !r.classList.contains('hidden-row'); }).length;
+  document.getElementById('count').textContent = visible + ' de ' + rows.length + ' verbos';
+}
+
+document.getElementById('search').addEventListener('input', function () {
+  var q = this.value.trim().toLowerCase();
+  rows.forEach(function (r) {
+    var match = !q || r.getAttribute('data-search').indexOf(q) !== -1;
+    r.classList.toggle('hidden-row', !match);
+  });
+  updateCount();
+});
+
+updateCount();
+</script>
+
+</body>
+</html>
