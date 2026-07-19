@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10 historias de lectura — practica los 12 tiempos verbales</title>
+<style>
+  :root {
+    --ink: #1f2430; --muted: #5b6270; --accent: #2563eb; --accent-light: #eaf1ff;
+    --amber: #b45309; --amber-light: #fff7ed; --purple: #7c3aed; --purple-light: #f3ecfe;
+    --border: #e2e5ea; --bg: #fafbfc;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--ink); background: var(--bg); margin: 0; padding: 40px 20px; line-height: 1.6; }
+  .container { max-width: 920px; margin: 0 auto; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 44px; }
+  h1 { font-size: 26px; margin: 0 0 8px; }
+  .subtitle { color: var(--muted); font-size: 15px; margin: 0 0 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .rule-box { background: var(--amber-light); border-left: 3px solid #f59e0b; border-radius: 6px; padding: 14px 18px; margin: 0 0 18px; font-size: 14.5px; }
+  .rule-box strong { color: var(--amber); }
+
+  .controls { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; flex-wrap: wrap; }
+  label.toggle { display: flex; align-items: center; gap: 7px; font-size: 13.5px; color: var(--ink); cursor: pointer; background: var(--accent-light); padding: 8px 13px; border-radius: 7px; }
+  label.toggle input { width: 15px; height: 15px; cursor: pointer; }
+
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); margin-bottom: 18px; }
+  .legend span.sw { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
+
+  .verb-glossary { display: none; margin-bottom: 18px; padding: 16px 18px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; }
+  .verb-glossary.show { display: block; }
+  .verb-glossary h3 { margin: 0 0 10px; font-size: 14px; }
+  .verb-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .verb-chip { background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 5px 12px; font-size: 13px; }
+  .verb-chip b { color: var(--ink); }
+  .verb-chip span { color: var(--muted); font-style: italic; margin-left: 4px; }
+
+  .story { border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; background: var(--bg); }
+  .story-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .story-num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .story-topic { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
+  .story-text { font-size: 15px; }
+  .story-text .tense-tag { border-bottom: 2px solid; padding-bottom: 1px; cursor: help; }
+  .tt-present { border-color: var(--accent); background: rgba(37,99,235,.07); }
+  .tt-past { border-color: var(--amber); background: rgba(180,83,9,.07); }
+  .tt-future { border-color: var(--purple); background: rgba(124,58,237,.07); }
+  body:not(.show-tenses) .story-text .tense-tag { border-bottom: none; background: none; }
+  .story-translation { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); color: var(--muted); font-size: 13.5px; font-style: italic; }
+  body.show-translations .story-translation { display: block; }
+
+  .golden-rule { margin-top: 30px; padding: 18px 22px; background: var(--ink); color: #fff; border-radius: 10px; font-size: 14.5px; }
+  @media (max-width: 600px) { .container { padding: 22px; } }
+</style>
+</head>
+<body>
+
+<div style="position:sticky;top:0;z-index:999;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#1f2430;color:#fff;padding:10px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13.5px;box-shadow:0 2px 6px rgba(0,0,0,.12);">
+  <a href="index.html" style="color:#fff;text-decoration:none;font-weight:700;padding:6px 12px;border-radius:6px;background:rgba(255,255,255,.12);white-space:nowrap;">&#8592; Inicio</a>
+  <select onchange="if(this.value) window.location.href=this.value;" style="font-family:inherit;font-size:13px;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.25);background:#2a3040;color:#fff;max-width:260px;">
+    <option value="">Ir a otra herramienta&hellip;</option>
+    <optgroup label="Guias">
+      <option value="metodo-estudio-ingles-negocios.html">Metodo de estudio</option>
+      <option value="ejercicios-tiempos-verbales-ingles.html">Como reconocer cada tiempo (140)</option>
+    </optgroup>
+    <optgroup label="Presente">
+      <option value="300-ejercicios-present-simple.html">Present Simple (300)</option>
+      <option value="100-ejercicios-present-continuous.html">Present Continuous (100)</option>
+      <option value="100-ejercicios-present-perfect.html">Present Perfect (100)</option>
+      <option value="100-ejercicios-present-perfect-continuous.html">Present Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Pasado">
+      <option value="100-ejercicios-past-simple.html">Past Simple (100)</option>
+      <option value="100-ejercicios-past-continuous.html">Past Continuous (100)</option>
+      <option value="100-ejercicios-past-perfect.html">Past Perfect (100)</option>
+      <option value="100-ejercicios-past-perfect-continuous.html">Past Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Futuro">
+      <option value="100-ejercicios-future-simple.html">Future Simple (100)</option>
+      <option value="100-ejercicios-future-continuous.html">Future Continuous (100)</option>
+      <option value="100-ejercicios-future-perfect.html">Future Perfect (100)</option>
+      <option value="100-ejercicios-future-perfect-continuous.html">Future Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Mixto">
+      <option value="200-ejercicios-mixtos-identificar-tiempos.html">200 mixtos - identifica el tiempo</option>
+    </optgroup>
+    <optgroup label="Referencia">
+      <option value="matriz-100-verbos-12-tiempos.html">Matriz: 100 verbos x 12 tiempos</option>
+      <option value="tarjeta-referencia-rapida-tiempos.html">Tarjeta rapida: auxiliares + palabras señal</option>
+    </optgroup>
+    <optgroup label="Lectura">
+      <option value="50-historias-lectura-todos-los-tiempos.html">50 historias - practica todos los tiempos</option>
+      <option value="10-historias-lectura-todos-los-tiempos.html" selected disabled>10 historias - version rapida</option>
+    </optgroup>
+  </select>
+</div>
+
+<div class="container">
+
+  <h1>10 historias de lectura — versión rápida</h1>
+  <p class="subtitle">La versión corta de la herramienta de lectura: 10 historias de negocios (nivel A1–A2) que combinan varios tiempos verbales, ideal para una práctica rápida de 10 minutos.</p>
+
+  <div class="rule-box">
+    <strong>Cómo usar esta herramienta:</strong> activa "Resaltar tiempos" para ver qué tiempo verbal es cada verbo marcado (pasa el cursor por encima para ver el nombre exacto). Activa "Mostrar traducción" para ver el párrafo completo en español debajo de cada historia.
+  </div>
+
+  <div class="controls">
+    <label class="toggle"><input type="checkbox" id="toggle-tenses" onchange="document.body.classList.toggle('show-tenses', this.checked)"> Resaltar tiempos verbales</label>
+    <label class="toggle"><input type="checkbox" id="toggle-translation" onchange="document.body.classList.toggle('show-translations', this.checked)"> Mostrar traducción</label>
+    <label class="toggle"><input type="checkbox" id="toggle-glossary" onchange="document.getElementById('verb-glossary').classList.toggle('show', this.checked)"> Ver todos los verbos</label>
+  </div>
+
+  <div class="legend">
+    <span><span class="sw" style="background:var(--accent);"></span>Presente (Simple, Continuous, Perfect, Perfect Continuous)</span>
+    <span><span class="sw" style="background:var(--amber);"></span>Pasado (Simple, Continuous, Perfect, Perfect Continuous)</span>
+    <span><span class="sw" style="background:var(--purple);"></span>Futuro (Simple, Continuous, Perfect, Perfect Continuous)</span>
+  </div>
+
+  <div class="verb-glossary" id="verb-glossary">
+    <h3>Verbos usados en estas 10 historias</h3>
+    <div class="verb-chips" id="verb-chips"></div>
+  </div>
+
+  <div id="stories"></div>
+
+  <div class="golden-rule">
+    <strong>Tip de lectura:</strong> lee la historia completa una vez sin traducir, luego activa "Resaltar tiempos" y fíjate en las palabras señal (last month, right now, by tomorrow...) que te indican cuál es cuál. Cuando termines estas 10, sigue con la versión completa de 50 historias.
+  </div>
+
+</div>
+
+<script>
+// ---------- Datos base (mismas plantillas que la version de 50, con otra combinacion de nombres/temas) ----------
+var names = [
+  ['Carlos','he'], ['Ana','she'], ['Luis','he'], ['Sofía','she'], ['Daniel','he'],
+  ['Valentina','she'], ['Andrés','he'], ['Camila','she'], ['Diego','he'], ['Laura','she'],
+  ['Mateo','he'], ['Isabella','she'], ['Santiago','he'], ['Gabriela','she'], ['Felipe','he'],
+  ['Mariana','she'], ['Julián','he'], ['Natalia','she'], ['Sebastián','he'], ['Paula','she']
+];
+var depts = [
+  ['Sales','Ventas'], ['Finance','Finanzas'], ['Marketing','Mercadeo'], ['IT','Sistemas'],
+  ['Human Resources','Recursos Humanos'], ['Logistics','Logística'], ['Customer Service','Servicio al Cliente'],
+  ['Operations','Operaciones'], ['Legal','Legal'], ['Product','Producto']
+];
+var companies = ['TechNova','Andes Corp','BlueSky Logistics','Horizonte Group','Vertex Solutions','Pacífico Energy','Norte Industries','Delta Consulting','Global Trade Partners','Cumbre Group'];
+var topics = [
+  ['budget', 'presupuesto', 'del presupuesto'],
+  ['product launch', 'lanzamiento del producto', 'del lanzamiento del producto'],
+  ['merger', 'fusión', 'de la fusión'],
+  ['hiring plan', 'plan de contratación', 'del plan de contratación'],
+  ['marketing campaign', 'campaña de mercadeo', 'de la campaña de mercadeo'],
+  ['IT migration', 'migración de sistemas', 'de la migración de sistemas'],
+  ['sales report', 'informe de ventas', 'del informe de ventas'],
+  ['client negotiation', 'negociación con el cliente', 'de la negociación con el cliente'],
+  ['training program', 'programa de capacitación', 'del programa de capacitación'],
+  ['cost reduction', 'reducción de costos', 'de la reducción de costos']
+];
+
+var verbGlossary = [
+  ['work', 'trabajar'], ['prepare', 'preparar'], ['review', 'revisar'], ['present', 'presentar'],
+  ['travel', 'viajar'], ['join', 'unirse (a)'], ['learn', 'aprender'], ['finish', 'terminar'],
+  ['become', 'convertirse (en)'], ['lead', 'liderar'], ['manage', 'gestionar'], ['launch', 'lanzar'],
+  ['meet', 'reunirse (con)'], ['start', 'comenzar'], ['ask', 'preguntar / pedir'], ['send', 'enviar'],
+  ['double-check', 'verificar dos veces'], ['complete', 'completar'], ['focus', 'enfocarse (en)'],
+  ['close', 'cerrar'], ['call', 'llamar'], ['follow up', 'hacer seguimiento']
+];
+
+function tenseGroup(label) {
+  if (label.indexOf('Present') === 0) return 'present';
+  if (label.indexOf('Past') === 0) return 'past';
+  return 'future';
+}
+
+// Cada plantilla: 6 oraciones [enConVerboEntreDobleBarra, esConMarcador, tenseLabel]
+var templates = [
+  // A
+  [
+    ['{Name} ||works|| in the {dept} department at {Company}.', '{Name} trabaja en el departamento de {deptEs} en {Company}.', 'Present Simple'],
+    ['Right now, {pron} ||is preparing|| the {topic} report.', 'En este momento, {pronEs} está preparando el informe {topicDeEs}.', 'Present Continuous'],
+    ['{Pron} ||has already reviewed|| the budget twice this month.', '{PronEs} ya ha revisado el presupuesto dos veces este mes.', 'Present Perfect'],
+    ['{Pron} ||has been working|| on this project for three weeks.', '{PronEs} ha estado trabajando en este proyecto durante tres semanas.', 'Present Perfect Continuous'],
+    ['Next week, {pron} ||will present|| the results to the board.', 'La próxima semana, {pronEs} presentará los resultados a la junta.', 'Future Simple'],
+    ['This time next Friday, {pron} ||will be traveling|| to the regional office.', 'A esta hora el próximo viernes, {pronEs} estará viajando a la oficina regional.', 'Future Continuous']
+  ],
+  // B
+  [
+    ['Last year, {name} ||joined|| the {dept} team at {Company}.', 'El año pasado, {name} se unió al equipo de {deptEs} en {Company}.', 'Past Simple'],
+    ['{Pron} ||was learning|| the new system when the merger was announced.', '{PronEs} estaba aprendiendo el nuevo sistema cuando se anunció la fusión.', 'Past Continuous'],
+    ['By that point, {pron} ||had already finished|| the training.', 'Para ese momento, {pronEs} ya había terminado la capacitación.', 'Past Perfect'],
+    ['{Pron} ||had been working|| there for six months before the change.', '{PronEs} había estado trabajando ahí durante seis meses antes del cambio.', 'Past Perfect Continuous'],
+    ['Since then, {pron} ||has become|| one of the top performers.', 'Desde entonces, {pronEs} se ha convertido en uno de los mejores empleados.', 'Present Perfect'],
+    ['Today, {pron} ||leads|| the {topic} initiative.', 'Hoy, {pronEs} lidera la iniciativa {topicDeEs}.', 'Present Simple']
+  ],
+  // C
+  [
+    ['{Name} ||manages|| the {topic} process at {Company}.', '{Name} gestiona el proceso {topicDeEs} en {Company}.', 'Present Simple'],
+    ['Next month, {pron} ||will launch|| a new strategy.', 'El próximo mes, {pronEs} lanzará una nueva estrategia.', 'Future Simple'],
+    ['By 10 AM tomorrow, {pron} ||will be meeting|| with the suppliers.', 'Para las 10 AM de mañana, {pronEs} estará reuniéndose con los proveedores.', 'Future Continuous'],
+    ['By the end of the quarter, {pron} ||will have finished|| the entire rollout.', 'Para el final del trimestre, {pronEs} habrá terminado todo el despliegue.', 'Future Perfect'],
+    ['By December, {pron} ||will have been leading|| this team for two years.', 'Para diciembre, {pronEs} habrá estado liderando este equipo durante dos años.', 'Future Perfect Continuous'],
+    ['{Pron} ||started|| this role after a successful interview.', '{PronEs} comenzó este puesto después de una entrevista exitosa.', 'Past Simple']
+  ],
+  // D
+  [
+    ['{Name} ||was reviewing|| the {topic} contract when the phone rang.', '{Name} estaba revisando el contrato {topicDeEs} cuando sonó el teléfono.', 'Past Continuous'],
+    ['The client ||asked|| for an urgent change.', 'El cliente pidió un cambio urgente.', 'Past Simple'],
+    ['{Pron} ||had already sent|| the first version an hour earlier.', '{PronEs} ya había enviado la primera versión una hora antes.', 'Past Perfect'],
+    ['Since that call, {pron} ||has been working|| on the revision.', 'Desde esa llamada, {pronEs} ha estado trabajando en la revisión.', 'Present Perfect Continuous'],
+    ['Now {pron} ||double-checks|| every detail before sending documents.', 'Ahora {pronEs} verifica dos veces cada detalle antes de enviar documentos.', 'Present Simple'],
+    ['By tomorrow, {pron} ||will have completed|| the corrected version.', 'Para mañana, {pronEs} habrá completado la versión corregida.', 'Future Perfect']
+  ],
+  // E
+  [
+    ['{Name} ||has been managing|| the {topic} account for two years.', '{Name} ha estado gestionando la cuenta {topicDeEs} durante dos años.', 'Present Perfect Continuous'],
+    ['Before that, {pron} ||had been working|| in customer service for a while.', 'Antes de eso, {pronEs} había estado trabajando en servicio al cliente por un tiempo.', 'Past Perfect Continuous'],
+    ['This quarter, {pron} ||is focusing|| on client retention.', 'Este trimestre, {pronEs} se está enfocando en la retención de clientes.', 'Present Continuous'],
+    ['Last week, {pron} ||closed|| three new deals.', 'La semana pasada, {pronEs} cerró tres nuevos tratos.', 'Past Simple'],
+    ['Tomorrow afternoon, {pron} ||will be calling|| new prospects.', 'Mañana en la tarde, {pronEs} estará llamando a nuevos prospectos.', 'Future Continuous'],
+    ['{Pron} always ||follows up|| within 24 hours.', '{PronEs} siempre hace seguimiento dentro de 24 horas.', 'Present Simple']
+  ]
+];
+
+function fillTokens(str, ctx) {
+  return str
+    .replace(/{Name}/g, ctx.name)
+    .replace(/{name}/g, ctx.name)
+    .replace(/{Company}/g, ctx.company)
+    .replace(/{Pron}/g, ctx.pron === 'he' ? 'He' : 'She')
+    .replace(/{pron}/g, ctx.pron)
+    .replace(/{PronEs}/g, ctx.pron === 'he' ? 'Él' : 'Ella')
+    .replace(/{pronEs}/g, ctx.pron === 'he' ? 'él' : 'ella')
+    .replace(/{dept}/g, ctx.dept)
+    .replace(/{deptEs}/g, ctx.deptEs)
+    .replace(/{topic}/g, ctx.topic)
+    .replace(/{topicDeEs}/g, ctx.topicDeEs);
+}
+
+function wrapVerb(str, tenseLabel) {
+  var group = tenseGroup(tenseLabel);
+  return str.replace(/\|\|([^|]+)\|\|/, function (m, verb) {
+    return '<span class="tense-tag tt-' + group + '" title="' + tenseLabel + '">' + verb + '</span>';
+  });
+}
+
+var stories = [];
+for (var n = 0; n < 10; n++) {
+  var poolIdx = n + 13; // desplazamiento para usar combinaciones distintas a la version de 50 historias
+  var name = names[poolIdx % names.length];
+  var dept = depts[poolIdx % depts.length];
+  var company = companies[poolIdx % companies.length];
+  var topic = topics[poolIdx % topics.length];
+  var template = templates[Math.floor(n / 2)];
+
+  var ctx = {
+    name: name[0], pron: name[1], company: company,
+    dept: dept[0], deptEs: dept[1], topic: topic[0], topicDeEs: topic[2]
+  };
+
+  var sentencesEn = [];
+  var sentencesEs = [];
+  var tensesUsed = [];
+  template.forEach(function (t) {
+    var en = fillTokens(t[0], ctx);
+    var es = fillTokens(t[1], ctx);
+    en = wrapVerb(en, t[2]);
+    sentencesEn.push(en);
+    sentencesEs.push(es);
+    tensesUsed.push(t[2]);
+  });
+
+  stories.push({
+    id: n + 1,
+    name: ctx.name,
+    company: ctx.company,
+    dept: ctx.dept,
+    topicLabel: ctx.topic,
+    textEn: sentencesEn.join(' '),
+    textEs: sentencesEs.join(' '),
+    tenses: tensesUsed
+  });
+}
+
+var container = document.getElementById('stories');
+stories.forEach(function (s) {
+  var div = document.createElement('div');
+  div.className = 'story';
+  div.innerHTML =
+    '<div class="story-head"><span class="story-num">' + s.id + '</span>' +
+    '<span class="story-topic">' + s.dept + ' &middot; ' + s.topicLabel + ' &middot; ' + s.company + '</span></div>' +
+    '<div class="story-text">' + s.textEn + '</div>' +
+    '<div class="story-translation">🇪🇸 ' + s.textEs + '</div>';
+  container.appendChild(div);
+});
+
+var chipsContainer = document.getElementById('verb-chips');
+verbGlossary.forEach(function (v) {
+  var chip = document.createElement('span');
+  chip.className = 'verb-chip';
+  chip.innerHTML = '<b>' + v[0] + '</b><span>' + v[1] + '</span>';
+  chipsContainer.appendChild(chip);
+});
+</script>
+
+</body>
+</
