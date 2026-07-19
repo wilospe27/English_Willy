@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarjeta de referencia rápida — los 12 tiempos verbales</title>
+<style>
+  :root {
+    --ink: #1f2430; --muted: #5b6270; --accent: #2563eb; --accent-light: #eaf1ff;
+    --amber: #b45309; --amber-light: #fff7ed; --purple: #7c3aed; --purple-light: #f3ecfe;
+    --border: #e2e5ea; --bg: #fafbfc;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--ink); background: var(--bg); margin: 0; padding: 40px 20px; line-height: 1.5; }
+  .container { max-width: 1080px; margin: 0 auto; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 40px; }
+  h1 { font-size: 24px; margin: 0 0 6px; }
+  .subtitle { color: var(--muted); font-size: 14.5px; margin: 0 0 18px; }
+  .key-box { background: var(--accent-light); border-left: 3px solid var(--accent); border-radius: 6px; padding: 14px 18px; margin-bottom: 22px; font-size: 14px; }
+  .key-box strong { color: var(--accent); }
+
+  button.print-btn { font-family: inherit; font-size: 13.5px; font-weight: 600; padding: 8px 16px; border-radius: 7px; border: 1px solid var(--border); background: #fff; cursor: pointer; margin-bottom: 20px; }
+  button.print-btn:hover { background: var(--bg); }
+
+  .group-title { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; margin: 22px 0 10px; }
+  .group-title .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .present-dot { background: var(--accent); }
+  .past-dot { background: var(--amber); }
+  .future-dot { background: var(--purple); }
+
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 8px; }
+  .card { border: 1px solid var(--border); border-radius: 10px; padding: 13px 16px; background: var(--bg); }
+  .card.present { border-left: 3px solid var(--accent); }
+  .card.past { border-left: 3px solid var(--amber); }
+  .card.future { border-left: 3px solid var(--purple); }
+  .card h3 { margin: 0 0 6px; font-size: 14.5px; }
+  .card .formula { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; background: #fff; border: 1px solid var(--border); border-radius: 5px; padding: 3px 8px; display: inline-block; margin-bottom: 6px; }
+  .card .signals { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .card .signals b { color: var(--ink); }
+  .card .example { font-size: 12.5px; font-style: italic; color: var(--ink); }
+
+  @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } .container { padding: 22px; } }
+  @media print {
+    body { padding: 0; background: #fff; }
+    .container { border: none; padding: 10px; max-width: 100%; }
+    button.print-btn, .key-box { display: none; }
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div style="position:sticky;top:0;z-index:999;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#1f2430;color:#fff;padding:10px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13.5px;box-shadow:0 2px 6px rgba(0,0,0,.12);" class="no-print">
+  <a href="index.html" style="color:#fff;text-decoration:none;font-weight:700;padding:6px 12px;border-radius:6px;background:rgba(255,255,255,.12);white-space:nowrap;">&#8592; Inicio</a>
+  <select onchange="if(this.value) window.location.href=this.value;" style="font-family:inherit;font-size:13px;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.25);background:#2a3040;color:#fff;max-width:260px;">
+    <option value="">Ir a otra herramienta&hellip;</option>
+    <optgroup label="Guias">
+      <option value="metodo-estudio-ingles-negocios.html">Metodo de estudio</option>
+      <option value="ejercicios-tiempos-verbales-ingles.html">Como reconocer cada tiempo (140)</option>
+    </optgroup>
+    <optgroup label="Presente">
+      <option value="300-ejercicios-present-simple.html">Present Simple (300)</option>
+      <option value="100-ejercicios-present-continuous.html">Present Continuous (100)</option>
+      <option value="100-ejercicios-present-perfect.html">Present Perfect (100)</option>
+      <option value="100-ejercicios-present-perfect-continuous.html">Present Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Pasado">
+      <option value="100-ejercicios-past-simple.html">Past Simple (100)</option>
+      <option value="100-ejercicios-past-continuous.html">Past Continuous (100)</option>
+      <option value="100-ejercicios-past-perfect.html">Past Perfect (100)</option>
+      <option value="100-ejercicios-past-perfect-continuous.html">Past Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Futuro">
+      <option value="100-ejercicios-future-simple.html">Future Simple (100)</option>
+      <option value="100-ejercicios-future-continuous.html">Future Continuous (100)</option>
+      <option value="100-ejercicios-future-perfect.html">Future Perfect (100)</option>
+      <option value="100-ejercicios-future-perfect-continuous.html">Future Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Mixto">
+      <option value="200-ejercicios-mixtos-identificar-tiempos.html">200 mixtos - identifica el tiempo</option>
+    </optgroup>
+    <optgroup label="Referencia">
+      <option value="matriz-100-verbos-12-tiempos.html">Matriz: 100 verbos x 12 tiempos</option>
+      <option value="tarjeta-referencia-rapida-tiempos.html" selected disabled>Tarjeta rapida: auxiliares + palabras señal</option>
+    </optgroup>
+    <optgroup label="Lectura">
+      <option value="50-historias-lectura-todos-los-tiempos.html">50 historias - practica todos los tiempos</option>
+      <option value="10-historias-lectura-todos-los-tiempos.html">10 historias - version rapida</option>
+    </optgroup>
+  </select>
+</div>
+
+<div class="container">
+
+  <h1>Tarjeta de referencia rápida — los 12 tiempos verbales</h1>
+  <p class="subtitle">Cruza el auxiliar (la estructura del verbo) con la palabra señal (el marcador de tiempo) para identificar cualquier tiempo en segundos.</p>
+
+  <div class="key-box">
+    <strong>Método:</strong> 1) mira el auxiliar → te dice la familia (simple, continuo, perfecto o perfecto continuo). 2) mira la palabra señal → te confirma si es presente, pasado o futuro. Cuando las dos coinciden, ya tienes el tiempo exacto.
+  </div>
+
+  <button class="print-btn no-print" onclick="window.print()">🖨️ Imprimir / guardar como PDF</button>
+
+  <div class="group-title"><span class="dot present-dot"></span>Presente</div>
+  <div class="grid">
+    <div class="card present">
+      <h3>Present Simple</h3>
+      <div class="formula">verbo+s (he/she/it) &middot; verbo base (yo/tú/we/they)</div>
+      <div class="signals"><b>Señales:</b> every day, usually, always, often, on Mondays</div>
+      <div class="example">She reviews the report every day.</div>
+    </div>
+    <div class="card present">
+      <h3>Present Continuous</h3>
+      <div class="formula">am / is / are + verbo-ing</div>
+      <div class="signals"><b>Señales:</b> right now, at the moment, currently, today</div>
+      <div class="example">He is preparing the report right now.</div>
+    </div>
+    <div class="card present">
+      <h3>Present Perfect</h3>
+      <div class="formula">have / has + participio (V3)</div>
+      <div class="signals"><b>Señales:</b> already, just, never, ever, yet, since, for</div>
+      <div class="example">They have already signed the contract.</div>
+    </div>
+    <div class="card present">
+      <h3>Present Perfect Continuous</h3>
+      <div class="formula">have / has been + verbo-ing</div>
+      <div class="signals"><b>Señales:</b> for + duración, since + punto de inicio, lately</div>
+      <div class="example">She has been working here for five years.</div>
+    </div>
+  </div>
+
+  <div class="group-title"><span class="dot past-dot"></span>Pasado</div>
+  <div class="grid">
+    <div class="card past">
+      <h3>Past Simple</h3>
+      <div class="formula">verbo+ed &middot; forma irregular fija</div>
+      <div class="signals"><b>Señales:</b> yesterday, last week, ... ago, in 2020</div>
+      <div class="example">He called the client yesterday.</div>
+    </div>
+    <div class="card past">
+      <h3>Past Continuous</h3>
+      <div class="formula">was / were + verbo-ing</div>
+      <div class="signals"><b>Señales:</b> while, when + otra acción pasada, at that time</div>
+      <div class="example">She was writing the report when he called.</div>
+    </div>
+    <div class="card past">
+      <h3>Past Perfect</h3>
+      <div class="formula">had + participio (V3)</div>
+      <div class="signals"><b>Señales:</b> before, by the time, already / just (en pasado)</div>
+      <div class="example">They had finished before the meeting started.</div>
+    </div>
+    <div class="card past">
+      <h3>Past Perfect Continuous</h3>
+      <div class="formula">had been + verbo-ing</div>
+      <div class="signals"><b>Señales:</b> for + duración antes de otro pasado, before that</div>
+      <div class="example">He had been working there for six months before the change.</div>
+    </div>
+  </div>
+
+  <div class="group-title"><span class="dot future-dot"></span>Futuro</div>
+  <div class="grid">
+    <div class="card future">
+      <h3>Future Simple</h3>
+      <div class="formula">will + verbo base</div>
+      <div class="signals"><b>Señales:</b> tomorrow, next week/month/year, soon</div>
+      <div class="example">We will call the client tomorrow.</div>
+    </div>
+    <div class="card future">
+      <h3>Future Continuous</h3>
+      <div class="formula">will be + verbo-ing</div>
+      <div class="signals"><b>Señales:</b> this time tomorrow, at [hora] tomorrow</div>
+      <div class="example">He will be traveling this time tomorrow.</div>
+    </div>
+    <div class="card future">
+      <h3>Future Perfect</h3>
+      <div class="formula">will have + participio (V3)</div>
+      <div class="signals"><b>Señales:</b> by + fecha, by the time, by next month</div>
+      <div class="example">They will have finished by Friday.</div>
+    </div>
+    <div class="card future">
+      <h3>Future Perfect Continuous</h3>
+      <div class="formula">will have been + verbo-ing</div>
+      <div class="signals"><b>Señales:</b> by + fecha + for + duración</div>
+      <div class="example">She will have been working here for ten years by June.</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
