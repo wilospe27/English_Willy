@@ -47,12 +47,15 @@
   .regular-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; background: var(--accent-light); color: var(--accent); margin-left: 6px; }
   .speak-btn { border: none; background: var(--accent-light); color: var(--accent); width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-size: 11px; }
   .speak-btn:hover { background: var(--accent); color: #fff; }
-  .status-btns { display: flex; gap: 5px; }
+  .status-btns { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
   .status-btn { font-family: inherit; font-size: 11.5px; font-weight: 600; padding: 5px 9px; border-radius: 6px; border: 1px solid var(--border); background: #fff; cursor: pointer; white-space: nowrap; }
   .status-btn.know { color: var(--green); }
   .status-btn.review { color: var(--amber); }
   .status-btn.know.active { background: var(--green); color: #fff; border-color: var(--green); }
   .status-btn.review.active { background: var(--amber); color: #fff; border-color: var(--amber); }
+  .status-select { font-family: inherit; font-size: 12.5px; font-weight: 600; padding: 5px 8px; border-radius: 6px; border: 1px solid var(--border); background: #fff; cursor: pointer; }
+  .status-select.sel-known { background: var(--green-light); color: var(--green); border-color: var(--green); }
+  .status-select.sel-review { background: var(--amber-light); color: var(--amber); border-color: var(--amber); }
   .forms { color: var(--muted); font-size: 12.5px; }
   .meaning { color: var(--ink); }
 
@@ -603,10 +606,23 @@ function applyStatusToRow(idx) {
   var reviewBtn = tr.querySelector('.status-btn.review');
   if (knowBtn) knowBtn.classList.toggle('active', st === 'known');
   if (reviewBtn) reviewBtn.classList.toggle('active', st === 'review');
+  var select = tr.querySelector('.status-select');
+  if (select) {
+    select.value = st || '';
+    select.className = 'status-select' + (st === 'known' ? ' sel-known' : st === 'review' ? ' sel-review' : '');
+  }
 }
 
 function setStatus(idx, value) {
   if (status[idx] === value) { delete status[idx]; } else { status[idx] = value; }
+  applyStatusToRow(idx);
+  updateStats();
+  saveStatus();
+}
+
+// Version "absoluta" (no toggle) para el <select> del menu desplegable: el valor elegido es el estado final.
+function setStatusAbsolute(idx, value) {
+  if (value === 'known' || value === 'review') { status[idx] = value; } else { delete status[idx]; }
   applyStatusToRow(idx);
   updateStats();
   saveStatus();
@@ -652,6 +668,11 @@ function buildTable() {
       '<td class="meaning">' + v[5] + '</td>' +
       '<td><button type="button" class="speak-btn" data-speak-idx="' + idx + '">🔊</button></td>' +
       '<td><div class="status-btns">' +
+        '<select class="status-select" data-select-idx="' + idx + '">' +
+          '<option value="">Sin marcar</option>' +
+          '<option value="known">✅ Sé este verbo</option>' +
+          '<option value="review">🔁 Debo repasar</option>' +
+        '</select>' +
         '<button type="button" class="status-btn know" data-status-idx="' + idx + '" data-status-value="known">Sé este verbo</button>' +
         '<button type="button" class="status-btn review" data-status-idx="' + idx + '" data-status-value="review">Debo repasar</button>' +
       '</div></td>';
@@ -674,6 +695,15 @@ tbody.addEventListener('click', function (e) {
     var idx = Number(statusBtn.getAttribute('data-status-idx'));
     var value = statusBtn.getAttribute('data-status-value');
     setStatus(idx, value);
+  }
+});
+
+// Segunda forma de marcar: menu desplegable por fila (usa el evento "change", mas confiable en algunos entornos)
+tbody.addEventListener('change', function (e) {
+  var select = e.target.closest('[data-select-idx]');
+  if (select) {
+    var idx = Number(select.getAttribute('data-select-idx'));
+    setStatusAbsolute(idx, select.value);
   }
 });
 
