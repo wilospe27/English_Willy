@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>400 verbos más usados — marca lo que ya sabes</title>
+<style>
+  :root {
+    --ink: #1f2430; --muted: #5b6270; --accent: #2563eb; --accent-light: #eaf1ff;
+    --amber: #b45309; --amber-light: #fff7ed; --purple: #7c3aed; --purple-light: #f3ecfe;
+    --green: #15803d; --green-light: #eafaf0; --red: #b91c1c; --red-light: #fdecec;
+    --border: #e2e5ea; --bg: #fafbfc;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--ink); background: var(--bg); margin: 0; padding: 40px 20px; line-height: 1.5; }
+  .container { max-width: 1180px; margin: 0 auto; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 40px; }
+  h1 { font-size: 25px; margin: 0 0 6px; }
+  .subtitle { color: var(--muted); font-size: 14.5px; margin: 0 0 18px; }
+  .rule-box { background: var(--amber-light); border-left: 3px solid #f59e0b; border-radius: 6px; padding: 14px 18px; margin: 0 0 18px; font-size: 14px; }
+  .rule-box strong { color: var(--amber); }
+
+  .progress-wrap { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+  .progress-bar { flex: 1; min-width: 220px; height: 12px; border-radius: 6px; background: var(--border); overflow: hidden; display: flex; }
+  .progress-bar .seg-known { background: var(--green); height: 100%; }
+  .progress-bar .seg-review { background: var(--amber); height: 100%; }
+  .progress-stats { display: flex; gap: 14px; font-size: 12.5px; color: var(--muted); flex-wrap: wrap; }
+  .progress-stats b { color: var(--ink); }
+  .dot-stat { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+
+  .controls { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  input#search { font-family: inherit; font-size: 14px; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--border); width: 230px; }
+  input#search:focus { outline: none; border-color: var(--accent); }
+  select.filter-select { font-family: inherit; font-size: 13.5px; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); background: #fff; cursor: pointer; }
+  button.reset-btn { font-family: inherit; font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 7px; border: 1px solid var(--border); background: #fff; cursor: pointer; color: var(--red); }
+  button.reset-btn:hover { background: var(--red-light); }
+  #count { font-size: 13px; color: var(--muted); margin-left: auto; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  thead th { position: sticky; top: 0; background: var(--ink); color: #fff; text-align: left; padding: 9px 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .02em; z-index: 5; }
+  tbody td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tbody tr:hover { background: var(--bg); }
+  tbody tr.row-known { background: var(--green-light); }
+  tbody tr.row-review { background: var(--amber-light); }
+  tbody tr.hidden-row { display: none; }
+  .verb-en { font-weight: 700; }
+  .irregular-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; background: var(--purple-light); color: var(--purple); margin-left: 6px; }
+  .regular-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; background: var(--accent-light); color: var(--accent); margin-left: 6px; }
+  .speak-btn { border: none; background: var(--accent-light); color: var(--accent); width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-size: 11px; }
+  .speak-btn:hover { background: var(--accent); color: #fff; }
+  .status-btns { display: flex; gap: 5px; }
+  .status-btn { font-family: inherit; font-size: 11.5px; font-weight: 600; padding: 5px 9px; border-radius: 6px; border: 1px solid var(--border); background: #fff; cursor: pointer; white-space: nowrap; }
+  .status-btn.know { color: var(--green); }
+  .status-btn.review { color: var(--amber); }
+  .status-btn.know.active { background: var(--green); color: #fff; border-color: var(--green); }
+  .status-btn.review.active { background: var(--amber); color: #fff; border-color: var(--amber); }
+  .forms { color: var(--muted); font-size: 12.5px; }
+  .meaning { color: var(--ink); }
+
+  .table-scroll { max-height: 640px; overflow-y: auto; border: 1px solid var(--border); border-radius: 8px; }
+
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); margin: 14px 0 4px; }
+  @media (max-width: 800px) {
+    .container { padding: 20px; }
+    table, thead, tbody, th, td, tr { display: block; }
+    thead { display: none; }
+    tbody tr { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; padding: 10px; }
+    tbody td { border: none; padding: 4px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div style="position:sticky;top:0;z-index:999;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#1f2430;color:#fff;padding:10px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13.5px;box-shadow:0 2px 6px rgba(0,0,0,.12);">
+  <a href="index.html" style="color:#fff;text-decoration:none;font-weight:700;padding:6px 12px;border-radius:6px;background:rgba(255,255,255,.12);white-space:nowrap;">&#8592; Inicio</a>
+  <select onchange="if(this.value) window.location.href=this.value;" style="font-family:inherit;font-size:13px;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.25);background:#2a3040;color:#fff;max-width:260px;">
+    <option value="">Ir a otra herramienta&hellip;</option>
+    <optgroup label="Guias">
+      <option value="metodo-estudio-ingles-negocios.html">Metodo de estudio</option>
+      <option value="ejercicios-tiempos-verbales-ingles.html">Como reconocer cada tiempo (140)</option>
+    </optgroup>
+    <optgroup label="Presente">
+      <option value="300-ejercicios-present-simple.html">Present Simple (300)</option>
+      <option value="100-ejercicios-present-continuous.html">Present Continuous (100)</option>
+      <option value="100-ejercicios-present-perfect.html">Present Perfect (100)</option>
+      <option value="100-ejercicios-present-perfect-continuous.html">Present Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Pasado">
+      <option value="100-ejercicios-past-simple.html">Past Simple (100)</option>
+      <option value="100-ejercicios-past-continuous.html">Past Continuous (100)</option>
+      <option value="100-ejercicios-past-perfect.html">Past Perfect (100)</option>
+      <option value="100-ejercicios-past-perfect-continuous.html">Past Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Futuro">
+      <option value="100-ejercicios-future-simple.html">Future Simple (100)</option>
+      <option value="100-ejercicios-future-continuous.html">Future Continuous (100)</option>
+      <option value="100-ejercicios-future-perfect.html">Future Perfect (100)</option>
+      <option value="100-ejercicios-future-perfect-continuous.html">Future Perfect Continuous (100)</option>
+    </optgroup>
+    <optgroup label="Mixto">
+      <option value="200-ejercicios-mixtos-identificar-tiempos.html">200 mixtos - identifica el tiempo</option>
+    </optgroup>
+    <optgroup label="Referencia">
+      <option value="matriz-100-verbos-12-tiempos.html">Matriz: 100 verbos x 12 tiempos</option>
+      <option value="tarjeta-referencia-rapida-tiempos.html">Tarjeta rapida: auxiliares + palabras señal</option>
+      <option value="palacio-memoria-verbos-irregulares.html">Palacio de la memoria: verbos irregulares</option>
+      <option value="400-verbos-mas-usados.html" selected disabled>400 verbos mas usados</option>
+    </optgroup>
+    <optgroup label="Lectura">
+      <option value="50-historias-lectura-todos-los-tiempos.html">50 historias - practica todos los tiempos</option>
+      <option value="10-historias-lectura-todos-los-tiempos.html">10 historias - version rapida</option>
+    </optgroup>
+  </select>
+</div>
+
+<div class="container">
+
+  <h1>400 verbos más usados en inglés</h1>
+  <p class="subtitle">Lista de los 400 verbos regulares e irregulares más comunes (basada en tu archivo de referencia). Marca cada verbo como "Sé este verbo" o "Debo repasar" para llevar tu propio control de estudio — tu progreso se guarda automáticamente en este navegador.</p>
+
+  <div class="rule-box">
+    <strong>Cómo usar esta herramienta:</strong> busca un verbo, marca su estado con los botones verde (Sé este verbo) o naranja (Debo repasar), y usa el filtro para repasar solo los que aún no dominas. Haz clic en el 🔊 para escuchar la pronunciación.
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="seg-known" id="seg-known"></div><div class="seg-review" id="seg-review"></div></div>
+    <div class="progress-stats">
+      <span><span class="dot-stat" style="background:var(--green);"></span><b id="stat-known">0</b> sé</span>
+      <span><span class="dot-stat" style="background:var(--amber);"></span><b id="stat-review">0</b> debo repasar</span>
+      <span><span class="dot-stat" style="background:var(--border);"></span><b id="stat-unset">400</b> sin marcar</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="Buscar verbo o significado...">
+    <select class="filter-select" id="filter-status">
+      <option value="all">Todos los estados</option>
+      <option value="known">Solo "Sé este verbo"</option>
+      <option value="review">Solo "Debo repasar"</option>
+      <option value="unset">Solo sin marcar</option>
+    </select>
+    <select class="filter-select" id="filter-type">
+      <option value="all">Regulares e irregulares</option>
+      <option value="irregular">Solo irregulares</option>
+      <option value="regular">Solo regulares</option>
+    </select>
+    <select class="filter-select" id="filter-pattern">
+      <option value="all">Cualquier patrón de forma</option>
+      <option value="same-all">Igual en base/pasado/participio (ej. cut-cut-cut)</option>
+      <option value="same-some">Igual en 2 de 3 formas (ej. pay-paid-paid)</option>
+      <option value="diff-all">Diferente en las 3 formas (ej. go-went-gone)</option>
+    </select>
+    <button class="reset-btn" onclick="resetProgress()">Reiniciar progreso</button>
+    <span id="count"></span>
+  </div>
+
+  <div class="legend">
+    <span><span class="irregular-badge">IRREGULAR</span> el pasado y el participio no siguen la regla +ed</span>
+    <span><span class="regular-badge">REGULAR</span> el pasado y el participio se forman con +ed</span>
+    <span>Patrón: compara la forma base, el pasado y el participio (ignorando variantes tipo "burnt/burned")</span>
+  </div>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th><th>Verbo</th><th>Formas (3ra / pasado / participio / gerundio)</th><th>Significado</th><th>🔊</th><th>Estado</th>
+        </tr>
+      </thead>
+      <tbody id="verb-body"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+function speakText(text) {
+  if (!('speechSynthesis' in window)) { alert('Tu navegador no soporta pronunciación por voz. Prueba en Chrome.'); return; }
+  window.speechSynthesis.cancel();
+  var utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'en-US';
+  utter.rate = 0.85;
+  window.speechSynthesis.speak(utter);
+}
+
+// [simple, third, past, participle, gerund, meaning(es), irregular(1/0)]
+var verbs = [
+["abide", "abides", "abode", "abode", "abiding", "Morar - Habitar - Tolerar", 1],
+["absorb", "absorbs", "absorbed", "absorbed", "absorbing", "Absorber", 0],
+["add", "adds", "added", "added", "adding", "Añadir", 0],
+["advance", "advances", "advanced", "advanced", "advancing", "Avanzar", 0],
+["agree", "agrees", "agreed", "agreed", "agreeing", "Acordar - Estar De Acuerdo -  Acceder", 0],
+["answer", "answers", "answered", "answered", "answering", "Contestar - Responder", 0],
+["appear", "appears", "appeared", "appeared", "appearing", "Aparecer", 0],
+["arise", "arises", "arose", "arisen", "arising", "Surgir - Levantarse", 1],
+["arrive", "arrives", "arrived", "arrived", "arriving", "Llegar", 0],
+["ask", "asks", "asked", "asked", "asking", "Preguntar", 0],
+["assign", "assigns", "assigned", "assigned", "assigning", "Asignar", 0],
+["assist", "assists", "assisted", "assisted", "assisting", "Asistir", 0],
+["attach", "attaches", "attached", "attached", "attaching", "Unir - Juntar - Sujetar - Pegar", 0],
+["attend", "attends", "attended", "attended", "attending", "Atender", 0],
+["awake", "awakes", "awoke", "awoke", "awaking", "Despertar(Se)", 1],
+["award", "awards", "awarded", "awarded", "awarding", "Otorgar", 0],
+["bake", "bakes", "baked", "baked", "baking", "Hornear", 0],
+["bathe", "bathes", "bathed", "bathed", "bathing", "Bañar", 0],
+["be", "is", "was - were", "been", "being", "Ser-Estar", 1],
+["bear", "bears", "bore", "born", "bearing", "Soportar - Aguantar", 1],
+["beat", "beats", "beat", "beaten", "beating", "Vencer - Batir", 1],
+["become", "becomes", "became", "become", "becoming", "Llegar A Ser -  Ponerse -  Volverse", 1],
+["befall", "befalls", "befell", "befallen", "befalling", "Suceder - Acontecer - Ocurrir", 1],
+["begin", "begins", "began", "begun", "beginning", "Comenzar - Empezar", 1],
+["behold", "beholds", "beheld", "beheld", "beholding", "Contemplar - Mirar", 1],
+["believe", "believes", "believed", "believed", "believing", "Creer", 0],
+["belong", "belongs", "belonged", "belonged", "belonging", "Pertenecer", 0],
+["bend", "bends", "bent", "bent", "bending", "Doblar(Se) - Encorvar(Se)", 1],
+["bet", "bets", "bet", "bet", "betting", "Apostar", 1],
+["bid", "bids", "bid", "bid", "bidding", "Mandar - Ordenar", 1],
+["bind", "binds", "bound", "bound", "binding", "Unir - Ligar - Atar - Amarrar", 1],
+["bite", "bites", "bit", "bitten", "bitting", "Morder - Picar", 1],
+["bleed", "bleeds", "bled", "bled", "bleeding", "Sangrar", 0],
+["blow", "blows", "blew", "blown", "blowing", "Soplar - Ventear", 1],
+["blush", "blushes", "blushed", "blushed", "blushing", "Sonrojar", 0],
+["boil", "boils", "boiled", "boiled", "boiling", "Hervir", 0],
+["borrow", "borrows", "borrowed", "borrowed", "borrowing", "Pedir prestado", 0],
+["bother", "bothers", "bothered", "bothered", "bothering", "Molestar", 0],
+["break", "breaks", "broke", "broken", "breaking", "Quebrar - Romper", 1],
+["breed", "breeds", "bred", "bred", "breeding", "Criar - Educar", 0],
+["bring", "brings", "brought", "brought", "bringing", "Traer - Llevar", 1],
+["broadcast", "broadcasts", "broadcast", "broadcast", "broadcasting", "Difundir - Emitir", 1],
+["broil", "broils", "broiled", "broiled", "broiling", "Asar", 0],
+["brown", "browns", "browned", "browned", "browning", "Tostar", 0],
+["brush", "brushes", "brushed", "brushed", "brushing", "Cepillar", 0],
+["build", "builds", "built", "built", "building", "Construir - Fundar - Edificar", 1],
+["burn", "burns", "burnt/burned", "burnt/burned", "burning", "Quemar - Incendiar", 0],
+["burst", "bursts", "burst", "burst", "bursting", "Estallar - Reventar", 1],
+["buy", "buys", "bought", "bought", "buying", "Comprar - Adquirir", 1],
+["call", "calls", "called", "called", "calling", "Llamar", 0],
+["calm", "calms", "calmed", "calmed", "calming", "Calmar", 0],
+["camp", "camps", "camped", "camped", "camping", "Acampar", 0],
+["cancel", "cancels", "cancelled", "cancelled", "canceling", "Cancelar", 0],
+["care", "cares", "cared", "cared", "caring", "Preocupar(So)Cuidar", 0],
+["carry", "carries", "carried", "carried", "carrying", "Llevar", 0],
+["cast", "casts", "cast", "cast", "casting", "Moldear - Repartir - Echar - Tirar", 1],
+["catch", "catches", "caught", "caught", "catching", "Coger - Tomar - Agarrar", 1],
+["celebrate", "celebrates", "celebrated", "celebrated", "celebrating", "Celebrar", 0],
+["change", "changes", "changed", "changed", "changing", "Cambiar", 0],
+["charge", "charges", "charged", "charged", "charging", "Cargar", 0],
+["cheat", "cheats", "cheated", "cheated", "cheating", "Engañar", 0],
+["check", "checks", "checked", "checked", "checking", "Comprobar -  Chequear -  Verificar", 0],
+["cheer", "cheers", "cheered", "cheered", "cheering", "Victorear -  Alegrar -  Animar -  Aplaudir", 0],
+["chew", "chews", "chewed", "chewed", "chewing", "Masticar", 0],
+["chill", "chills", "chilled", "chilled", "chilling", "Resfriar", 0],
+["choose", "chooses", "chose", "chosen", "choosing", "Escoger - Elegir - Optar", 1],
+["circle", "circles", "circled", "circled", "circling", "Rodear - Hacer Un Circulo", 0],
+["clap", "claps", "clapped", "clapped", "clapping", "Aplaudir", 0],
+["clean", "cleans", "cleaned", "cleaned", "cleaning", "Limpiar", 0],
+["climb", "climbs", "climbed", "climbed", "climbing", "Subir", 0],
+["cling", "clings", "clung", "clung", "clinging", "Agarrar - Aferrarse - Adherirse", 1],
+["close", "closes", "closed", "closed", "closing", "Cerrar", 0],
+["clothe", "clothes", "clothed", "clothed", "clothing", "Vestir - Arropar", 0],
+["collect", "collects", "collected", "collected", "collecting", "Coleccionar", 0],
+["come", "comes", "came", "come", "coming", "Venir", 1],
+["comment", "comments", "commented", "commented", "commenting", "Comentar", 0],
+["complain", "complains", "complained", "complained", "complaining", "Quejarse", 0],
+["complete", "completes", "completed", "completed", "completing", "Completar", 0],
+["continue", "continues", "continued", "continued", "continuing", "Continuar", 0],
+["convince", "convinces", "convinced", "convinced", "convincing", "Convencer", 0],
+["cook", "cooks", "cooked", "cooked", "cooking", "Cocinar", 0],
+["cool", "cools", "cooled", "cooled", "cooling", "Enfriar - Refrescar(Se) -  Calmar(Se)", 0],
+["copy", "copies", "copied", "copied", "copying", "Copiar", 0],
+["cost", "costs", "cost", "cost", "costing", "Costar", 1],
+["count", "counts", "counted", "counted", "counting", "Contar", 0],
+["cover", "covers", "covered", "covered", "covering", "Cubrir", 0],
+["creep", "creeps", "crept", "crept", "creeping", "Arrastrarse - Deslizarse - Gatear", 1],
+["cross", "crosses", "crossed", "crossed", "crossing", "Cruzar - Atravesar", 0],
+["cry", "cries", "cried", "cried", "crying", "Llorar - Gritar", 0],
+["cut", "cuts", "cut", "cut", "cutting", "Cortar - Recortar", 1],
+["dance", "dances", "danced", "danced", "dancing", "Bailar", 0],
+["deal", "deals", "dealt", "dealt", "dealing", "Negociar - Comerciar", 1],
+["decide", "decides", "decided", "decided", "deciding", "Decidir", 0],
+["declare", "declares", "declared", "declared", "declaring", "Declarar", 0],
+["decorate", "decorates", "decorated", "decorated", "decorating", "Decorar", 0],
+["defend", "defends", "defended", "defended", "defending", "Defender", 0],
+["demostrate", "demostrates", "demostrated", "demostrated", "demostrating", "Demostrar", 0],
+["depend", "depends", "depended", "depended", "depending", "Depender", 0],
+["descend", "descendes", "descended", "descended", "descending", "Descender - Bajar", 0],
+["describe", "describes", "described", "described", "describing", "Describir", 0],
+["destroy", "destroys", "destroyed", "destroyed", "destroying", "Destruir", 0],
+["dictate", "dictates", "dictated", "dictated", "dictating", "Dictar", 0],
+["die", "dies", "died", "died", "dying", "Morir", 0],
+["dig", "digs", "dug", "dug", "digging", "Cavar - Excavar", 1],
+["disagree", "disagrees", "disagreed", "disagreed", "disagreeing", "Discrepar - No Estar De Acuerdo", 0],
+["discover", "discovers", "discovered", "discovered", "discovering", "Descubrir", 0],
+["discuss", "discusses", "discussed", "discussed", "discussing", "Discutir", 0],
+["divide", "divides", "divided", "divided", "dividing", "Dividir", 0],
+["do", "does", "did", "done", "doing", "Hacer", 1],
+["drain", "drains", "drained", "drained", "draining", "Agotar", 0],
+["draw", "draws", "drew", "drawn", "drawing", "Dibujar - Trazar", 1],
+["dream", "dreams", "dreamed", "dreamt/dreamed", "dreaming", "Soñar", 0],
+["dress", "dresses", "dressed", "dressed", "dressing", "Vestir", 0],
+["drink", "drinks", "drank", "drunk", "drinking", "Beber - Tomar", 1],
+["drive", "drives", "drove", "driven", "driving", "Manejar - Conducir", 1],
+["drop", "drops", "dropped", "dropped", "dropping", "Bajar - Soltar", 0],
+["dust", "dusts", "dusted", "dusted", "dusting", "Desempolvar", 0],
+["dwell", "dwells", "dwelt", "dwelt", "dwelling", "Residir - Morar - Habitar", 1],
+["eat", "eats", "ate", "eaten", "eating", "Comer", 1],
+["empty", "empties", "emptied", "emptied", "emptying", "Vaciar", 0],
+["end", "ends", "ended", "ended", "ending", "Terminar", 0],
+["enjoy", "enjoyes", "enjoyed", "enjoyed", "enjoying", "Gozar(De) - Disfrutar", 0],
+["enroll", "enrolls", "enrolled", "enrolled", "enrolling", "Matricular", 0],
+["enter", "enters", "entered", "entered", "entering", "Entrar", 0],
+["erase", "erases", "erased", "erased", "erasing", "Borrar", 0],
+["excuse", "excuses", "excused", "excused", "excusing", "Excusar", 0],
+["exercise", "exercises", "exercised", "exercised", "exercising", "Ejercitar(Se)", 0],
+["expect", "expects", "expected", "expected", "expecting", "Esperar", 0],
+["explain", "explains", "explained", "explained", "explaining", "Explicar", 0],
+["fade", "fades", "faded", "faded", "fading", "Desteñir - Desvanecer(se)", 0],
+["fail", "fails", "failed", "failed", "failing", "Fallar - Fracasar - Perder", 0],
+["fall", "falls", "fell", "fallen", "falling", "Caer(Se)", 1],
+["fasten", "fastens", "fastened", "fastened", "fastening", "Abrochar", 0],
+["fear", "fears", "feared", "feared", "fearing", "Temer", 0],
+["feed", "feeds", "fed", "fed", "feeding", "Alimentar(Se)", 0],
+["feel", "feels", "felt", "felt", "feeling", "Sentir", 1],
+["fight", "fights", "fought", "fought", "fighting", "Pelear - Luchar", 1],
+["fill", "fills", "filled", "filled", "fillining", "Llenar - Rellenar", 0],
+["find", "finds", "found", "found", "finding", "Encontrar - Hallar", 1],
+["finish", "finishes", "finished", "finished", "finishing", "Acabar(Con) -  Terminar", 0],
+["fish", "fishes", "fished", "fished", "fishing", "Pescar", 0],
+["fit", "fits", "fitted", "fitted", "fitting", "Caber - Encajar - Ajustar", 0],
+["fix", "fixes", "fixed", "fixed", "fixing", "Arreglar", 0],
+["flee", "flees", "fled", "fled", "fleeing", "Evitar - Huir De", 0],
+["fling", "flings", "flung", "flung", "flinging", "Arrojar - Lanzar - Tirar", 1],
+["flunk", "flunk", "flunked", "flunked", "flunking", "Fracasar", 0],
+["fly", "flies", "flew", "flown", "flying", "Volar - Huir", 1],
+["follow", "follows", "followed", "followed", "following", "Seguir", 0],
+["forbid", "forbids", "forbade", "forbidden", "forbidding", "Prohibir - Privar", 1],
+["forecast", "forecasts", "forecast", "forecast", "forecasting", "Pronosticar", 1],
+["forget", "forgets", "forgot", "forgotten", "forgeting", "Olvidar", 1],
+["forgive", "forgives", "forgave", "forgiven", "forgiving", "Perdonar", 1],
+["forsake", "forsakes", "forsook", "forsaken", "forsaking", "Abandonar - Dejar", 1],
+["freeze", "freezes", "froze", "frozen", "freezing", "Congelar - Helar", 1],
+["fry", "fries", "fried", "fried", "frying", "Freir(Se)", 0],
+["get", "gets", "got", "gotten", "getting", "Conseguir - Obtener", 1],
+["give", "gives", "gave", "given", "giving", "Dar - Regalar", 1],
+["go", "goes", "went", "gone", "going", "Ir", 1],
+["grade", "grades", "graded", "graded", "grading", "Graduar - Calificar - Clasificar", 0],
+["grate", "grates", "grated", "grated", "grating", "Rallar - Raspar", 0],
+["grill", "grills", "grilled", "grilled", "grilling", "Asar (En Parrilla)", 0],
+["grind", "grinds", "ground", "ground", "grinding", "Moler - Triturar", 1],
+["grow", "grows", "grew", "grown", "growing", "Crecer - Brotar", 1],
+["hand in", "hands in", "handed in", "handed in", "handing in", "Entregar-Presentar", 1],
+["hand out", "hands out", "handed out", "handed out", "handing out", "Dar-Distribuir", 1],
+["hang", "hangs", "hung", "hung", "hanging", "Colgar - Suspender", 1],
+["happen", "happens", "happened", "happened", "happening", "Suceder - Ocurrir - Pasar", 0],
+["hate", "hates", "hated", "hated", "hating", "Odiar - Aborrecer - Detestar", 0],
+["have", "has", "had", "had", "having", "Haber - Tener", 1],
+["hear", "hears", "heard", "heard", "hearing", "Oir", 1],
+["help", "helps", "helped", "helped", "helping", "Ayudar - Socorrer", 0],
+["hide", "hides", "hid", "hidden", "hiding", "Ocultar - Esconder", 1],
+["hit", "hits", "hit", "hit", "hitting", "Golpear - Pegar", 1],
+["hold", "holds", "held", "held", "holding", "Sostener - Retener", 1],
+["hurry", "hurries", "hurried", "hurried", "hurrying", "Apresurar(Se)", 0],
+["hurt", "hurts", "hurt", "hurt", "hurting", "Herir - Lastimar", 1],
+["identify", "identifies", "identified", "identified", "identifying", "Identificar", 0],
+["imagine", "imagines", "imagined", "imagined", "imagining", "Imaginar", 0],
+["imitate", "imitates", "imitated", "imitated", "imitating", "Imitar", 0],
+["include", "includes", "included", "included", "including", "Incluir", 0],
+["inspect", "inspects", "inspected", "inspected", "inspecting", "Inspeccionar", 0],
+["invite", "invites", "invited", "invited", "inviting", "Invitar", 0],
+["jog", "jogs", "jogged", "jogged", "jogging", "Trotar", 0],
+["jump", "jumps", "jumped", "jumped", "jumping", "Saltar - Brincar", 0],
+["keep", "keeps", "kept", "kept", "keeping", "Guardar - Mantener", 1],
+["kick", "kicks", "kicked", "kicked", "kicking", "Patear - Dar Punta Piés", 0],
+["kill", "kills", "killed", "killed", "killing", "Matar - Acabar con", 0],
+["kiss", "kisses", "kissed", "kissed", "kissing", "Besar", 0],
+["know", "knows", "knew", "known", "knowing", "Saber - Conocer", 1],
+["land", "lands", "landed", "landed", "landing", "Aterrizar - Desembarcar", 0],
+["laugh", "laughs", "laughed", "laughed", "laughing", "Reir(Se)", 0],
+["lay", "lays", "laid", "laid", "laying", "Poner - Colocar - Echar", 1],
+["lead", "leads", "led", "led", "leading", "Conducir - Liderar", 0],
+["learn", "learns", "learned", "learned", "learning", "Aprender", 0],
+["leave", "leaves", "left", "left", "leaving", "Salir - Abandonar", 1],
+["lend", "lends", "lent", "lent", "lending", "Prestar", 1],
+["let", "lets", "let", "let", "letting", "Dejar - Permitir", 1],
+["lick", "licks", "licked", "licked", "licking", "Lamer - Adular", 0],
+["lie", "lies", "lay", "lain", "lying", "Mentir", 1],
+["light", "lights", "lit", "lit", "lighting", "Encender - Prender", 1],
+["like", "likes", "liked", "liked", "liking", "Gustar - Querer", 0],
+["listen to", "listens to", "listened to", "listened to", "listening to", "Escuchar", 0],
+["live", "lives", "lived", "lived", "living", "Vivir", 0],
+["look", "looks", "looked", "looked", "looking", "Mirar", 0],
+["lose", "loses", "lost", "lost", "losing", "Perder", 1],
+["love", "loves", "loved", "loved", "loving", "Amar - Adorar - Encantar", 0],
+["lower", "lowers", "lowered", "lowered", "lowering", "Bajar - Reducir - Disminuir", 0],
+["make", "makes", "made", "made", "making", "Hacer - Fabricar", 1],
+["manage", "manage", "managed", "managed", "managing", "Manejar - Dirigir - Arreglárselas", 0],
+["mean", "means", "meant", "meant", "meaning", "Significar - Querer Decir", 1],
+["meet", "meets", "met", "met", "meeting", "Conocer - Encontrar", 1],
+["memorize", "memorizes", "memorized", "memorized", "memorizing", "Memorizar", 0],
+["mend", "mends", "mended", "mended", "mending", "Remendar - Reparar", 0],
+["mind", "minds", "minded", "minded", "minding", "Agregar - Importar - Preocuparse", 0],
+["mislay", "mislays", "mislayed", "mislayed", "mislaying", "Extraviar - Perder", 0],
+["miss", "misses", "missed", "missed", "missing", "Echar De Menos -  Perder", 0],
+["mistake", "mistakes", "mistook", "mistaken", "mistaking", "Errar - Equivocarse", 1],
+["mix", "mixes", "mixed", "mixed", "mixing", "Mezclar - Barajar", 0],
+["mop", "mops", "mopped", "mopped", "mopping", "Trapear - Fregar", 0],
+["move", "moves", "moved", "moved", "moving", "Mover - Trastear", 0],
+["multiply", "multiplies", "multiplied", "multiplied", "multiplying", "Multiplicar", 0],
+["name", "names", "named", "named", "naming", "Nombrar - Denominar", 0],
+["need", "needs", "needed", "needed", "needing", "Necesitar - Requerir", 0],
+["notice", "notices", "noticed", "noticed", "noticing", "Notar - Advertir", 0],
+["occur", "occurs", "occured", "occured", "occurring", "Ocurrir - Suceder", 0],
+["offer", "offers", "offered", "offered", "offering", "Ofrecer", 0],
+["omit", "omits", "omitted", "omitted", "omitting", "Omitir", 0],
+["open", "opens", "opened", "opened", "opening", "Abrir", 0],
+["order", "orders", "ordered", "ordered", "ordering", "Ordenar - Disponer", 0],
+["overcome", "overcomes", "overcame", "overcome", "overcoming", "Vencer - Superar - Triunfar", 1],
+["pack", "packs", "packed", "packed", "packing", "Empacar - Envasar", 0],
+["paint", "paints", "painted", "painted", "painting", "Pintar", 0],
+["park", "parks", "parked", "parked", "parking", "Parquear - Estacionar", 0],
+["pass", "passes", "passed", "passed", "passing", "Pasar - Aprobar - Superar", 0],
+["pay", "pays", "paid", "paid", "paying", "Pagar", 1],
+["peel", "peels", "peeled", "peeled", "peeling", "Pelar", 0],
+["permit", "permits", "permitted", "permitted", "permitting", "Permitir", 0],
+["persuade", "persuades", "persuaded", "persuaded", "persuading", "Persuadir - Convencer", 0],
+["pick up", "picks up", "picked up", "picked up", "picking up", "Recoger", 0],
+["place", "places", "placed", "placed", "placing", "Poner - Colocar - Situar", 0],
+["plan", "plans", "planned", "planned", "planning", "Planear", 0],
+["plant", "plants", "planted", "planted", "planting", "Plantar - Sembrar", 0],
+["play", "plays", "played", "played", "playing", "Jugar - Tocar - Reproducir", 0],
+["polish", "polishes", "polished", "polished", "polishing", "Pulir", 0],
+["practice", "practices", "practiced", "practiced", "practicing", "Practicar", 0],
+["prefer", "prefers", "preferred", "preferred", "preferring", "Preferir", 0],
+["prepare", "prepares", "prepared", "prepared", "preparing", "Preparar", 0],
+["print", "prints", "printed", "printed", "printing", "Imprimir", 0],
+["promise", "promises", "promised", "promised", "promising", "Prometer", 0],
+["pronounce", "pronounces", "pronounced", "pronounced", "pronouncing", "Pronunciar", 0],
+["publish", "publishes", "published", "published", "publishing", "Publicar", 0],
+["pull", "pulls", "pulled", "pulled", "pulling", "Halar - Tirar De", 0],
+["punish", "punishes", "punished", "punished", "punishing", "Castigar", 0],
+["push", "pushes", "pushed", "pushed", "pushing", "Empujar", 0],
+["put", "puts", "put", "put", "putting", "Poner - Colocar", 1],
+["quit", "quits", "quit", "quit", "quiting", "Dejar-Abandonar", 1],
+["rain", "rains", "rained", "rained", "raining", "Llover", 0],
+["reach", "reaches", "reached", "reached", "reaching", "Llegar - Alcanzar", 0],
+["read", "reads", "read", "read", "reading", "Leer", 1],
+["receive", "receives", "received", "received", "receiving", "Recibir", 0],
+["relax", "relaxes", "relaxed", "relaxed", "relaxing", "Relajar - Mitigar", 0],
+["remain", "remains", "remained", "remained", "remaining", "Permanecer - Quedarse", 0],
+["remember", "remembers", "remembered", "remembered", "remembering", "Recordar -  Acordarse", 0],
+["repair", "repairs", "repaired", "repaired", "repairing", "Reparar - Arreglar", 0],
+["repeat", "repeats", "repeated", "repeated", "repeating", "Repetir", 0],
+["represent", "represents", "represented", "represented", "representing", "Representar", 0],
+["rest", "rest", "rested", "rested", "resting", "Descansar - Reposar", 0],
+["rid", "rids", "rid", "rid", "ridding", "Librarse de - Deshacerse", 1],
+["ride", "rides", "rode", "ridden", "riding", "Cabalgar - Montar", 1],
+["ring", "rings", "rang", "rung", "ringing", "Sonar - Timbrar", 1],
+["rise", "rises", "rose", "risen", "rising", "Subir - Ascender", 1],
+["run", "runs", "ran", "run", "running", "Correr", 1],
+["save", "saves", "saved", "saved", "saving", "Guardar - Ahorrar - Salvar", 0],
+["say", "says", "said", "said", "saying", "Decir", 1],
+["scrub", "scrubs", "scrubbed", "scrubbed", "scrubbing", "Fregar -  Restregar", 0],
+["season", "seasons", "seasoned", "seasoned", "seasoning", "Sazonar - Aliñar", 0],
+["see", "sees", "saw", "seen", "seeing", "Ver", 1],
+["seek", "seeks", "sought", "sought", "seeking", "Buscar - Solicitar", 1],
+["seem", "seems", "seemed", "seemed", "seeming", "Parecer", 0],
+["select", "selects", "selected", "selected", "selecting", "Seleccionar", 0],
+["sell", "sells", "sold", "sold", "selling", "Vender", 1],
+["send", "sends", "sent", "sent", "sending", "Enviar - Mandar", 1],
+["set", "sets", "set", "set", "setting", "Establecer - Poner - Fijar", 1],
+["settle", "settles", "settled", "settled", "settling", "Resolver", 0],
+["sew", "sews", "sewed", "sewed", "sewing", "Coser", 0],
+["shake", "shakes", "shook", "shaken", "shaking", "Sacudir - Menear", 1],
+["share", "shares", "shared", "shared", "sharing", "Compartir", 0],
+["sharpen", "sharpens", "sharpened", "sharpened", "sharpening", "Afilar - Ampliar", 0],
+["shed", "sheds", "shed", "shed", "sheedding", "Quitarse - Despojarse", 0],
+["shine", "shines", "shone", "shone", "shining", "Brillar - Alumbrar", 1],
+["shoot", "shoots", "shot", "shot", "shooting", "Tirar - Disparar", 1],
+["shop", "shops", "shopped", "shopped", "shopping", "Comprar (De Tiendas)", 0],
+["shout", "shouts", "shouted", "shouted", "shouting", "Gritar", 0],
+["show", "shows", "showed", "shown", "showing", "Mostrar - Enseñar", 1],
+["shrink", "shrinks", "shrank", "shrunk", "shrinking", "Encoger - Contraer", 1],
+["shut", "shuts", "shut", "shut", "shutting", "Cerrar(Callar)", 1],
+["sigh", "sighs", "sighed", "sighed", "sighing", "Suspirar - Susurrar", 0],
+["sign", "signs", "signed", "signed", "signing", "Firmar", 1],
+["simmer", "simmers", "simmered", "simmered", "simmering", "Cocer A Fuego Lento", 0],
+["sing", "sings", "sang", "sung", "singing", "Cantar", 1],
+["sink", "sinks", "sank", "sunk", "sinking", "Sumergir - Hundir", 1],
+["sit", "sits", "sat", "sat", "sitting", "Sentarse", 1],
+["skate", "skates", "skated", "skated", "skating", "Patinar", 0],
+["ski", "skis", "skied", "skied", "skiing", "Esquiar", 0],
+["sleep", "sleeps", "slept", "slept", "sleeping", "Dormir", 1],
+["slice", "slices", "sliced", "sliced", "slicing", "Rebanar", 0],
+["slide", "slides", "slid", "slid", "sliding", "Resbalar(Se)", 1],
+["smell", "smells", "smelled", "smelled", "smelling", "Oler - Husmear", 0],
+["smile", "smiles", "smiled", "smiled", "smiling", "Sonreir", 0],
+["smoke", "smokes", "smoked", "smoked", "smoking", "Fumar", 0],
+["sneeze", "sneezes", "sneezed", "sneezed", "sneezing", "Estornudar", 0],
+["solve", "solves", "solved", "solved", "solving", "Resolver", 0],
+["sound", "sounds", "sounded", "sounded", "sounding", "Sonar - Tocar", 0],
+["speak", "speaks", "spoke", "spoken", "speaking", "Hablar", 1],
+["speed", "speeds", "sped", "sped", "speeding", "Acelerar", 0],
+["spell", "spells", "spelled", "spelled", "spelling", "Deletrear", 0],
+["spend", "spends", "spend", "spent", "spending", "Gastar - Pasar El Tiempo", 1],
+["spill", "spills", "spilled", "spilled", "spilling", "Derramar -  Regar", 0],
+["spin", "spins", "spun", "spun", "spinning", "Hacer Girar (Vueltas)", 1],
+["spit", "spits", "spit", "spit", "spitting", "Escupir", 1],
+["splash", "splashes", "splashed", "splashed", "splashing", "Salpicar - Rociar", 0],
+["split", "splits", "split", "split", "splitting", "Dividirse - Partir", 1],
+["spoil", "spoils", "spoiled", "spoiled", "spoiling", "Estropear - Echar a perder - Mimar", 0],
+["spread", "spreads", "spread", "spread", "spreading", "Difundir - Propagar", 1],
+["spring", "springs", "sprang", "sprung", "springing", "Saltar - Brotar", 1],
+["sprinkle", "sprinkles", "sprinkled", "sprinkled", "sprinking", "Rociar", 0],
+["squeeze", "squeezes", "squeezed", "squeezed", "squeezing", "Apretar", 0],
+["stand", "stands", "stood", "stood", "standing", "Ponerse De Pie - Pararse", 1],
+["start", "starts", "started", "started", "starting", "Agregar - Comenzar - Empezar - Iniciar", 0],
+["stay", "stays", "stayed", "stayed", "staying", "Permanecer - Quedarse - Durar", 0],
+["steal", "steals", "stole", "stolen", "stealing", "Robar - Hurtar", 1],
+["steam", "steams", "steamed", "steamed", "steaming", "Cocer A Vapor", 0],
+["stick", "sticks", "stuck", "stuck", "sticking", "Pegar(se) - Adherir(se)", 1],
+["sting", "stings", "stung", "stung", "stinging", "Picar - Golpear", 1],
+["stink", "stinks", "stank", "stunk", "stinking", "Apestar - Oler Mal", 1],
+["stir", "stirs", "stired", "stired", "stirring", "Agregar - Revolver", 0],
+["stop", "stops", "stopped", "stopped", "stopping", "Parar - Detener", 0],
+["strike", "stikes", "struck", "struck", "striking", "Golpear - Pegar", 1],
+["string", "strings", "strungs", "strung", "stringing", "Atar(Cordones)", 1],
+["strive", "strives", "strove", "striven", "striving", "Esforzarse", 1],
+["study", "studies", "studied", "studied", "studying", "Estudiar", 0],
+["stuff", "stuffs", "stuffed", "stuffed", "stuffing", "Rellenar", 0],
+["substract", "substracts", "substracted", "substracted", "substracting", "Sustraer - Restar", 0],
+["suck", "sucks", "sucked", "sucked", "sucking", "Chupar", 0],
+["support", "supports", "supported", "supported", "supporting", "Soportar", 0],
+["suppose", "supposes", "supposed", "supposed", "supposing", "Suponer", 0],
+["surround", "surrounds", "surrounded", "surrounded", "sorrounding", "Rodear", 0],
+["swear", "swears", "swore", "sworn", "swearing", "Jurar", 1],
+["sweep", "sweeps", "swept", "swept", "sweeping", "Barrer", 1],
+["swim", "swims", "swam", "swum", "swimming", "Nadar", 1],
+["swing", "swings", "swung", "swung", "swinging", "Balancearse - Girar - Columpiarse", 1],
+["take", "takes", "took", "taken", "taking", "Tomar - Agarrar - Coger", 1],
+["talk", "talks", "talked", "talked", "talking", "Hablar - Conversar", 0],
+["taste", "tastes", "tasted", "tasted", "tasting", "Saborear - Catar - Probar", 0],
+["teach", "teaches", "taught", "taught", "teaching", "Enseñar", 1],
+["tear", "tears", "tore", "torn", "tearing", "Rasgar - Desgarrar - Arrancar", 1],
+["tell", "tells", "told", "told", "telling", "Decir - Contar", 1],
+["think", "thinks", "thought", "thought", "thinking", "Pensar - Creer", 1],
+["throw", "throws", "threw", "thrown", "throwing", "Lanzar - Arrojar", 1],
+["thrust", "thrust", "thrust", "thrust", "thrusting", "Clavar - Empujar", 1],
+["touch", "touches", "touched", "touched", "touching", "Tocar - Rozar", 0],
+["translate", "translates", "translated", "translated", "translating", "Traducir", 0],
+["travel", "travels", "traveled", "traveled", "traveling", "Viajar - Andar - Recorrer", 0],
+["trust", "trusts", "trusted", "trusted", "trusting", "Confiar - Creer", 0],
+["try", "tries", "tried", "tried", "trying", "Probar - Intentar - Ensayar - Tratar", 0],
+["turn", "turns", "turned", "turned", "turning", "Girar - Dar Vueltas -  Dar La Vuelta", 0],
+["type", "types", "typed", "typed", "typing", "Mecanografiar - Digitar", 0],
+["underline", "underlines", "underlined", "underlined", "underlining", "Subrayar", 0],
+["understand", "understands", "understood", "understood", "understanding", "Entender - Comprender", 1],
+["undertake", "undertakes", "undertook", "undertaken", "undertaking", "Encargarse - Emprender", 1],
+["upset", "upsets", "upset", "upset", "upsetting", "Alterar - Perturbar", 1],
+["use", "uses", "used", "used", "using", "Usar", 0],
+["vacuum", "vacuums", "vacuumed", "vacuumed", "vaccuming", "Aspirar", 0],
+["vanish", "vanishes", "vanished", "vanished", "vanishing", "Desvanecer(se) - Desaparecer", 0],
+["visit", "visits", "visited", "visited", "visiting", "Visitar - Hacer Visitas", 0],
+["wait", "waits", "waited", "waited", "waiting", "Esperar", 0],
+["wake", "wakes", "woke", "woken", "waking", "Despertar(se)", 1],
+["walk", "walks", "walked", "walked", "walking", "Caminar - Andar - Pasear - Andar", 0],
+["want", "wants", "wanted", "wanted", "wanting", "Querer - Desear - Necesitar", 0],
+["warm", "warms", "warmed", "warmed", "warming", "Calentar(Se) - Recalentar", 0],
+["wash", "washes", "washed", "washed", "washing", "Lavar - Fregar - Mojar", 0],
+["watch", "watches", "watched", "watched", "watching", "Mirar - Velar - Vigilar", 0],
+["wave", "waves", "waved", "waved", "waving", "Agitar - Ondear", 0],
+["wear", "wears", "wore", "worn", "wearing", "Usar - Llevar Puesto", 1],
+["weave", "weaves", "wove", "woven", "weaving", "Tejer", 1],
+["wed", "weds", "wed", "wed", "wedding", "Casar(se) - Unirse con", 0],
+["weep", "weeps", "wept", "wept", "weeping", "Lamentarse - Llorar", 1],
+["weigh", "weighs", "weighed", "weighed", "weighing", "Pesar", 0],
+["whistle", "whistles", "whistled", "whistled", "whistling", "Silbar", 0],
+["win", "wins", "won", "won", "winning", "Ganar", 1],
+["wind", "winds", "wound", "wound", "winding", "Dejar Sin Aliento", 1],
+["wish", "wishes", "wished", "wished", "wishing", "Desear", 0],
+["withdraw", "withdraws", "withdrew", "withdrawn", "withdrawing", "Quitar - Apartar - Retirar", 1],
+["wonder", "wonders", "wondered", "wondered", "wondering", "Maravillarse - Asombrarse - Preguntarse", 0],
+["work", "works", "worked", "worked", "working", "Trabajar - Funcionar", 0],
+["worry", "worries", "worried", "worried", "worrying", "Preocupar", 0],
+["wrap", "wraps", "wrapped", "wrapped", "wrapping", "Empacar - Envolver", 0],
+["wring", "wrings", "wrung", "wrung", "wringing", "Escurrir - Retorcer", 1],
+["write", "writes", "wrote", "written", "writing", "Escribir - Redactar", 1],
+["yawn", "yawns", "yawned", "yawned", "yawning", "Bostezar", 0]
+];
+
+var STORAGE_KEY = 'verbos400_status_v1';
+var status = {};
+try { status = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { status = {}; }
+
+function saveStatus() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(status)); } catch (e) { /* localStorage no disponible: seguimos solo en memoria */ }
+}
+
+function applyStatusToRow(idx) {
+  var tr = document.getElementById('row-' + idx);
+  if (!tr) return;
+  var st = status[idx];
+  tr.className = st === 'known' ? 'row-known' : (st === 'review' ? 'row-review' : '');
+  var knowBtn = tr.querySelector('.status-btn.know');
+  var reviewBtn = tr.querySelector('.status-btn.review');
+  if (knowBtn) knowBtn.classList.toggle('active', st === 'known');
+  if (reviewBtn) reviewBtn.classList.toggle('active', st === 'review');
+}
+
+function setStatus(idx, value) {
+  if (status[idx] === value) { delete status[idx]; } else { status[idx] = value; }
+  applyStatusToRow(idx);
+  updateStats();
+  saveStatus();
+}
+
+function resetProgress() {
+  if (!confirm('¿Seguro que quieres borrar todo tu progreso marcado en esta lista?')) return;
+  status = {};
+  rows.forEach(function (tr, idx) { applyStatusToRow(idx); });
+  updateStats();
+  saveStatus();
+}
+
+function normForm(s) {
+  return s.split('/')[0].split(' - ')[0].trim().toLowerCase();
+}
+
+function classifyPattern(v) {
+  var s = normForm(v[0]), p = normForm(v[2]), pp = normForm(v[3]);
+  if (s === p && p === pp) return 'same-all';
+  if (s === p || p === pp || s === pp) return 'same-some';
+  return 'diff-all';
+}
+
+var tbody = document.getElementById('verb-body');
+var rows = [];
+
+function buildTable() {
+  tbody.innerHTML = '';
+  rows = [];
+  verbs.forEach(function (v, idx) {
+    var tr = document.createElement('tr');
+    tr.id = 'row-' + idx;
+    var search = (v[0] + ' ' + v[1] + ' ' + v[2] + ' ' + v[3] + ' ' + v[4] + ' ' + v[5]).toLowerCase();
+    tr.setAttribute('data-search', search);
+    tr.setAttribute('data-irregular', v[6]);
+    tr.setAttribute('data-pattern', classifyPattern(v));
+    var badge = v[6] ? '<span class="irregular-badge">IRREGULAR</span>' : '<span class="regular-badge">REGULAR</span>';
+    tr.innerHTML =
+      '<td>' + (idx + 1) + '</td>' +
+      '<td><span class="verb-en">' + v[0] + '</span>' + badge + '</td>' +
+      '<td class="forms">' + v[1] + ' &middot; ' + v[2] + ' &middot; ' + v[3] + ' &middot; ' + v[4] + '</td>' +
+      '<td class="meaning">' + v[5] + '</td>' +
+      '<td><button type="button" class="speak-btn" data-speak-idx="' + idx + '">🔊</button></td>' +
+      '<td><div class="status-btns">' +
+        '<button type="button" class="status-btn know" data-status-idx="' + idx + '" data-status-value="known">Sé este verbo</button>' +
+        '<button type="button" class="status-btn review" data-status-idx="' + idx + '" data-status-value="review">Debo repasar</button>' +
+      '</div></td>';
+    tbody.appendChild(tr);
+    rows.push(tr);
+    applyStatusToRow(idx);
+  });
+}
+
+// Delegación de eventos: un solo listener en tbody, mas confiable que onclick inline por fila
+tbody.addEventListener('click', function (e) {
+  var speakBtn = e.target.closest('[data-speak-idx]');
+  if (speakBtn) {
+    var vIdx = Number(speakBtn.getAttribute('data-speak-idx'));
+    speakText(verbs[vIdx][0]);
+    return;
+  }
+  var statusBtn = e.target.closest('[data-status-idx]');
+  if (statusBtn) {
+    var idx = Number(statusBtn.getAttribute('data-status-idx'));
+    var value = statusBtn.getAttribute('data-status-value');
+    setStatus(idx, value);
+  }
+});
+
+function updateStats() {
+  var known = 0, review = 0;
+  Object.keys(status).forEach(function (k) {
+    if (status[k] === 'known') known++;
+    else if (status[k] === 'review') review++;
+  });
+  var total = verbs.length;
+  var unset = total - known - review;
+  document.getElementById('stat-known').textContent = known;
+  document.getElementById('stat-review').textContent = review;
+  document.getElementById('stat-unset').textContent = unset;
+  document.getElementById('seg-known').style.width = (known / total * 100) + '%';
+  document.getElementById('seg-review').style.width = (review / total * 100) + '%';
+}
+
+function applyFilters() {
+  var q = document.getElementById('search').value.trim().toLowerCase();
+  var statusFilter = document.getElementById('filter-status').value;
+  var typeFilter = document.getElementById('filter-type').value;
+  var patternFilter = document.getElementById('filter-pattern').value;
+  var visibleCount = 0;
+  rows.forEach(function (tr, idx) {
+    var matchesSearch = !q || tr.getAttribute('data-search').indexOf(q) !== -1;
+    var st = status[idx] || 'unset';
+    var matchesStatus = statusFilter === 'all' || st === statusFilter;
+    var isIrregular = tr.getAttribute('data-irregular') === '1';
+    var matchesType = typeFilter === 'all' || (typeFilter === 'irregular' && isIrregular) || (typeFilter === 'regular' && !isIrregular);
+    var matchesPattern = patternFilter === 'all' || tr.getAttribute('data-pattern') === patternFilter;
+    var visible = matchesSearch && matchesStatus && matchesType && matchesPattern;
+    tr.classList.toggle('hidden-row', !visible);
+    if (visible) visibleCount++;
+  });
+  document.getElementById('count').textContent = visibleCount + ' de ' + verbs.length + ' verbos';
+}
+
+document.getElementById('search').addEventListener('input', applyFilters);
+document.getElementById('filter-pattern').addEventListener('change', applyFilters);
+document.getElementById('filter-status').addEventListener('change', applyFilters);
+document.getElementById('filter-type').addEventListener('change', applyFilters);
+
+buildTable();
+updateStats();
+applyFilters();
+</script>
+
+</body>
+</html>
